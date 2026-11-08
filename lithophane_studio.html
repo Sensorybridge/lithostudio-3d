@@ -439,14 +439,14 @@
     <section id="viewWorkspace" class="w-full h-full flex overflow-hidden min-h-0">
 
       <!-- LEFT SIDEBAR (Desktop/iPad Split-View & iPhone Interactive Bottom Sheet) -->
-      <aside id="leftSidebar" class="sheet-split w-[285px] md:w-[310px] xl:w-[335px] shrink-0 h-full cad-panel-bg border-r border-slate-300 overflow-y-auto p-1.5 space-y-1.5 transition-all duration-150">
+      <aside id="leftSidebar" class="sheet-split w-[285px] md:w-[310px] xl:w-[335px] shrink-0 h-full cad-panel-bg border-r border-slate-300 flex flex-col overflow-hidden transition-all duration-150">
 
-        <!-- iPHONE / iPAD STICKY SHEET SNAP BAR & QUICK SECTION JUMP PILLS -->
-        <div id="mobileSheetHeader" class="sticky top-0 z-20 bg-[#071923] text-white rounded-sm p-1.5 shadow-sm border border-slate-700 space-y-1.5">
+        <!-- FIXED TOP BAR (Non-scrolling, never overlaps controls, 5-column even grid) -->
+        <div id="mobileSheetHeader" class="shrink-0 bg-[#071923] text-white px-2 py-1.5 border-b border-slate-700 space-y-1.5">
           <!-- iPhone Bottom-Sheet Grab Handle & Snap Modes (visible on <=768px) -->
           <div class="flex md:hidden items-center justify-between gap-1">
             <button type="button" onclick="cycleMobileSheetHeight()" class="flex items-center gap-1.5 text-[11px] font-bold text-amber-300 px-1.5 py-0.5 rounded bg-slate-800">
-              <span class="w-5 h-1 rounded-full bg-amber-400 inline-block"></span>
+              <span class="w-4 h-1 rounded-full bg-amber-400 inline-block"></span>
               <span id="lblSheetMode">⬍ Split View</span>
             </button>
             <div class="flex items-center gap-1">
@@ -456,15 +456,18 @@
             </div>
           </div>
 
-          <!-- 1-Tap Quick-Jump Section Pills (Works on iPhone, iPad & Desktop) -->
-          <div class="flex items-center gap-1 overflow-x-auto pb-0.5">
-            <button type="button" onclick="document.getElementById('fileInputUpload').click()" class="px-2 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold shrink-0">📸 Photo</button>
-            <button type="button" onclick="jumpToSidebarSection('secSmartBg')" class="px-2 py-1 rounded bg-teal-800 hover:bg-teal-700 text-teal-100 text-[10px] font-semibold shrink-0">✨ Smart BG</button>
-            <button type="button" onclick="jumpToSidebarSection('secShape')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-semibold shrink-0">📐 Shape/mm</button>
-            <button type="button" onclick="jumpToSidebarSection('secText')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 text-[10px] font-semibold shrink-0">✍️ Text</button>
-            <button type="button" onclick="jumpToSidebarSection('secBambuProfile')" class="px-2 py-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-[10px] font-bold shrink-0">🖨️ Bambu</button>
+          <!-- 1-Tap Quick-Jump Section Grid (Fits 100% width with zero clipping or scrollbar) -->
+          <div class="grid grid-cols-5 gap-1">
+            <button type="button" onclick="document.getElementById('fileInputUpload').click()" class="py-1 px-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold text-center truncate" title="Upload Photo">📸 Photo</button>
+            <button type="button" onclick="jumpToSidebarSection('secSmartBg')" class="py-1 px-1 rounded bg-teal-800 hover:bg-teal-700 text-teal-100 text-[10px] font-semibold text-center truncate" title="Smart Background Removal">✨ BG</button>
+            <button type="button" onclick="jumpToSidebarSection('secShape')" class="py-1 px-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-semibold text-center truncate" title="Shape &amp; Thickness (mm)">📐 Shape</button>
+            <button type="button" onclick="jumpToSidebarSection('secText')" class="py-1 px-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 text-[10px] font-semibold text-center truncate" title="Multi-Line Emboss &amp; Engrave Text">✍️ Text</button>
+            <button type="button" onclick="jumpToSidebarSection('secBambuProfile')" class="py-1 px-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-[10px] font-bold text-center truncate" title="Bambu Lab Printer &amp; .3MF Profile">🖨️ Bambu</button>
           </div>
         </div>
+
+        <!-- DEDICATED SCROLLABLE CONTROLS CONTAINER -->
+        <div id="sidebarScrollArea" class="flex-1 overflow-y-auto p-1.5 space-y-1.5 min-h-0">
 
         <!-- ========================================== -->
         <!-- SHARED SMART BACKGROUND REMOVAL PANEL      -->
@@ -1375,6 +1378,7 @@ CUSTOM EDITION</textarea>
             </div>
           </div>
 
+        </div>
         </div>
       </aside>
 
@@ -5371,9 +5375,10 @@ CUSTOM EDITION</textarea>
       if (secEl) {
         secEl.classList.remove('hidden');
         if (iconEl) iconEl.textContent = '^';
+        const cardEl = secEl.parentElement || secEl;
         setTimeout(() => {
-          secEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 50);
+          cardEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 40);
       }
     }
 
@@ -5465,6 +5470,7 @@ CUSTOM EDITION</textarea>
   </script>
 </body>
 </html>
+
 
 
 
