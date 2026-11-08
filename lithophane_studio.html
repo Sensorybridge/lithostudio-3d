@@ -14,6 +14,7 @@
   <link id="appleTouchIconLink" rel="apple-touch-icon" sizes="180x180" href="" />
   <link id="pwaManifestLink" rel="manifest" href="manifest.json" />
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -1350,49 +1351,54 @@ With Love</textarea>
       </div>
 
       <div class="p-4 space-y-4 text-xs">
-        <!-- Section 1: iPhone PWA Install -->
+        <!-- Section 1: Live iPhone URL & PWA Install -->
         <div class="p-3 rounded-md bg-indigo-50/90 border border-indigo-200 space-y-2">
           <div class="flex items-center justify-between">
             <h4 class="font-bold text-indigo-950 text-xs flex items-center gap-1.5">
-              <span>🍎 1. Install as a Native Full-Screen App on iPhone (iOS PWA)</span>
+              <span>🍎 1. Open on Your iPhone Right Now &amp; Add to Home Screen</span>
             </h4>
-            <span id="pwaStandaloneBadge" class="px-2 py-0.5 rounded bg-indigo-200 text-indigo-950 font-bold text-[10px]">Ready for iOS Safari</span>
+            <span id="pwaStandaloneBadge" class="px-2 py-0.5 rounded bg-emerald-200 text-emerald-950 font-bold text-[10px]">LIVE HTTPS URL READY</span>
           </div>
-          <p class="text-slate-700 leading-relaxed">
-            This app already includes <strong>Apple Mobile Web App meta tags</strong>, a dynamically generated <strong>180×180 Home Screen Icon</strong>, <strong>iPhone Dynamic Island / Safe-Area padding</strong>, <strong>1-finger 3D orbit + 2-finger pinch-to-zoom</strong>, and <strong>iOS Native Share Sheet</strong> support (so you can send `.3MF` files straight into <strong>Bambu Handy</strong> or <strong>Files</strong>).
-          </p>
+          <div class="p-2.5 rounded bg-white border border-indigo-300 flex items-center justify-between gap-2">
+            <div class="truncate">
+              <div class="text-[10px] text-slate-500 font-semibold uppercase">Live iPhone Web App URL (HTTPS):</div>
+              <a href="https://sensorybridge.github.io/lithostudio-3d/" target="_blank" rel="noopener" class="text-indigo-700 font-bold underline text-xs break-all">https://sensorybridge.github.io/lithostudio-3d/</a>
+            </div>
+            <button type="button" onclick="navigator.clipboard.writeText('https://sensorybridge.github.io/lithostudio-3d/')" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] shrink-0">Copy iPhone Link</button>
+          </div>
           <ol class="list-decimal list-inside space-y-1 text-slate-800 font-medium bg-white p-2.5 rounded border border-indigo-200/80">
-            <li>Host the app on your Google Cloud URL (below) and open the HTTPS link in <strong>Safari on your iPhone</strong>.</li>
+            <li>Open <a href="https://sensorybridge.github.io/lithostudio-3d/" target="_blank" rel="noopener" class="text-indigo-700 font-bold underline">https://sensorybridge.github.io/lithostudio-3d/</a> (or your Google Cloud Run URL) in <strong>Safari on your iPhone</strong>.</li>
             <li>Tap the <strong>Share</strong> button <span class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-300 font-mono text-[10px]">↑</span> at the bottom of Safari.</li>
             <li>Scroll down and tap <strong>"Add to Home Screen"</strong> → tap <strong>Add</strong>.</li>
-            <li>Launch <strong>LithoStudio 3D</strong> from your iPhone Home Screen — it opens full-screen without Safari address bars!</li>
+            <li>Launch <strong>LithoStudio 3D</strong> from your iPhone Home Screen — exporting `.3MF` or `.STL` automatically opens the <strong>iPhone Share Sheet</strong> so you can save to <strong>Files</strong> or open in <strong>Bambu Handy</strong>!</li>
           </ol>
         </div>
 
-        <!-- Section 2: Google Cloud Hosting Options -->
+        <!-- Section 2: Connect to Google Cloud -->
         <div class="p-3 rounded-md bg-emerald-50/80 border border-emerald-200 space-y-2.5">
           <h4 class="font-bold text-emerald-950 text-xs flex items-center justify-between">
-            <span>☁️ 2. Host on Your Google Cloud (2 Easy Ways — Free Tier Eligible)</span>
-            <span class="bg-emerald-200 text-emerald-950 px-1.5 py-0.5 rounded text-[10px] font-bold">/home/antigravity/lithostudio-gcp</span>
+            <span>☁️ 2. Connect Your Google Cloud Account (1-Click or Cloud Shell)</span>
+            <span class="bg-emerald-200 text-emerald-950 px-1.5 py-0.5 rounded text-[10px] font-bold">Sensorybridge/lithostudio-3d</span>
           </h4>
           <p class="text-slate-700 leading-relaxed">
-            Because all 3D mesh generation, smart background removal, and `.3MF`/`.STL` packaging run in the user's browser, Google Cloud only needs to serve static files over HTTPS. A complete ready-to-deploy folder is saved at <code class="bg-white px-1 py-0.5 rounded border border-emerald-300 font-mono">/home/antigravity/lithostudio-gcp/</code>.
+            Your GitHub repository (<code class="bg-white px-1 py-0.5 rounded border border-emerald-300 font-mono">Sensorybridge/lithostudio-3d</code>) includes a pre-configured <code class="font-mono">Dockerfile</code>, <code class="font-mono">nginx.conf</code>, and <code class="font-mono">cloudbuild.yaml</code>. Click the button below to deploy directly into your Google Cloud project:
           </p>
 
-          <div class="space-y-1">
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-slate-800">Option A: Google Cloud Run (1 Command — Auto HTTPS URL, Scales to Zero)</span>
-              <button type="button" onclick="copyCloudCmd('cmdCloudRun')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-[10px]">Copy Command</button>
-            </div>
-            <pre id="cmdCloudRun" class="bg-slate-900 text-emerald-300 p-2.5 rounded font-mono text-[11px] overflow-x-auto select-all">cd /home/antigravity/lithostudio-gcp &amp;&amp; gcloud run deploy lithostudio-3d --source . --region us-central1 --allow-unauthenticated</pre>
+          <div class="flex flex-wrap items-center gap-2">
+            <a href="https://console.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/Sensorybridge/lithostudio-3d&amp;cloudshell_tutorial=README.md" target="_blank" rel="noopener" class="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-xs inline-flex items-center gap-1.5">
+              <span>🚀 Open in Google Cloud Shell &amp; Deploy</span>
+            </a>
+            <a href="https://deploy.cloud.run/?git_repo=https://github.com/Sensorybridge/lithostudio-3d" target="_blank" rel="noopener" class="px-3 py-1.5 rounded bg-sky-700 hover:bg-sky-600 text-white font-bold text-xs shadow-xs inline-flex items-center gap-1.5">
+              <span>☁️ 1-Click Deploy to Google Cloud Run</span>
+            </a>
           </div>
 
           <div class="space-y-1">
             <div class="flex items-center justify-between">
-              <span class="font-bold text-slate-800">Option B: Google Cloud Storage Bucket / Firebase Hosting (Static CDN)</span>
-              <button type="button" onclick="copyCloudCmd('cmdGcsBucket')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-[10px]">Copy Command</button>
+              <span class="font-bold text-slate-800">Or paste this 1-line command in Google Cloud Shell:</span>
+              <button type="button" onclick="copyCloudCmd('cmdCloudRun')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-[10px]">Copy Command</button>
             </div>
-            <pre id="cmdGcsBucket" class="bg-slate-900 text-sky-300 p-2.5 rounded font-mono text-[11px] overflow-x-auto select-all">gcloud storage buckets create gs://YOUR_BUCKET_NAME --location=US &amp;&amp; gcloud storage cp /home/antigravity/lithostudio-gcp/* gs://YOUR_BUCKET_NAME/ &amp;&amp; gcloud storage buckets add-iam-policy-binding gs://YOUR_BUCKET_NAME --member=allUsers --role=roles/storage.objectViewer</pre>
+            <pre id="cmdCloudRun" class="bg-slate-900 text-emerald-300 p-2.5 rounded font-mono text-[11px] overflow-x-auto select-all">git clone https://github.com/Sensorybridge/lithostudio-3d.git &amp;&amp; cd lithostudio-3d &amp;&amp; gcloud run deploy lithostudio-3d --source . --region us-central1 --allow-unauthenticated</pre>
           </div>
         </div>
       </div>
@@ -3847,17 +3853,37 @@ With Love</textarea>
         }
 
         const blob = new Blob([buffer], { type: 'application/octet-stream' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
         const activeName = state.images[state.activeImageIndex]?.name || 'lithophane';
-        a.href = url;
-        a.download = `${activeName}_${state.shape}_${state.diameter}mm.stl`;
-        a.click();
-        URL.revokeObjectURL(url);
+        triggerFileDownload(blob, `${activeName}_${state.shape}_${state.diameter}mm.stl`);
 
         toast.classList.add('hidden');
         generateLithophaneMesh();
       }, 30);
+    }
+
+    async function triggerFileDownload(blob, filename) {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
+        window.navigator.standalone === true;
+      if (isIOS && navigator.canShare) {
+        try {
+          const file = new File([blob], filename, { type: blob.type || 'application/octet-stream' });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: filename });
+            return;
+          }
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+        }
+      }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 3000);
     }
 
     function exportWavefrontOBJ() {
@@ -3878,22 +3904,16 @@ With Love</textarea>
       }
 
       const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
       const activeName = state.images[state.activeImageIndex]?.name || 'lithophane';
-      a.href = url;
-      a.download = `${activeName}_${state.shape}.obj`;
-      a.click();
-      URL.revokeObjectURL(url);
+      triggerFileDownload(blob, `${activeName}_${state.shape}.obj`);
     }
 
     function exportHeightmapPNG() {
       buildModelUVAndTextures(1024);
-      const a = document.createElement('a');
       const activeName = state.images[state.activeImageIndex]?.name || 'lithophane';
-      a.href = modelUVCanvas.toDataURL('image/png');
-      a.download = `${activeName}_heightmap.png`;
-      a.click();
+      modelUVCanvas.toBlob((blob) => {
+        if (blob) triggerFileDownload(blob, `${activeName}_heightmap.png`);
+      }, 'image/png');
     }
 
     /*************************************************************************
@@ -4364,12 +4384,7 @@ With Love</textarea>
         ]);
 
         const blob = new Blob([zipBytes], { type: 'application/vnd.ms-package.3dmanufacturing-3dmodel+xml' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${activeName}_${m.code}_${state.shape}_${state.diameter}mm.3mf`;
-        a.click();
-        URL.revokeObjectURL(url);
+        triggerFileDownload(blob, `${activeName}_${m.code}_${state.shape}_${state.diameter}mm.3mf`);
 
         toast.classList.add('hidden');
         toast.textContent = 'Generating High-Res STL...';
@@ -4381,12 +4396,7 @@ With Love</textarea>
       const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x1c;
       const cfg = buildBambuConfigPayload();
       const blob = new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Bambu_${m.code}_Lithophane_${state.bambuPreset}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
+      triggerFileDownload(blob, `Bambu_${m.code}_Lithophane_${state.bambuPreset}.json`);
     }
 
     function exportContourCutSVG() {
@@ -4437,12 +4447,7 @@ With Love</textarea>
 </svg>`;
 
       const blob = new Blob([svgContent], { type: 'image/svg+xml' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${activeName}_${m.code}_${state.shape}_${w}mm_cut.svg`;
-      a.click();
-      URL.revokeObjectURL(url);
+      triggerFileDownload(blob, `${activeName}_${m.code}_${state.shape}_${w}mm_cut.svg`);
     }
 
     document.getElementById('btnExport3MF').addEventListener('click', exportBambu3MF);
@@ -4872,6 +4877,10 @@ With Love</textarea>
           badge.textContent = '✓ Running as iPhone Full-Screen App';
           badge.className = 'px-2 py-0.5 rounded bg-emerald-200 text-emerald-950 font-bold text-[10px]';
         }
+
+        if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+          navigator.serviceWorker.register('./sw.js').catch(() => {});
+        }
       } catch (e) {}
     }
 
@@ -4881,6 +4890,7 @@ With Love</textarea>
   </script>
 </body>
 </html>
+
 
 
 
