@@ -308,7 +308,7 @@
       </button>
       <button id="btnExport3MF" class="hdr-btn bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow-xs" title="Export ready-to-slice Bambu Studio .3MF project with selected machine &amp; cutting/slicing profile">
         <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-        <span id="hdrBambuBtnLabel">Bambu .3MF (X1C)</span>
+        <span id="hdrBambuBtnLabel">Bambu .3MF (X2D)</span>
       </button>
       <button id="btnExportSTL" class="hdr-btn bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold shadow-xs" title="Generate and download watertight binary .STL for 3D printing">
         <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/></svg>
@@ -658,17 +658,17 @@
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label id="lblDiameter">Diameter</label>
-                <input id="ctrlDiameter" type="range" min="30" max="250" step="1" value="150" class="cad-slider" />
+                <input id="ctrlDiameter" type="range" min="30" max="350" step="1" value="150" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numDiameter" type="number" min="30" max="250" step="1" value="150" class="num-input !w-11" />
+                  <input id="numDiameter" type="number" min="30" max="350" step="1" value="150" class="num-input !w-11" />
                   <span class="text-slate-500 ml-0.5">mm</span>
                 </div>
               </div>
               <div id="rowHeight" class="hidden grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>Height</label>
-                <input id="ctrlHeight" type="range" min="30" max="250" step="1" value="150" class="cad-slider" />
+                <input id="ctrlHeight" type="range" min="30" max="350" step="1" value="150" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numHeight" type="number" min="30" max="250" step="1" value="150" class="num-input !w-11" />
+                  <input id="numHeight" type="number" min="30" max="350" step="1" value="150" class="num-input !w-11" />
                   <span class="text-slate-500 ml-0.5">mm</span>
                 </div>
               </div>
@@ -914,26 +914,53 @@ With Love</textarea>
             </div>
             <div id="secBambuProfile" class="cad-section-body p-2.5 space-y-2 text-xs">
               <div>
-                <label class="block text-slate-500 text-xs mb-0.5">Bambu Lab Printer Model</label>
+                <label class="block text-slate-500 text-xs mb-0.5">Bambu Lab Printer Model (Official Lineup)</label>
                 <select id="ctrlBambuMachine" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-semibold text-slate-800 focus:outline-none focus:border-emerald-700">
-                  <optgroup label="X Series (CoreXY Flagship)">
-                    <option value="x1c" selected>Bambu Lab X1 Carbon (X1C — 256×256×256 mm)</option>
+                  <optgroup label="X Series (X2D Dual-Extruder &amp; X1 Flagship CoreXY)">
+                    <option value="x2d" selected>Bambu Lab X2D — Main Nozzle (256×256×260 mm)</option>
+                    <option value="x2d_dual">Bambu Lab X2D — Dual / Aux Nozzle (235.5×256×256 mm)</option>
+                    <option value="x1c">Bambu Lab X1 Carbon (X1C — 256×256×256 mm)</option>
                     <option value="x1e">Bambu Lab X1E (Enterprise — 256×256×256 mm)</option>
                     <option value="x1">Bambu Lab X1 (Base — 256×256×256 mm)</option>
                   </optgroup>
-                  <optgroup label="P Series (CoreXY Performance)">
-                    <option value="p1s">Bambu Lab P1S (Enclosed — 256×256×256 mm)</option>
-                    <option value="p1p">Bambu Lab P1P (Open Frame — 256×256×256 mm)</option>
+                  <optgroup label="H Series (H3C Tool-Changer, H2S, H2D &amp; H2C Large-Format)">
+                    <option value="h3c">Bambu Lab H3C — 9-Material Tool Changer (330×320×325 mm)</option>
+                    <option value="h2s">Bambu Lab H2S — Biggest Single-Nozzle (340×320×340 mm)</option>
+                    <option value="h2d">Bambu Lab H2D — Total 2-Nozzle Area (350×320×325 mm)</option>
+                    <option value="h2d_single">Bambu Lab H2D — Single Nozzle Mode (325×320×325 mm)</option>
+                    <option value="h2d_dual">Bambu Lab H2D — Dual Nozzle Mode (300×320×320 mm)</option>
+                    <option value="h2d_laser">Bambu Lab H2D Laser Full Combo (10W/40W + Blade — 350×320×325 mm)</option>
+                    <option value="h2c">Bambu Lab H2C — Total 2-Nozzle Area (330×320×320 mm)</option>
+                    <option value="h2c_dual">Bambu Lab H2C — Dual Nozzle Mode (300×320×320 mm)</option>
                   </optgroup>
-                  <optgroup label="A Series (High-Speed Bedslinger)">
-                    <option value="a1">Bambu Lab A1 (Full Size — 256×256×256 mm)</option>
-                    <option value="a1_mini">Bambu Lab A1 mini (Compact — 180×180×180 mm)</option>
+                  <optgroup label="P Series (P2S Next-Gen &amp; P1 CoreXY Performance)">
+                    <option value="p2s">Bambu Lab P2S — Next-Gen Enclosed (256×256×256 mm)</option>
+                    <option value="p1s">Bambu Lab P1S — Enclosed CoreXY (256×256×256 mm)</option>
+                    <option value="p1p">Bambu Lab P1P — Open Frame CoreXY (256×256×256 mm)</option>
                   </optgroup>
-                  <optgroup label="H Series (Dual-Nozzle + Laser &amp; Blade Cut)">
-                    <option value="h2d">Bambu Lab H2D (Dual-Nozzle — 350×320×325 mm)</option>
-                    <option value="h2d_laser">Bambu Lab H2D Laser &amp; Cutting Combo (350×320×325 mm)</option>
+                  <optgroup label="A Series (A2L Extra-Large Cut/Plot &amp; A1 Bedslinger)">
+                    <option value="a2l">Bambu Lab A2L — Extra-Large + Blade/Pen Cut (330×320×325 mm)</option>
+                    <option value="a1">Bambu Lab A1 — Full Size (256×256×256 mm)</option>
+                    <option value="a1_mini">Bambu Lab A1 mini — Compact (180×180×180 mm)</option>
                   </optgroup>
                 </select>
+              </div>
+
+              <!-- Live Official Bambu Lab Hardware Specs Card -->
+              <div id="bambuMachineSpecsCard" class="p-2 rounded bg-slate-900 text-slate-100 border border-slate-700 space-y-1 text-[11px]">
+                <div class="flex items-center justify-between border-b border-slate-700 pb-1">
+                  <span id="specPrinterTitle" class="font-bold text-amber-300">Bambu Lab X2D (Dual-Extruder CoreXY)</span>
+                  <span id="specPlateFamily" class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono text-[10px]">256×256 Plate</span>
+                </div>
+                <div class="grid grid-cols-2 gap-x-2 gap-y-0.5 text-[10px] text-slate-300">
+                  <div><span class="text-slate-400">Build Vol:</span> <strong id="specBuildVol" class="text-white">256×256×260 mm</strong></div>
+                  <div><span class="text-slate-400">Speed/Accel:</span> <strong id="specSpeedAccel" class="text-white">1000 mm/s · 20k mm/s²</strong></div>
+                  <div><span class="text-slate-400">Temps:</span> <strong id="specTemps" class="text-white">350°C Noz · 120°C Bed</strong></div>
+                  <div><span class="text-slate-400">Chamber:</span> <strong id="specChamber" class="text-white">Active Heated (60°C)</strong></div>
+                </div>
+                <div id="specExtraNote" class="text-[10px] text-sky-300 pt-0.5 border-t border-slate-800">
+                  Dual-Nozzle (Main 256×256×260 / Aux &amp; Dual 235.5×256×256 mm) · Hardened Steel Gears
+                </div>
               </div>
 
               <div class="grid grid-cols-2 gap-1.5">
@@ -954,13 +981,13 @@ With Love</textarea>
                     <option value="hot_plate">Smooth PEI / High Temp</option>
                     <option value="cool_plate">Bambu Cool Plate</option>
                     <option value="eng_plate">Engineering Plate</option>
-                    <option value="cutting_mat">H2D Laser / Blade Mat</option>
+                    <option value="cutting_mat">H2D / A2L Blade &amp; Laser Mat</option>
                   </select>
                 </div>
               </div>
 
               <div id="bambuBedFitBadge" class="px-2 py-1 rounded bg-emerald-50 border border-emerald-300 text-emerald-950 flex items-center justify-between text-[11px] font-medium">
-                <span id="bambuBedFitText">✓ Fits X1C Plate (150×150 / 256×256 mm)</span>
+                <span id="bambuBedFitText">✓ Fits X2D Plate (150×150 / 256×256 mm)</span>
                 <button type="button" onclick="fitModelToBambuPlate()" class="underline font-bold text-emerald-800 hover:text-emerald-950 ml-1">Fit Max</button>
               </div>
 
@@ -977,6 +1004,14 @@ With Love</textarea>
                     <option value="litho_04_016">0.16mm Fast Backlit Lithophane @BBL (0.4 Nozzle)</option>
                     <option value="litho_cmyk_flat">0.08mm CMYK Flat Face-Up Lithophane @BBL (0.4 Nozzle)</option>
                     <option value="litho_curved_arc">0.10mm Self-Standing Curved Arc Lithophane @BBL (8mm Brim)</option>
+                  </optgroup>
+                  <optgroup label="X2D, H3C, H2S, H2C, P2S &amp; A2L Flagship Profiles (@BBL)">
+                    <option value="x2d_dual_litho">0.10mm X2D Dual-Nozzle Lithophane + Breakaway Support @BBL X2D</option>
+                    <option value="h3c_toolchanger_cmyk">0.08mm H3C 9-Material Tool-Changer CMYK Lithophane @BBL H3C</option>
+                    <option value="h2s_jumbo_litho">0.12mm H2S 340mm Jumbo Large-Format Lithophane @BBL H2S</option>
+                    <option value="h2c_dual_litho">0.10mm H2C Dual-Nozzle High-Detail Lithophane @BBL H2C</option>
+                    <option value="p2s_high_flow">0.10mm P2S High-Extrusion Precision Lithophane @BBL P2S</option>
+                    <option value="a2l_blade_cut">0.12mm A2L Extra-Large Relief + Drag-Blade Cut @BBL A2L</option>
                   </optgroup>
                   <optgroup label="Official Bambu Studio 0.4mm Nozzle Profiles (@BBL)">
                     <option value="bbl_04_008">0.08mm Extra Fine @BBL (0.4 Nozzle)</option>
@@ -1003,9 +1038,9 @@ With Love</textarea>
                     <option value="bbl_08_032">0.32mm Standard @BBL (0.8 Nozzle)</option>
                     <option value="bbl_08_040">0.40mm Draft @BBL (0.8 Nozzle)</option>
                   </optgroup>
-                  <optgroup label="Deep Relief &amp; Bambu H2D Laser / Blade Cutting Profiles">
+                  <optgroup label="Deep Relief &amp; Bambu H2D / A2L Laser &amp; Blade Cutting">
                     <option value="04_deep_relief">0.16mm Deep Opaque Sculptural Relief (7–12mm)</option>
-                    <option value="h2d_blade_cut">Bambu H2D Drag-Blade Contour Cut + 3D Lithophane</option>
+                    <option value="h2d_blade_cut">Bambu H2D / A2L Drag-Blade Contour Cut + 3D Lithophane</option>
                     <option value="h2d_laser_10w">Bambu H2D 10W Diode Laser Cut &amp; Relief Engrave</option>
                     <option value="h2d_laser_40w">Bambu H2D 40W Diode Laser Acrylic/Wood Frame Cut</option>
                   </optgroup>
@@ -1026,11 +1061,14 @@ With Love</textarea>
                     <option value="Bambu PLA Wood @BBL">Bambu PLA Wood — Classic Birch</option>
                     <option value="Bambu PLA-CF @BBL">Bambu PLA-CF — Carbon Fiber</option>
                   </optgroup>
-                  <optgroup label="Bambu Lab PETG / ABS / ASA / Engineering">
+                  <optgroup label="Bambu Lab PETG / PCTG / ABS / ASA / Dual-Nozzle Support">
                     <option value="Bambu PETG HF @BBL">Bambu PETG HF — White (33100)</option>
                     <option value="Bambu PETG Translucent @BBL">Bambu PETG Translucent — Clear/Frost</option>
+                    <option value="Bambu PCTG @BBL">Bambu PCTG — High-Clarity Tough White</option>
                     <option value="Bambu ABS @BBL">Bambu ABS — White (Enclosed Printers)</option>
                     <option value="Bambu ASA @BBL">Bambu ASA — White (Outdoor UV)</option>
+                    <option value="Bambu Support for PLA/PETG @BBL">Bambu Support for PLA/PETG (X2D/H2D/H2C/H3C Aux)</option>
+                    <option value="Bambu PPA-CF @BBL">Bambu PPA-CF / PPS-CF (350°C X2D/H2D/H3C)</option>
                     <option value="Bambu TPU 95A HF @BBL">Bambu TPU 95A HF — Flexible</option>
                     <option value="Generic PLA @BBL">Generic PLA / PLA+ White</option>
                   </optgroup>
@@ -1093,7 +1131,7 @@ With Love</textarea>
               <div class="pt-1 space-y-1.5 border-t border-slate-300/80">
                 <button type="button" onclick="exportBambu3MF()" class="w-full py-1.5 px-2.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-xs transition flex items-center justify-center gap-1.5">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/></svg>
-                  <span id="btnSidebar3MFLabel">Export Bambu .3MF Project (X1C)</span>
+                  <span id="btnSidebar3MFLabel">Export Bambu .3MF Project (X2D)</span>
                 </button>
                 <div class="grid grid-cols-2 gap-1.5">
                   <button type="button" onclick="exportBambuPresetJSON()" class="py-1 px-2 rounded bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-xs transition" title="Export standalone Bambu Studio / OrcaSlicer process profile (.json)">
@@ -1485,7 +1523,7 @@ With Love</textarea>
       previewQuality: 1,
 
       // Bambu Lab Machine & Cutting / Slicing Profile options
-      bambuMachine: 'x1c',
+      bambuMachine: 'x2d',
       bambuNozzle: '0.4',
       bambuPlate: 'textured_plate',
       bambuPreset: 'litho_04_010',
@@ -3920,13 +3958,181 @@ With Love</textarea>
      * BAMBU LAB MACHINE & CUTTING / SLICING PROFILE ENGINE (.3MF, .JSON, .SVG)
      *************************************************************************/
     const BAMBU_MACHINES = {
+      x2d: {
+        code: 'X2D',
+        printerName: 'Bambu Lab X2D',
+        printerVariant: '0.4 nozzle (Main / Total Volume)',
+        bedX: 256,
+        bedY: 256,
+        bedZ: 260,
+        plateFamily: '256×256 mm Plate',
+        maxSpeed: 1000,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '60 °C Active Heated',
+        extruders: 2,
+        notes: 'Dual-Nozzle CoreXY • Main/Total: 256×256×260 mm (Aux/Dual: 235.5×256×256 mm) • 392×406×478 mm'
+      },
+      x2d_dual: {
+        code: 'X2D-Dual',
+        printerName: 'Bambu Lab X2D',
+        printerVariant: '0.4 nozzle (Dual / Aux Mode)',
+        bedX: 235.5,
+        bedY: 256,
+        bedZ: 256,
+        plateFamily: '256×256 mm Plate',
+        maxSpeed: 1000,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '60 °C Active Heated',
+        extruders: 2,
+        notes: 'Dual-Nozzle Overlap / Aux Mode: 235.5×256×256 mm • Zero-Purge Dual-Color / Support'
+      },
+      h3c: {
+        code: 'H3C',
+        printerName: 'Bambu Lab H3C',
+        printerVariant: '0.4 nozzle (9-Material Tool Changer)',
+        bedX: 330,
+        bedY: 320,
+        bedZ: 325,
+        plateFamily: '330×320 mm Plate',
+        maxSpeed: 1400,
+        maxAccel: 25000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '65 °C Active + HEPA H11',
+        extruders: 9,
+        notes: '9-Material Tool Changer • 1,400 mm/s & 25,000 mm/s² • 1.75 mm & 2.85 mm Filament Support'
+      },
+      h2s: {
+        code: 'H2S',
+        printerName: 'Bambu Lab H2S',
+        printerVariant: '0.4 nozzle (Max Single-Nozzle Volume)',
+        bedX: 340,
+        bedY: 320,
+        bedZ: 340,
+        plateFamily: '350×320 mm Plate',
+        maxSpeed: 1000,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '65 °C Active Heated',
+        extruders: 1,
+        notes: 'Largest Single-Nozzle Build Volume (340×320×340 mm) • 350 °C High-Flow Hotend'
+      },
+      h2d: {
+        code: 'H2D',
+        printerName: 'Bambu Lab H2D',
+        printerVariant: '0.4 nozzle (Two-Nozzle Total Volume)',
+        bedX: 350,
+        bedY: 320,
+        bedZ: 325,
+        plateFamily: '350×320 mm Plate',
+        maxSpeed: 1000,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '65 °C Active Heated',
+        extruders: 2,
+        notes: 'Dual-Nozzle CoreXY • Total: 350×320×325 mm (Single: 325×320×325, Dual: 300×320×320 mm) • 40–65 mm³/s'
+      },
+      h2d_single: {
+        code: 'H2D-1N',
+        printerName: 'Bambu Lab H2D',
+        printerVariant: '0.4 nozzle (Single Nozzle Mode)',
+        bedX: 325,
+        bedY: 320,
+        bedZ: 325,
+        plateFamily: '350×320 mm Plate',
+        maxSpeed: 1000,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '65 °C Active Heated',
+        extruders: 1,
+        notes: 'H2D Single-Nozzle Printable Area: 325×320×325 mm • 5 µm Optical Motion Calibration'
+      },
+      h2d_dual: {
+        code: 'H2D-2N',
+        printerName: 'Bambu Lab H2D',
+        printerVariant: '0.4 nozzle (Dual Nozzle Mode)',
+        bedX: 300,
+        bedY: 320,
+        bedZ: 320,
+        plateFamily: '350×320 mm Plate',
+        maxSpeed: 1000,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '65 °C Active Heated',
+        extruders: 2,
+        notes: 'H2D Dual-Nozzle Shared Overlap Volume: 300×320×320 mm • Fast Dual-Material Switching'
+      },
+      h2d_laser: {
+        code: 'H2D-Laser',
+        printerName: 'Bambu Lab H2D Laser Edition',
+        printerVariant: '0.4 nozzle + 10W/40W Laser & Blade Cut',
+        bedX: 350,
+        bedY: 320,
+        bedZ: 325,
+        plateFamily: '350×320 mm + Laser/Cut',
+        maxSpeed: 1000,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '65 °C Active + Air Assist',
+        extruders: 2,
+        notes: '10W / 40W 455nm Diode Laser + Drag-Blade Cutting + Pen Drawing + BirdsEye Alignment Camera'
+      },
+      h2c: {
+        code: 'H2C',
+        printerName: 'Bambu Lab H2C',
+        printerVariant: '0.4 nozzle (Two-Nozzle Total Volume)',
+        bedX: 330,
+        bedY: 320,
+        bedZ: 320,
+        plateFamily: '330×320 mm Plate',
+        maxSpeed: 1000,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '65 °C Active Heated',
+        extruders: 2,
+        notes: 'Dual-Nozzle High-Temp CoreXY • Total: 330×320×320 mm (Left: 325×320×320, Right: 305×320×325 mm)'
+      },
+      h2c_dual: {
+        code: 'H2C-Dual',
+        printerName: 'Bambu Lab H2C',
+        printerVariant: '0.4 nozzle (Dual Nozzle Mode)',
+        bedX: 300,
+        bedY: 320,
+        bedZ: 320,
+        plateFamily: '330×320 mm Plate',
+        maxSpeed: 1000,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '65 °C Active Heated',
+        extruders: 2,
+        notes: 'H2C Dual-Nozzle Overlap Volume: 300×320×320 mm • 350 °C Nozzle + 65 °C Chamber'
+      },
       x1c: {
         code: 'X1C',
         printerName: 'Bambu Lab X1 Carbon',
         printerVariant: '0.4 nozzle',
         bedX: 256,
         bedY: 256,
-        bedZ: 256
+        bedZ: 256,
+        plateFamily: '256×256 mm Plate',
+        maxSpeed: 500,
+        maxAccel: 20000,
+        nozzleTemp: 300,
+        bedTemp: 110,
+        chamber: 'Passive (~50 °C) + Carbon Filter',
+        extruders: 1,
+        notes: 'Micro-LiDAR + AI Spaghetti Detection • Hardened Steel Extruder & Nozzle • Up to 16-Color AMS'
       },
       x1e: {
         code: 'X1E',
@@ -3934,7 +4140,15 @@ With Love</textarea>
         printerVariant: '0.4 nozzle',
         bedX: 256,
         bedY: 256,
-        bedZ: 256
+        bedZ: 256,
+        plateFamily: '256×256 mm Plate',
+        maxSpeed: 500,
+        maxAccel: 20000,
+        nozzleTemp: 320,
+        bedTemp: 120,
+        chamber: '60 °C Active + HEPA H12',
+        extruders: 1,
+        notes: 'Enterprise CoreXY • 320 °C PPA-CF/PPS-CF Hotend • WPA2-Enterprise Wi-Fi + Ethernet + Physical Kill Switches'
       },
       x1: {
         code: 'X1',
@@ -3942,7 +4156,31 @@ With Love</textarea>
         printerVariant: '0.4 nozzle',
         bedX: 256,
         bedY: 256,
-        bedZ: 256
+        bedZ: 256,
+        plateFamily: '256×256 mm Plate',
+        maxSpeed: 500,
+        maxAccel: 20000,
+        nozzleTemp: 300,
+        bedTemp: 110,
+        chamber: 'Enclosed (Passive)',
+        extruders: 1,
+        notes: 'Original X1 CoreXY with Micro-LiDAR • 256×256×256 mm Build Volume'
+      },
+      p2s: {
+        code: 'P2S',
+        printerName: 'Bambu Lab P2S',
+        printerVariant: '0.4 nozzle',
+        bedX: 256,
+        bedY: 256,
+        bedZ: 256,
+        plateFamily: '256×256 mm Plate',
+        maxSpeed: 600,
+        maxAccel: 20000,
+        nozzleTemp: 300,
+        bedTemp: 110,
+        chamber: 'Enclosed + Adaptive Airflow',
+        extruders: 1,
+        notes: 'Next-Gen P-Series CoreXY • +70% Extrusion Force • Quick-Swap X2D/P2S Hotend • 392×406×478 mm (14.9 kg)'
       },
       p1s: {
         code: 'P1S',
@@ -3950,7 +4188,15 @@ With Love</textarea>
         printerVariant: '0.4 nozzle',
         bedX: 256,
         bedY: 256,
-        bedZ: 256
+        bedZ: 256,
+        plateFamily: '256×256 mm Plate',
+        maxSpeed: 500,
+        maxAccel: 20000,
+        nozzleTemp: 300,
+        bedTemp: 100,
+        chamber: 'Enclosed + Aux Part Fan',
+        extruders: 1,
+        notes: 'Enclosed CoreXY Workhorse • Up to 16-Color AMS Support • 256×256×256 mm'
       },
       p1p: {
         code: 'P1P',
@@ -3958,7 +4204,31 @@ With Love</textarea>
         printerVariant: '0.4 nozzle',
         bedX: 256,
         bedY: 256,
-        bedZ: 256
+        bedZ: 256,
+        plateFamily: '256×256 mm Plate',
+        maxSpeed: 500,
+        maxAccel: 20000,
+        nozzleTemp: 300,
+        bedTemp: 100,
+        chamber: 'Open Frame (Customizable)',
+        extruders: 1,
+        notes: 'Open-Frame CoreXY • Ideal for PLA/PETG/TPU High-Detail Lithophanes • 256×256×256 mm'
+      },
+      a2l: {
+        code: 'A2L',
+        printerName: 'Bambu Lab A2L',
+        printerVariant: '0.4 nozzle + Blade Cut & Plotter',
+        bedX: 330,
+        bedY: 320,
+        bedZ: 325,
+        plateFamily: '330×320 mm Plate',
+        maxSpeed: 500,
+        maxAccel: 12000,
+        nozzleTemp: 300,
+        bedTemp: 80,
+        chamber: 'Open Frame + 2 Granular Dampers',
+        extruders: 1,
+        notes: 'Extra-Large 330×320×325 mm Bedslinger (+105% vs A1) • Blade Cutting & Pen Plotting • Up to 19 Colors'
       },
       a1: {
         code: 'A1',
@@ -3966,7 +4236,15 @@ With Love</textarea>
         printerVariant: '0.4 nozzle',
         bedX: 256,
         bedY: 256,
-        bedZ: 256
+        bedZ: 256,
+        plateFamily: '256×256 mm Plate',
+        maxSpeed: 500,
+        maxAccel: 10000,
+        nozzleTemp: 300,
+        bedTemp: 100,
+        chamber: 'Open Frame (Active Flow Comp)',
+        extruders: 1,
+        notes: 'Full-Size Bedslinger • Quick-Swap Nozzle + Eddy-Current Flow Calibration • AMS lite 4-Color'
       },
       a1_mini: {
         code: 'A1-Mini',
@@ -3974,23 +4252,15 @@ With Love</textarea>
         printerVariant: '0.4 nozzle',
         bedX: 180,
         bedY: 180,
-        bedZ: 180
-      },
-      h2d: {
-        code: 'H2D',
-        printerName: 'Bambu Lab H2D',
-        printerVariant: '0.4 nozzle',
-        bedX: 350,
-        bedY: 320,
-        bedZ: 325
-      },
-      h2d_laser: {
-        code: 'H2D-Laser',
-        printerName: 'Bambu Lab H2D Laser Edition',
-        printerVariant: '0.4 nozzle + Laser/Blade',
-        bedX: 350,
-        bedY: 320,
-        bedZ: 325
+        bedZ: 180,
+        plateFamily: '180×180 mm Plate',
+        maxSpeed: 500,
+        maxAccel: 10000,
+        nozzleTemp: 300,
+        bedTemp: 80,
+        chamber: 'Compact Open Frame (≤48 dB)',
+        extruders: 1,
+        notes: 'Compact 180×180×180 mm Bedslinger • Quick-Swap Nozzle + Active Motor Noise Cancelling'
       }
     };
 
@@ -4005,6 +4275,14 @@ With Love</textarea>
       'litho_04_016': { name: '0.16mm Fast Backlit Lithophane @BBL', nozzle: 0.4, layerHeight: 0.16, initialLayer: 0.20, lineWidth: 0.42, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 65, brim: 5, minThick: 0.8, maxThick: 3.4, mmPerPixel: 0.14, layFlat: false },
       'litho_cmyk_flat': { name: '0.08mm CMYK Flat Face-Up Lithophane @BBL', nozzle: 0.4, layerHeight: 0.08, initialLayer: 0.16, lineWidth: 0.40, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 50, brim: 0, minThick: 0.8, maxThick: 2.8, mmPerPixel: 0.10, layFlat: true },
       'litho_curved_arc': { name: '0.10mm Self-Standing Curved Arc Lithophane @BBL', nozzle: 0.4, layerHeight: 0.10, initialLayer: 0.16, lineWidth: 0.40, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 45, brim: 8, minThick: 0.8, maxThick: 3.2, mmPerPixel: 0.10, layFlat: false, forceShape: 'arc' },
+
+      // X2D / H3C / H2S / H2C / P2S / A2L Flagship Profiles
+      'x2d_dual_litho': { name: '0.08mm X2D Dual-Nozzle Precision Lithophane @BBL X2D', nozzle: 0.4, layerHeight: 0.08, initialLayer: 0.16, lineWidth: 0.40, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 55, brim: 5, minThick: 0.8, maxThick: 3.0, mmPerPixel: 0.08, layFlat: false },
+      'h3c_toolchanger_cmyk': { name: '0.08mm H3C 9-Material Tool-Changer CMYK Lithophane @BBL H3C', nozzle: 0.4, layerHeight: 0.08, initialLayer: 0.16, lineWidth: 0.40, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 65, brim: 0, minThick: 0.8, maxThick: 2.8, mmPerPixel: 0.08, layFlat: true },
+      'h2s_jumbo_litho': { name: '0.10mm H2S 340mm Jumbo Backlit Lithophane @BBL H2S', nozzle: 0.4, layerHeight: 0.10, initialLayer: 0.16, lineWidth: 0.40, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 50, brim: 8, minThick: 0.8, maxThick: 3.2, mmPerPixel: 0.10, layFlat: false },
+      'h2c_dual_litho': { name: '0.10mm H2C Dual-Nozzle High-Temp Lithophane @BBL H2C', nozzle: 0.4, layerHeight: 0.10, initialLayer: 0.16, lineWidth: 0.40, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 50, brim: 6, minThick: 0.8, maxThick: 3.2, mmPerPixel: 0.10, layFlat: false },
+      'p2s_high_flow': { name: '0.10mm P2S High-Force Precision Lithophane @BBL P2S', nozzle: 0.4, layerHeight: 0.10, initialLayer: 0.16, lineWidth: 0.40, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 55, brim: 5, minThick: 0.8, maxThick: 3.2, mmPerPixel: 0.10, layFlat: false },
+      'a2l_blade_cut': { name: 'Bambu A2L 330mm Blade-Cut + Relief Hybrid @BBL A2L', nozzle: 0.4, layerHeight: 0.10, initialLayer: 0.16, lineWidth: 0.40, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 45, brim: 0, minThick: 0.8, maxThick: 3.2, mmPerPixel: 0.10, layFlat: true },
 
       // Official Bambu Studio 0.4mm Nozzle Profiles (@BBL)
       'bbl_04_008': { name: '0.08mm Extra Fine @BBL X1C', nozzle: 0.4, layerHeight: 0.08, initialLayer: 0.16, lineWidth: 0.42, walls: 4, infillDensity: '15%', infillPattern: 'gyroid', wallGenerator: 'arachne', speed: 50, brim: 5, minThick: 0.8, maxThick: 3.2, mmPerPixel: 0.10, layFlat: false },
@@ -4039,12 +4317,28 @@ With Love</textarea>
     };
 
     function updateBambuProfileUI() {
-      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x1c;
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
       const hdrBtn = document.getElementById('hdrBambuBtnLabel');
       const sideBtn = document.getElementById('btnSidebar3MFLabel');
       if (hdrBtn) hdrBtn.textContent = `Bambu .3MF (${m.code})`;
       if (sideBtn) sideBtn.textContent = `Export Bambu .3MF Project (${m.code})`;
       initFloorGrid(m.bedX, m.bedY);
+
+      // Update live Hardware Specification Card
+      const elTitle = document.getElementById('specPrinterTitle');
+      const elPlate = document.getElementById('specPlateFamily');
+      const elVol = document.getElementById('specBuildVol');
+      const elSpd = document.getElementById('specSpeedAccel');
+      const elTmp = document.getElementById('specTemps');
+      const elChm = document.getElementById('specChamber');
+      const elNote = document.getElementById('specExtraNote');
+      if (elTitle) elTitle.textContent = `${m.printerName} (${m.code})`;
+      if (elPlate) elPlate.textContent = m.plateFamily || `${m.bedX}×${m.bedY} mm Plate`;
+      if (elVol) elVol.textContent = `${m.bedX} × ${m.bedY} × ${m.bedZ} mm`;
+      if (elSpd) elSpd.textContent = `${m.maxSpeed.toLocaleString()} mm/s • ${(m.maxAccel / 1000).toFixed(0)}k mm/s²`;
+      if (elTmp) elTmp.textContent = `${m.nozzleTemp} °C / ${m.bedTemp} °C`;
+      if (elChm) elChm.textContent = m.chamber;
+      if (elNote) elNote.textContent = m.notes;
 
       const isRectOrArc = (state.shape === 'plane' || state.shape === 'arc');
       const modelW = state.diameter;
@@ -4058,17 +4352,17 @@ With Love</textarea>
       if (badge && txt) {
         if (fitsXY) {
           badge.className = 'px-2 py-1 rounded bg-emerald-50 border border-emerald-300 text-emerald-950 flex items-center justify-between text-[11px] font-medium';
-          txt.textContent = `✓ Fits ${m.code} Plate (${Math.round(modelW)}×${Math.round(modelH)} / ${m.bedX}×${m.bedY} mm)`;
+          txt.textContent = `✓ Fits ${m.code} (${Math.round(modelW)}×${Math.round(modelH)} / ${m.bedX}×${state.layFlat ? m.bedY : m.bedZ} mm)`;
         } else {
           badge.className = 'px-2 py-1 rounded bg-amber-50 border border-amber-400 text-amber-950 flex items-center justify-between text-[11px] font-semibold';
-          txt.textContent = `⚠ Exceeds ${m.code} (${Math.round(modelW)}×${Math.round(modelH)} > ${m.bedX}×${m.bedY} mm)`;
+          txt.textContent = `⚠ Exceeds ${m.code} (${Math.round(modelW)}×${Math.round(modelH)} > ${m.bedX}×${state.layFlat ? m.bedY : m.bedZ} mm)`;
         }
       }
     }
 
     function fitModelToBambuPlate() {
-      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x1c;
-      const safeMax = Math.min(m.bedX, m.bedY, m.bedZ) - 10;
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
+      const safeMax = Math.floor(Math.min(m.bedX, m.bedY, m.bedZ) - 10);
       state.diameter = Math.min(state.diameter, safeMax);
       state.height = Math.min(state.height, safeMax);
       document.getElementById('ctrlDiameter').value = state.diameter;
@@ -4080,7 +4374,7 @@ With Love</textarea>
 
     function syncGeometryToBambuPreset() {
       const p = BAMBU_PRESETS[state.bambuPreset] || BAMBU_PRESETS.litho_04_010;
-      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x1c;
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
 
       state.bambuNozzle = String(p.nozzle.toFixed(1));
       const nozEl = document.getElementById('ctrlBambuNozzle');
@@ -4112,7 +4406,7 @@ With Love</textarea>
       document.getElementById('numMmPerPixel').value = state.mmPerPixel;
       document.getElementById('ctrlLayFlat').checked = state.layFlat;
 
-      const safeMax = Math.min(m.bedX, m.bedY, m.bedZ) - 10;
+      const safeMax = Math.floor(Math.min(m.bedX, m.bedY, m.bedZ) - 10);
       if (state.diameter > safeMax) {
         state.diameter = safeMax;
         document.getElementById('ctrlDiameter').value = state.diameter;
@@ -4228,7 +4522,7 @@ With Love</textarea>
     }
 
     function buildBambuConfigPayload() {
-      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x1c;
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
       const p = BAMBU_PRESETS[state.bambuPreset] || BAMBU_PRESETS.litho_04_010;
       const layerH = String(state.bambuLayerHeight || p.layerHeight);
       const initLayerH = String(p.initialLayer);
@@ -4248,8 +4542,9 @@ With Love</textarea>
         instantiation: 'true',
         inherits: `${p.layerHeight.toFixed(2)}mm Fine @BBL ${m.code}`,
         printer_model: m.printerName,
+        printer_variant: m.printerVariant,
         printer_settings_id: `${m.printerName} ${nozzleStr} nozzle`,
-        nozzle_diameter: [nozzleStr],
+        nozzle_diameter: Array(m.extruders || 1).fill(nozzleStr),
         curr_bed_type: state.bambuPlate || 'textured_plate',
         printable_area: [
           `0x0`,
@@ -4258,6 +4553,14 @@ With Love</textarea>
           `0x${m.bedY}`
         ],
         printable_height: String(m.bedZ),
+        machine_max_speed_x: [String(m.maxSpeed), String(m.maxSpeed)],
+        machine_max_speed_y: [String(m.maxSpeed), String(m.maxSpeed)],
+        machine_max_acceleration_x: [String(m.maxAccel), String(m.maxAccel)],
+        machine_max_acceleration_y: [String(m.maxAccel), String(m.maxAccel)],
+        nozzle_temperature_range_high: [String(m.nozzleTemp)],
+        bed_temperature_max: String(m.bedTemp),
+        chamber_heating: m.chamber,
+        hardware_notes: m.notes,
         filament_settings_id: [state.bambuFilament],
         layer_height: layerH,
         initial_layer_print_height: initLayerH,
@@ -4271,6 +4574,8 @@ With Love</textarea>
         outer_wall_speed: speedStr,
         inner_wall_speed: String(Math.round(parseFloat(speedStr) * 1.25)),
         sparse_infill_speed: String(Math.round(parseFloat(speedStr) * 1.4)),
+        default_acceleration: String(Math.min(m.maxAccel, 10000)),
+        outer_wall_acceleration: '3000',
         brim_type: brimType,
         brim_width: brimWidthStr,
         detect_thin_wall: '1',
@@ -4280,7 +4585,7 @@ With Love</textarea>
 
     function exportBambu3MF() {
       const toast = document.getElementById('statusToast');
-      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x1c;
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
       toast.textContent = `Packaging Bambu Studio .3MF for ${m.code}...`;
       toast.classList.remove('hidden');
 
@@ -4393,14 +4698,14 @@ With Love</textarea>
     }
 
     function exportBambuPresetJSON() {
-      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x1c;
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
       const cfg = buildBambuConfigPayload();
       const blob = new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' });
       triggerFileDownload(blob, `Bambu_${m.code}_Lithophane_${state.bambuPreset}.json`);
     }
 
     function exportContourCutSVG() {
-      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x1c;
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
       const isRect = (state.shape === 'plane' || state.shape === 'arc');
       const w = state.diameter;
       const h = isRect ? state.height : state.diameter;
@@ -4890,6 +5195,7 @@ With Love</textarea>
   </script>
 </body>
 </html>
+
 
 
 
