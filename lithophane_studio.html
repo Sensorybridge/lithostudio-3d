@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>LithoStudio 3D — Lithophane Generator &amp; Smart Background Remover</title>
   <meta name="description" content="Self-contained 3D Lithophane creator with physically accurate mm thickness light transmission, smart edge-aware background removal, front and back text embossing/engraving, and Bambu Lab .3MF / STL export." />
-  <!-- iPhone / iOS Progressive Web App (PWA) Meta Tags -->
+  <!-- iPhone & iPad Progressive Web App (PWA) Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="LithoStudio 3D" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#071923" />
-  <link id="appleTouchIconLink" rel="apple-touch-icon" sizes="180x180" href="" />
+  <link id="appleTouchIconLink" rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
   <link id="pwaManifestLink" rel="manifest" href="manifest.json" />
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,14 +21,18 @@
     * {
       box-sizing: border-box;
       user-select: none;
+      -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
     }
     html, body {
       height: 100dvh;
       overscroll-behavior: none;
+      touch-action: manipulation;
     }
     input, textarea, select {
       user-select: text;
+      -webkit-user-select: text;
     }
     ::-webkit-scrollbar {
       width: 6px;
@@ -86,21 +92,29 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 4px 8px;
+      padding: 5px 9px;
       font-size: 11px;
       line-height: 1.2;
-      border-radius: 4px;
+      border-radius: 5px;
       white-space: nowrap !important;
       flex-shrink: 0 !important;
       cursor: pointer;
     }
     #leftSidebar {
-      width: clamp(275px, 33vw, 330px);
+      width: clamp(285px, 32vw, 340px);
       flex-shrink: 0;
+    }
+    #iosBottomDock {
+      display: none;
     }
     @media (max-width: 1200px) {
       .hide-below-1200 {
         display: none !important;
+      }
+    }
+    @media (max-width: 1024px) {
+      #iosBottomDock {
+        display: flex !important;
       }
     }
     @media (max-width: 960px) {
@@ -109,6 +123,9 @@
       }
     }
     @media (max-width: 768px) {
+      .hide-below-768 {
+        display: none !important;
+      }
       #viewWorkspace {
         flex-direction: column-reverse !important;
       }
@@ -116,8 +133,44 @@
         width: 100% !important;
         height: 52% !important;
         border-right: none !important;
-        border-top: 2px solid #94a3b8 !important;
-        padding-bottom: max(14px, env(safe-area-inset-bottom)) !important;
+        border-top: 2px solid #0a3d52 !important;
+        border-radius: 14px 14px 0 0;
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.22);
+        padding-bottom: 16px !important;
+        transition: height 0.22s cubic-bezier(0.22, 1, 0.36, 1) !important;
+      }
+      #leftSidebar.sheet-min {
+        height: 46px !important;
+        overflow: hidden !important;
+      }
+      #leftSidebar.sheet-split {
+        height: 52% !important;
+      }
+      #leftSidebar.sheet-max {
+        height: 80% !important;
+      }
+    }
+    /* iPhone & iPad Touch Ergonomics (prevents iOS Safari auto-zoom and enlarges touch targets) */
+    @media (pointer: coarse) {
+      input[type="range"].cad-slider {
+        height: 6px !important;
+      }
+      input[type="range"].cad-slider::-webkit-slider-thumb {
+        width: 22px !important;
+        height: 22px !important;
+        border: 2.5px solid #ffffff !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.45) !important;
+      }
+      select, textarea, input[type="number"] {
+        font-size: 16px !important;
+      }
+      .cad-section-header {
+        padding-top: 9px !important;
+        padding-bottom: 9px !important;
+      }
+      .hdr-btn {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
       }
     }
     .cad-panel-bg {
@@ -171,8 +224,8 @@
     .toggle-switch {
       position: relative;
       display: inline-block;
-      width: 34px;
-      height: 16px;
+      width: 36px;
+      height: 18px;
       flex-shrink: 0;
     }
     .toggle-switch input {
@@ -186,14 +239,14 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background-color: #cbd5e1;
       transition: 0.2s;
-      border-radius: 16px;
+      border-radius: 18px;
       border: 1px solid #94a3b8;
     }
     .toggle-slider:before {
       position: absolute;
       content: "";
-      height: 12px;
-      width: 12px;
+      height: 14px;
+      width: 14px;
       left: 2px;
       bottom: 1px;
       background-color: #ffffff;
@@ -291,8 +344,8 @@
     </div>
 
     <div class="flex items-center gap-1.5 shrink-0">
-      <button id="btnOpenCloudPwaModal" onclick="toggleCloudPwaModal(true)" title="Install as iPhone Full-Screen Web App (PWA) or Deploy to Google Cloud" class="hdr-btn bg-indigo-600 hover:bg-indigo-500 text-white border border-indigo-400/50 font-semibold shadow-xs">
-        <span>📲 iPhone / Cloud</span>
+      <button id="btnOpenCloudPwaModal" onclick="toggleCloudPwaModal(true)" title="Install as iPhone &amp; iPad Full-Screen App (PWA) or Deploy to Google Cloud" class="hdr-btn bg-indigo-600 hover:bg-indigo-500 text-white border border-indigo-400/50 font-semibold shadow-xs">
+        <span>📲 iPhone / iPad App</span>
       </button>
       <button id="btnPresetThin" title="Standard Backlit Lithophane thicknesses (0.8mm - 3.2mm — allows light to pass through)" class="hdr-btn bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 font-medium">
         <span>Backlit (0.8–3.2mm)</span>
@@ -385,8 +438,33 @@
     <!-- ========================================== -->
     <section id="viewWorkspace" class="w-full h-full flex overflow-hidden min-h-0">
 
-      <!-- LEFT SIDEBAR -->
-      <aside id="leftSidebar" class="w-[285px] md:w-[310px] xl:w-[335px] shrink-0 h-full cad-panel-bg border-r border-slate-300 overflow-y-auto p-1.5 space-y-1.5 transition-all duration-150">
+      <!-- LEFT SIDEBAR (Desktop/iPad Split-View & iPhone Interactive Bottom Sheet) -->
+      <aside id="leftSidebar" class="sheet-split w-[285px] md:w-[310px] xl:w-[335px] shrink-0 h-full cad-panel-bg border-r border-slate-300 overflow-y-auto p-1.5 space-y-1.5 transition-all duration-150">
+
+        <!-- iPHONE / iPAD STICKY SHEET SNAP BAR & QUICK SECTION JUMP PILLS -->
+        <div id="mobileSheetHeader" class="sticky top-0 z-20 bg-[#071923] text-white rounded-sm p-1.5 shadow-sm border border-slate-700 space-y-1.5">
+          <!-- iPhone Bottom-Sheet Grab Handle & Snap Modes (visible on <=768px) -->
+          <div class="flex md:hidden items-center justify-between gap-1">
+            <button type="button" onclick="cycleMobileSheetHeight()" class="flex items-center gap-1.5 text-[11px] font-bold text-amber-300 px-1.5 py-0.5 rounded bg-slate-800">
+              <span class="w-5 h-1 rounded-full bg-amber-400 inline-block"></span>
+              <span id="lblSheetMode">⬍ Split View</span>
+            </button>
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="setMobileSheetHeight('min')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-semibold text-slate-200">🧊 Full 3D</button>
+              <button type="button" onclick="setMobileSheetHeight('split')" class="px-2 py-0.5 rounded bg-sky-900 hover:bg-sky-800 text-[10px] font-semibold text-sky-100">⬍ 50/50</button>
+              <button type="button" onclick="setMobileSheetHeight('max')" class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 text-[10px] font-bold">⬆ Controls</button>
+            </div>
+          </div>
+
+          <!-- 1-Tap Quick-Jump Section Pills (Works on iPhone, iPad & Desktop) -->
+          <div class="flex items-center gap-1 overflow-x-auto pb-0.5">
+            <button type="button" onclick="document.getElementById('fileInputUpload').click()" class="px-2 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold shrink-0">📸 Photo</button>
+            <button type="button" onclick="jumpToSidebarSection('secSmartBg')" class="px-2 py-1 rounded bg-teal-800 hover:bg-teal-700 text-teal-100 text-[10px] font-semibold shrink-0">✨ Smart BG</button>
+            <button type="button" onclick="jumpToSidebarSection('secShape')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-semibold shrink-0">📐 Shape/mm</button>
+            <button type="button" onclick="jumpToSidebarSection('secText')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 text-[10px] font-semibold shrink-0">✍️ Text</button>
+            <button type="button" onclick="jumpToSidebarSection('secBambuProfile')" class="px-2 py-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-[10px] font-bold shrink-0">🖨️ Bambu</button>
+          </div>
+        </div>
 
         <!-- ========================================== -->
         <!-- SHARED SMART BACKGROUND REMOVAL PANEL      -->
@@ -1375,52 +1453,102 @@ CUSTOM EDITION</textarea>
     </section>
   </main>
 
-  <!-- IPHONE PWA & GOOGLE CLOUD DEPLOYMENT MODAL -->
+  <!-- NATIVE iOS / iPADOS BOTTOM ACTION DOCK (Visible on iPhone & iPad <= 1024px) -->
+  <footer id="iosBottomDock" class="shrink-0 bg-[#071923] border-t border-slate-700 text-white px-2 pt-1.5 pb-[max(6px,env(safe-area-inset-bottom))] items-center justify-around gap-1 z-30 shadow-lg">
+    <button type="button" onclick="document.getElementById('fileInputUpload').click()" class="flex flex-col items-center justify-center py-1 px-2.5 rounded-md hover:bg-slate-800 active:bg-slate-700 text-[10px] font-semibold text-slate-200">
+      <span class="text-sm leading-none mb-0.5">📸</span>
+      <span>Photos</span>
+    </button>
+    <button type="button" onclick="switchTab('edit'); enableAndRunAutoBg('geodesic_portrait');" class="flex flex-col items-center justify-center py-1 px-2.5 rounded-md hover:bg-slate-800 active:bg-slate-700 text-[10px] font-semibold text-teal-300">
+      <span class="text-sm leading-none mb-0.5">✨</span>
+      <span>Smart BG</span>
+    </button>
+    <button type="button" onclick="switchTab('model'); setMobileSheetHeight('min');" class="flex flex-col items-center justify-center py-1 px-2.5 rounded-md hover:bg-slate-800 active:bg-slate-700 text-[10px] font-semibold text-sky-300">
+      <span class="text-sm leading-none mb-0.5">🧊</span>
+      <span>Full 3D</span>
+    </button>
+    <button type="button" onclick="toggleQuickBacklight()" class="flex flex-col items-center justify-center py-1 px-2.5 rounded-md hover:bg-slate-800 active:bg-slate-700 text-[10px] font-semibold text-amber-300">
+      <span class="text-sm leading-none mb-0.5">💡</span>
+      <span>Backlight</span>
+    </button>
+    <button type="button" onclick="exportBambu3MF()" class="flex flex-col items-center justify-center py-1 px-3 rounded-md bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-300 text-[10px] font-extrabold text-slate-950 shadow-xs">
+      <span class="text-sm leading-none mb-0.5">🖨️</span>
+      <span id="dockBambuLabel">Share .3MF</span>
+    </button>
+  </footer>
+
+  <!-- SMART iOS / iPADOS SAFARI "ADD TO HOME SCREEN" FLOATING BANNER -->
+  <div id="iosInstallBanner" class="hidden fixed bottom-16 left-3 right-3 z-40 bg-[#071923]/95 text-white border border-amber-400/60 rounded-xl p-3 shadow-2xl flex items-center justify-between gap-2.5 backdrop-blur-xs">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <img src="apple-touch-icon.png" alt="LithoStudio 3D Icon" class="w-10 h-10 rounded-xl border border-amber-400 shrink-0 object-cover" onerror="this.src=document.getElementById('hdrBrandLogoImg')?.src||''" />
+      <div class="text-xs leading-snug">
+        <div class="font-bold text-amber-300">Install LithoStudio 3D on iPhone / iPad</div>
+        <div class="text-slate-200 text-[11px]">Tap Safari <strong>Share</strong> <span class="px-1 py-0.2 rounded bg-slate-800 border border-slate-600 font-mono">↑</span> then <strong>"Add to Home Screen"</strong> for full-screen app mode.</div>
+      </div>
+    </div>
+    <button type="button" onclick="document.getElementById('iosInstallBanner').classList.add('hidden')" class="px-2 py-1 rounded bg-slate-800 text-slate-300 text-xs font-bold shrink-0">✕</button>
+  </div>
+
+  <!-- IPHONE & IPAD APP (PWA) + GOOGLE CLOUD MODAL -->
   <div id="cloudPwaModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4" onclick="if(event.target===this) toggleCloudPwaModal(false)">
     <div class="bg-white border border-slate-300 rounded-lg shadow-2xl max-w-2xl w-full max-h-[90dvh] overflow-y-auto text-slate-800">
       <div class="bg-[#071923] text-white px-4 py-3 flex items-center justify-between sticky top-0 z-10 border-b border-slate-700">
         <div class="flex items-center gap-2">
           <span class="text-base">📲</span>
           <div>
-            <h3 class="text-sm font-bold">iPhone Web App (PWA) &amp; Google Cloud Hosting</h3>
-            <p class="text-[11px] text-slate-300">100% Client-Side WebGL + Bambu .3MF Engine — Zero Backend GPU/CPU Cost</p>
+            <h3 class="text-sm font-bold">iPhone &amp; iPad App (PWA) + Google Cloud Hosting</h3>
+            <p class="text-[11px] text-slate-300">Ready-to-Use iOS &amp; iPadOS Full-Screen App with Native Share Sheet &amp; Bambu .3MF Export</p>
           </div>
         </div>
         <button type="button" onclick="toggleCloudPwaModal(false)" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold">✕ Close</button>
       </div>
 
       <div class="p-4 space-y-4 text-xs">
-        <!-- Section 1: Live iPhone URL & PWA Install -->
-        <div class="p-3 rounded-md bg-indigo-50/90 border border-indigo-200 space-y-2">
+        <!-- Section 1: Live iPhone & iPad URL + QR Code + AirDrop Share -->
+        <div class="p-3 rounded-md bg-indigo-50/90 border border-indigo-200 space-y-2.5">
           <div class="flex items-center justify-between">
             <h4 class="font-bold text-indigo-950 text-xs flex items-center gap-1.5">
-              <span>🍎 1. Open on Your iPhone Right Now &amp; Add to Home Screen</span>
+              <span>🍎 1. Open on Your iPhone or iPad &amp; Add to Home Screen</span>
             </h4>
-            <span id="pwaStandaloneBadge" class="px-2 py-0.5 rounded bg-emerald-200 text-emerald-950 font-bold text-[10px]">LIVE HTTPS URL READY</span>
+            <span id="pwaStandaloneBadge" class="px-2 py-0.5 rounded bg-emerald-200 text-emerald-950 font-bold text-[10px]">LIVE iOS / iPadOS APP READY</span>
           </div>
-          <div class="p-2.5 rounded bg-white border border-indigo-300 flex items-center justify-between gap-2">
-            <div class="truncate">
-              <div class="text-[10px] text-slate-500 font-semibold uppercase">Live iPhone Web App URL (HTTPS):</div>
-              <a href="https://sensorybridge.github.io/lithostudio-3d/" target="_blank" rel="noopener" class="text-indigo-700 font-bold underline text-xs break-all">https://sensorybridge.github.io/lithostudio-3d/</a>
+
+          <div class="grid grid-cols-1 sm:grid-cols-[1fr_130px] gap-3 items-center bg-white p-3 rounded border border-indigo-300">
+            <div class="space-y-2 min-w-0">
+              <div>
+                <div class="text-[10px] text-slate-500 font-semibold uppercase">Live iPhone &amp; iPad App Link (HTTPS):</div>
+                <a href="https://sensorybridge.github.io/lithostudio-3d/" target="_blank" rel="noopener" class="text-indigo-700 font-bold underline text-xs break-all">https://sensorybridge.github.io/lithostudio-3d/</a>
+              </div>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button type="button" onclick="navigator.clipboard.writeText('https://sensorybridge.github.io/lithostudio-3d/'); this.textContent='✓ Link Copied!';" class="px-2.5 py-1.5 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px]">📋 Copy App Link</button>
+                <button type="button" onclick="shareAppLinkNative()" class="px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px]">📤 AirDrop / Share to iPhone or iPad</button>
+              </div>
+              <p class="text-[11px] text-slate-600 leading-snug">
+                Scan the QR code with your <strong>iPhone or iPad Camera</strong> to launch directly in Safari, then tap <strong>Share (↑) → Add to Home Screen</strong>.
+              </p>
             </div>
-            <button type="button" onclick="navigator.clipboard.writeText('https://sensorybridge.github.io/lithostudio-3d/')" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] shrink-0">Copy iPhone Link</button>
+            <div class="flex flex-col items-center justify-center bg-slate-50 p-2 rounded border border-slate-200 mx-auto">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&amp;margin=6&amp;data=https%3A%2F%2Fsensorybridge.github.io%2Flithostudio-3d%2F" alt="Scan with iPhone or iPad Camera" class="w-24 h-24 rounded bg-white p-1 border border-slate-300" />
+              <span class="text-[9px] font-bold text-slate-600 mt-1">SCAN WITH CAMERA</span>
+            </div>
           </div>
+
           <ol class="list-decimal list-inside space-y-1 text-slate-800 font-medium bg-white p-2.5 rounded border border-indigo-200/80">
-            <li>Open <a href="https://sensorybridge.github.io/lithostudio-3d/" target="_blank" rel="noopener" class="text-indigo-700 font-bold underline">https://sensorybridge.github.io/lithostudio-3d/</a> (or your Google Cloud Run URL) in <strong>Safari on your iPhone</strong>.</li>
-            <li>Tap the <strong>Share</strong> button <span class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-300 font-mono text-[10px]">↑</span> at the bottom of Safari.</li>
-            <li>Scroll down and tap <strong>"Add to Home Screen"</strong> → tap <strong>Add</strong>.</li>
-            <li>Launch <strong>LithoStudio 3D</strong> from your iPhone Home Screen — exporting `.3MF` or `.STL` automatically opens the <strong>iPhone Share Sheet</strong> so you can save to <strong>Files</strong> or open in <strong>Bambu Handy</strong>!</li>
+            <li><strong>On iPhone or iPad</strong>: Open <a href="https://sensorybridge.github.io/lithostudio-3d/" target="_blank" rel="noopener" class="text-indigo-700 font-bold underline">https://sensorybridge.github.io/lithostudio-3d/</a> in <strong>Safari</strong> (or scan the QR code above).</li>
+            <li>Tap <strong>Share</strong> <span class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-300 font-mono text-[10px]">↑</span> → tap <strong>"Add to Home Screen"</strong> → tap <strong>Add</strong>.</li>
+            <li>It installs with the custom <strong>Litho Studio 3D</strong> medallion icon and launches full-screen on both <strong>iPhone</strong> (with interactive bottom sheet + bottom dock) and <strong>iPad</strong> (Split-View CAD workspace + Apple Pencil support).</li>
+            <li>Tapping <strong>Share .3MF</strong> or <strong>Download STL</strong> opens the native <strong>iOS / iPadOS Share Sheet</strong> so you can send directly to <strong>Bambu Handy</strong>, <strong>Files</strong>, or <strong>AirDrop</strong>!</li>
           </ol>
         </div>
 
         <!-- Section 2: Connect to Google Cloud -->
         <div class="p-3 rounded-md bg-emerald-50/80 border border-emerald-200 space-y-2.5">
           <h4 class="font-bold text-emerald-950 text-xs flex items-center justify-between">
-            <span>☁️ 2. Connect Your Google Cloud Account (1-Click or Cloud Shell)</span>
+            <span>☁️ 2. Optional: Deploy to Your Own Google Cloud Run Account</span>
             <span class="bg-emerald-200 text-emerald-950 px-1.5 py-0.5 rounded text-[10px] font-bold">Sensorybridge/lithostudio-3d</span>
           </h4>
           <p class="text-slate-700 leading-relaxed">
-            Your GitHub repository (<code class="bg-white px-1 py-0.5 rounded border border-emerald-300 font-mono">Sensorybridge/lithostudio-3d</code>) includes a pre-configured <code class="font-mono">Dockerfile</code>, <code class="font-mono">nginx.conf</code>, and <code class="font-mono">cloudbuild.yaml</code>. Click the button below to deploy directly into your Google Cloud project:
+            Your GitHub repository (<code class="bg-white px-1 py-0.5 rounded border border-emerald-300 font-mono">Sensorybridge/lithostudio-3d</code>) includes a pre-configured <code class="font-mono">Dockerfile</code>, <code class="font-mono">nginx.conf</code>, and <code class="font-mono">cloudbuild.yaml</code>:
           </p>
 
           <div class="flex flex-wrap items-center gap-2">
@@ -4429,8 +4557,10 @@ CUSTOM EDITION</textarea>
       const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
       const hdrBtn = document.getElementById('hdrBambuBtnLabel');
       const sideBtn = document.getElementById('btnSidebar3MFLabel');
+      const dockBtn = document.getElementById('dockBambuLabel');
       if (hdrBtn) hdrBtn.textContent = `Bambu .3MF (${m.code})`;
       if (sideBtn) sideBtn.textContent = `Export Bambu .3MF Project (${m.code})`;
+      if (dockBtn) dockBtn.textContent = `.3MF (${m.code})`;
       initFloorGrid(m.bedX, m.bedY);
 
       // Update live Hardware Specification Card
@@ -5208,6 +5338,64 @@ CUSTOM EDITION</textarea>
       rebuildAll(true);
     }
 
+    let currentSheetMode = 'split';
+    function setMobileSheetHeight(mode) {
+      currentSheetMode = mode;
+      const sb = document.getElementById('leftSidebar');
+      const lbl = document.getElementById('lblSheetMode');
+      if (!sb) return;
+      sb.classList.remove('hidden', 'sheet-min', 'sheet-split', 'sheet-max');
+      sb.classList.add('sheet-' + mode);
+      if (lbl) {
+        lbl.textContent = mode === 'min' ? '⬆ Show Controls' : (mode === 'max' ? '⬇ Split View' : '⬍ Split View');
+      }
+      setTimeout(() => requestRender(), 60);
+    }
+
+    function cycleMobileSheetHeight() {
+      const next = currentSheetMode === 'split' ? 'max' : (currentSheetMode === 'max' ? 'min' : 'split');
+      setMobileSheetHeight(next);
+    }
+
+    function jumpToSidebarSection(sectionId) {
+      if (sectionId === 'secSmartBg') {
+        if (state.activeTab === 'upload') switchTab('model');
+      } else {
+        if (state.activeTab !== 'model') switchTab('model');
+      }
+      if (window.innerWidth <= 768 && currentSheetMode === 'min') {
+        setMobileSheetHeight('split');
+      }
+      const secEl = document.getElementById(sectionId);
+      const iconEl = document.getElementById('icon_' + sectionId);
+      if (secEl) {
+        secEl.classList.remove('hidden');
+        if (iconEl) iconEl.textContent = '^';
+        setTimeout(() => {
+          secEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
+      }
+    }
+
+    function shareAppLinkNative() {
+      const appUrl = 'https://sensorybridge.github.io/lithostudio-3d/';
+      if (navigator.share) {
+        navigator.share({
+          title: 'LithoStudio 3D — iPhone & iPad Lithophane & Bambu .3MF App',
+          text: 'Open LithoStudio 3D in Safari and Add to Home Screen for full-screen 3D Lithophane & Bambu .3MF creation:',
+          url: appUrl
+        }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(appUrl).catch(() => {});
+        const toast = document.getElementById('statusToast');
+        if (toast) {
+          toast.textContent = 'App Link copied! Send to your iPhone or iPad.';
+          toast.classList.remove('hidden');
+          setTimeout(() => toast.classList.add('hidden'), 2400);
+        }
+      }
+    }
+
     function toggleCloudPwaModal(show) {
       const m = document.getElementById('cloudPwaModal');
       if (!m) return;
@@ -5228,68 +5416,41 @@ CUSTOM EDITION</textarea>
 
     function initIPhonePWA() {
       try {
-        // Generate 180x180 Apple Touch Icon & 512x512 PWA Icon via Canvas
-        const iconCanvas = document.createElement('canvas');
-        iconCanvas.width = 180;
-        iconCanvas.height = 180;
-        const ictx = iconCanvas.getContext('2d');
-        const grad = ictx.createLinearGradient(0, 0, 180, 180);
-        grad.addColorStop(0, '#071923');
-        grad.addColorStop(0.55, '#0c3b52');
-        grad.addColorStop(1, '#156585');
-        ictx.fillStyle = grad;
-        ictx.fillRect(0, 0, 180, 180);
-
-        // Glowing Backlit Moon/Lithophane Disc
-        const radGrad = ictx.createRadialGradient(90, 82, 8, 90, 82, 56);
-        radGrad.addColorStop(0, '#fffbeb');
-        radGrad.addColorStop(0.65, '#fcd34d');
-        radGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
-        ictx.fillStyle = radGrad;
-        ictx.beginPath();
-        ictx.arc(90, 82, 56, 0, Math.PI * 2);
-        ictx.fill();
-
-        ictx.strokeStyle = '#fbbf24';
-        ictx.lineWidth = 3.5;
-        ictx.beginPath();
-        ictx.arc(90, 82, 44, 0, Math.PI * 2);
-        ictx.stroke();
-
-        ictx.fillStyle = '#ffffff';
-        ictx.font = '900 22px sans-serif';
-        ictx.textAlign = 'center';
-        ictx.fillText('LITHO 3D', 90, 156);
-
-        const iconDataUrl = iconCanvas.toDataURL('image/png');
         const appleIconLink = document.getElementById('appleTouchIconLink');
-        if (appleIconLink) appleIconLink.href = iconDataUrl;
-
-        // If running as standalone file or without external manifest.json, attach inline manifest blob
-        const manifestObj = {
-          name: 'LithoStudio 3D — Lithophane & Bambu .3MF Builder',
-          short_name: 'LithoStudio 3D',
-          description: '3D Lithophane Generator with Smart Background Removal and Bambu Lab Slicing Profiles',
-          start_url: './',
-          display: 'standalone',
-          orientation: 'any',
-          background_color: '#071923',
-          theme_color: '#071923',
-          icons: [
-            { src: iconDataUrl, sizes: '180x180', type: 'image/png', purpose: 'any maskable' }
-          ]
-        };
-        const manifestBlob = new Blob([JSON.stringify(manifestObj)], { type: 'application/manifest+json' });
-        const manifestLink = document.getElementById('pwaManifestLink');
-        if (manifestLink && window.location.protocol === 'file:') {
-          manifestLink.href = URL.createObjectURL(manifestBlob);
+        if (window.location.protocol === 'file:' && appleIconLink) {
+          const proceduralLogoUrl = createBrandLogoDataURL();
+          appleIconLink.href = proceduralLogoUrl;
+          const manifestObj = {
+            name: 'LithoStudio 3D — iPhone & iPad Lithophane & Bambu .3MF App',
+            short_name: 'LithoStudio 3D',
+            description: '3D Lithophane Generator with Smart Background Removal and Bambu Lab Slicing Profiles',
+            start_url: './',
+            display: 'standalone',
+            orientation: 'any',
+            background_color: '#071923',
+            theme_color: '#071923',
+            icons: [
+              { src: proceduralLogoUrl, sizes: '180x180', type: 'image/png', purpose: 'any maskable' }
+            ]
+          };
+          const manifestBlob = new Blob([JSON.stringify(manifestObj)], { type: 'application/manifest+json' });
+          const manifestLink = document.getElementById('pwaManifestLink');
+          if (manifestLink) manifestLink.href = URL.createObjectURL(manifestBlob);
         }
 
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         const badge = document.getElementById('pwaStandaloneBadge');
         if (badge && isStandalone) {
-          badge.textContent = '✓ Running as iPhone Full-Screen App';
+          badge.textContent = '✓ Running as Full-Screen iOS / iPadOS App';
           badge.className = 'px-2 py-0.5 rounded bg-emerald-200 text-emerald-950 font-bold text-[10px]';
+        }
+
+        // Detect iPhone or iPad in Safari browser (not yet added to Home Screen) and show install helper banner
+        const ua = navigator.userAgent || '';
+        const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const installBanner = document.getElementById('iosInstallBanner');
+        if (isIOS && !isStandalone && installBanner) {
+          installBanner.classList.remove('hidden');
         }
 
         if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
@@ -5304,6 +5465,7 @@ CUSTOM EDITION</textarea>
   </script>
 </body>
 </html>
+
 
 
 

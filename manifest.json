@@ -1,19 +1,37 @@
 {
-  "name": "LithoStudio 3D — Lithophane & Bambu .3MF Builder",
+  "name": "LithoStudio 3D — iPhone & iPad Lithophane & Bambu .3MF App",
   "short_name": "LithoStudio 3D",
-  "description": "Self-contained 3D Lithophane creator with physically accurate mm thickness light transmission, smart background removal, multi-line embossing/engraving, and Bambu Lab .3MF / STL export.",
-  "start_url": "/",
-  "scope": "/",
+  "description": "Self-contained 3D Lithophane & Relief studio for iPhone, iPad, and Desktop with physical mm light simulation, smart background removal, multi-line engraving, and full Bambu Lab X2D / H3C / H2D / P2S / A2L .3MF export.",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#071923",
   "theme_color": "#071923",
   "icons": [
     {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }

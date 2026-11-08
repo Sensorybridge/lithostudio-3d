@@ -1,8 +1,12 @@
-const CACHE_NAME = 'lithostudio-3d-v2';
+const CACHE_NAME = 'lithostudio-3d-v4';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
+  './logo.jpg',
+  './apple-touch-icon.png',
+  './icon-192.png',
+  './icon-512.png',
   './icon.svg'
 ];
 
