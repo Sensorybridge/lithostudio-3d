@@ -282,9 +282,10 @@
   <!-- TOP DARK BRAND BAR -->
   <header class="cad-header-dark shrink-0 border-b border-slate-800">
     <div class="flex items-center gap-2 shrink-0">
-      <div class="flex items-center gap-1 bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded text-xs tracking-wider shadow-xs">
-        <span>LITHO</span>
-        <span class="bg-sky-900 text-white px-1 rounded text-xs font-bold">STUDIO</span>
+      <div class="flex items-center gap-1.5 bg-slate-900/90 border border-amber-400/50 text-slate-950 font-black pl-1 pr-2 py-0.5 rounded-full text-xs tracking-wider shadow-xs">
+        <img id="hdrBrandLogoImg" alt="Litho Studio Brand Logo" class="w-5 h-5 rounded-full object-cover border border-amber-300 shadow-xs" />
+        <span class="text-amber-400">LITHO</span>
+        <span class="bg-amber-400 text-slate-950 px-1.5 rounded-full text-[11px] font-black">STUDIO</span>
       </div>
       <h1 class="text-xs font-medium text-slate-300 hide-below-1200">Self-Contained 3D Lithophane &amp; Relief Mesh Builder</h1>
     </div>
@@ -797,8 +798,8 @@
                     <label id="lblPrimaryText" class="text-slate-600 font-medium">Text Content (Multi-line)</label>
                     <span class="text-slate-400 text-[12px]">Enter = new line</span>
                   </div>
-                  <textarea id="ctrlTextValue" rows="3" placeholder="Line 1&#10;Line 2&#10;Line 3..." class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 focus:outline-none focus:border-sky-700 leading-snug resize-y">Sweet Dreams
-Little One</textarea>
+                  <textarea id="ctrlTextValue" rows="3" placeholder="Line 1&#10;Line 2&#10;Line 3..." class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 focus:outline-none focus:border-sky-700 leading-snug resize-y">LITHO STUDIO
+3D RELIEF LAB</textarea>
                 </div>
 
                 <div id="backTextBox" class="hidden">
@@ -806,8 +807,8 @@ Little One</textarea>
                     <label class="text-slate-600 font-medium">Back Surface Text (Multi-line)</label>
                     <span class="text-slate-400 text-[12px]">Enter = new line</span>
                   </div>
-                  <textarea id="ctrlBackTextValue" rows="3" placeholder="Back Line 1&#10;Back Line 2..." class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 focus:outline-none focus:border-sky-700 leading-snug resize-y">Born Nov 7, 2026
-With Love</textarea>
+                  <textarea id="ctrlBackTextValue" rows="3" placeholder="Back Line 1&#10;Back Line 2..." class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 focus:outline-none focus:border-sky-700 leading-snug resize-y">BAMBU LAB X2D
+CUSTOM EDITION</textarea>
                 </div>
 
                 <div class="grid grid-cols-3 gap-1.5">
@@ -1506,8 +1507,8 @@ With Love</textarea>
       textEnable: false,
       textSide: 'front',
       textMode: 'emboss',
-      textValue: 'Sweet Dreams\nLittle One',
-      backTextValue: 'Born Nov 7, 2026\nWith Love',
+      textValue: 'LITHO STUDIO\n3D RELIEF LAB',
+      backTextValue: 'BAMBU LAB X2D\nCUSTOM EDITION',
       textFont: 'sans-serif',
       textCurve: 'straight',
       textAlign: 'center',
@@ -1659,169 +1660,253 @@ With Love</textarea>
     }
 
     /*************************************************************************
-     * SAMPLE IMAGES
+     * LITHO STUDIO BRAND LOGO & SAMPLE DEMO IMAGES
      *************************************************************************/
-    function createSamplePortraitDataURL() {
+    function createBrandLogoDataURL() {
       const c = document.createElement('canvas');
-      c.width = 720;
-      c.height = 960;
+      c.width = 800;
+      c.height = 800;
       const ctx = c.getContext('2d');
+      const cx = 400, cy = 400;
 
-      ctx.fillStyle = '#d8d5ce';
-      ctx.fillRect(0, 0, 720, 960);
+      // 1. Dark Slate Studio Background
+      const bgGrad = ctx.createRadialGradient(260, 220, 40, cx, cy, 560);
+      bgGrad.addColorStop(0, '#334155');
+      bgGrad.addColorStop(0.55, '#1e293b');
+      bgGrad.addColorStop(1, '#090d14');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 800, 800);
 
-      ctx.fillStyle = '#22252a';
+      // Soft drop shadow under medallion
+      ctx.save();
       ctx.beginPath();
-      ctx.roundRect(45, 110, 640, 840, 75);
+      ctx.arc(cx, cy + 10, 355, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
       ctx.fill();
+      ctx.restore();
 
-      ctx.strokeStyle = '#181a1e';
-      ctx.lineWidth = 2;
-      for (let y = 160; y < 900; y += 70) {
-        ctx.beginPath();
-        ctx.moveTo(55, y);
-        ctx.lineTo(175, y + 60);
-        ctx.stroke();
-      }
+      // 2. Faceted 3D Metallic Outer Ring (24 geometric facets)
+      const outerR = 352;
+      const innerBevelR = 316;
+      const numFacets = 24;
+      for (let i = 0; i < numFacets; i++) {
+        const a0 = (i / numFacets) * Math.PI * 2 - Math.PI / 2;
+        const a1 = ((i + 0.5) / numFacets) * Math.PI * 2 - Math.PI / 2;
+        const a2 = ((i + 1) / numFacets) * Math.PI * 2 - Math.PI / 2;
+        const light = Math.cos(a1 + Math.PI * 0.35);
 
-      ctx.fillStyle = '#6d6256';
-      ctx.beginPath();
-      ctx.ellipse(415, 225, 145, 68, 0, Math.PI, 0, false);
-      ctx.fill();
-      for (let a = Math.PI * 1.05; a <= Math.PI * 1.95; a += 0.22) {
-        const mx = 415 + Math.cos(a) * 145;
-        const my = 225 + Math.sin(a) * 68;
+        // Left half of facet
+        const l1 = Math.round(145 + 75 * light);
+        ctx.fillStyle = `rgb(${l1}, ${l1 + 4}, ${l1 + 10})`;
         ctx.beginPath();
-        ctx.arc(mx, my, 20, 0, Math.PI * 2);
+        ctx.moveTo(cx + Math.cos(a0) * outerR, cy + Math.sin(a0) * outerR);
+        ctx.lineTo(cx + Math.cos(a1) * (outerR + 4), cy + Math.sin(a1) * (outerR + 4));
+        ctx.lineTo(cx + Math.cos(a1) * innerBevelR, cy + Math.sin(a1) * innerBevelR);
+        ctx.lineTo(cx + Math.cos(a0) * innerBevelR, cy + Math.sin(a0) * innerBevelR);
+        ctx.closePath();
+        ctx.fill();
+
+        // Right half of facet
+        const l2 = Math.round(95 + 65 * Math.sin(a1 + Math.PI * 0.25));
+        ctx.fillStyle = `rgb(${l2}, ${l2 + 3}, ${l2 + 8})`;
+        ctx.beginPath();
+        ctx.moveTo(cx + Math.cos(a1) * (outerR + 4), cy + Math.sin(a1) * (outerR + 4));
+        ctx.lineTo(cx + Math.cos(a2) * outerR, cy + Math.sin(a2) * outerR);
+        ctx.lineTo(cx + Math.cos(a2) * innerBevelR, cy + Math.sin(a2) * innerBevelR);
+        ctx.lineTo(cx + Math.cos(a1) * innerBevelR, cy + Math.sin(a1) * innerBevelR);
+        ctx.closePath();
         ctx.fill();
       }
-      ctx.fillStyle = '#a39585';
+
+      // 3. Dark Sculpted Typography Band Ring
+      const bandGrad = ctx.createLinearGradient(120, 120, 680, 680);
+      bandGrad.addColorStop(0, '#475569');
+      bandGrad.addColorStop(0.5, '#1e293b');
+      bandGrad.addColorStop(1, '#0f172a');
+      ctx.fillStyle = bandGrad;
       ctx.beginPath();
-      ctx.ellipse(415, 225, 110, 48, 0, Math.PI, 0, false);
-      ctx.fill();
-      ctx.fillStyle = '#25211e';
-      ctx.beginPath();
-      ctx.arc(388, 198, 4.5, 0, Math.PI * 2);
-      ctx.arc(442, 198, 4.5, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.ellipse(415, 212, 11, 7, 0, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 316, 0, Math.PI * 2);
       ctx.fill();
 
-      const sheetGrad = ctx.createLinearGradient(170, 220, 610, 920);
-      sheetGrad.addColorStop(0, '#fcfbf9');
-      sheetGrad.addColorStop(0.5, '#eeebe4');
-      sheetGrad.addColorStop(1, '#dad4c8');
-      ctx.fillStyle = sheetGrad;
-      ctx.beginPath();
-      ctx.roundRect(185, 225, 445, 710, 40);
-      ctx.fill();
-
-      ctx.strokeStyle = '#e7e0d4';
-      ctx.lineWidth = 58;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.beginPath();
-      ctx.moveTo(325, 475);
-      ctx.quadraticCurveTo(255, 380, 275, 265);
+      ctx.strokeStyle = '#090d16';
+      ctx.lineWidth = 5;
       ctx.stroke();
 
+      // 4. Inner Golden Rim & Glowing Backlit Sun Sky
+      const innerR = 236;
+      const goldRim = ctx.createLinearGradient(160, 160, 640, 640);
+      goldRim.addColorStop(0, '#fde68a');
+      goldRim.addColorStop(0.5, '#f59e0b');
+      goldRim.addColorStop(1, '#b45309');
+      ctx.fillStyle = goldRim;
       ctx.beginPath();
-      ctx.moveTo(485, 475);
-      ctx.quadraticCurveTo(545, 380, 515, 265);
-      ctx.stroke();
-
-      ctx.fillStyle = '#d8b49b';
-      ctx.beginPath();
-      ctx.arc(278, 250, 24, 0, Math.PI * 2);
-      ctx.arc(512, 250, 24, 0, Math.PI * 2);
+      ctx.arc(cx, cy, innerR + 10, 0, Math.PI * 2);
       ctx.fill();
 
-      const suitGrad = ctx.createRadialGradient(405, 575, 20, 405, 575, 195);
-      suitGrad.addColorStop(0, '#f9f2e4');
-      suitGrad.addColorStop(0.65, '#e8dec9');
-      suitGrad.addColorStop(1, '#c5b89e');
-      ctx.fillStyle = suitGrad;
+      // Clip to inner medallion circle for sky, sunbeams, mountains, and relief waves
+      ctx.save();
       ctx.beginPath();
-      ctx.ellipse(405, 575, 112, 155, 0, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
+      ctx.clip();
 
-      ctx.strokeStyle = '#c4bcb0';
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.moveTo(405, 430);
-      ctx.lineTo(405, 715);
-      ctx.stroke();
+      // Golden backlit sky gradient
+      const skyGrad = ctx.createRadialGradient(cx, cy - 35, 18, cx, cy - 35, 240);
+      skyGrad.addColorStop(0, '#fffef2');
+      skyGrad.addColorStop(0.32, '#fde047');
+      skyGrad.addColorStop(0.7, '#f59e0b');
+      skyGrad.addColorStop(1, '#92400e');
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(cx - innerR, cy - innerR, innerR * 2, innerR * 2);
 
-      ctx.strokeStyle = '#e8dec9';
-      ctx.lineWidth = 66;
-      ctx.beginPath();
-      ctx.moveTo(340, 685);
-      ctx.quadraticCurveTo(265, 765, 315, 865);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(470, 685);
-      ctx.quadraticCurveTo(545, 765, 480, 865);
-      ctx.stroke();
-
-      ctx.fillStyle = 'rgba(145, 130, 108, 0.28)';
-      const bearCoords = [
-        [345, 485], [450, 505], [355, 575], [445, 595],
-        [335, 655], [460, 665], [295, 765], [495, 775]
-      ];
-      bearCoords.forEach(([bx, by]) => {
+      // Sculpted Sun Rays
+      const sunY = cy - 28;
+      ctx.strokeStyle = '#78350f';
+      ctx.lineWidth = 8;
+      for (let i = -8; i <= 8; i++) {
+        const ang = (i * 11.2 - 90) * (Math.PI / 180);
         ctx.beginPath();
-        ctx.arc(bx, by, 14, 0, Math.PI * 2);
-        ctx.arc(bx - 10, by - 11, 5, 0, Math.PI * 2);
-        ctx.arc(bx + 10, by - 11, 5, 0, Math.PI * 2);
+        ctx.moveTo(cx + Math.cos(ang) * 70, sunY + Math.sin(ang) * 70);
+        ctx.lineTo(cx + Math.cos(ang) * 245, sunY + Math.sin(ang) * 245);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#fef08a';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx + Math.cos(ang) * 72, sunY + Math.sin(ang) * 72);
+        ctx.lineTo(cx + Math.cos(ang) * 240, sunY + Math.sin(ang) * 240);
+        ctx.stroke();
+        ctx.strokeStyle = '#78350f';
+        ctx.lineWidth = 8;
+      }
+
+      // Glowing Center Sun Disc
+      const sunDiscGrad = ctx.createRadialGradient(cx, sunY, 8, cx, sunY, 68);
+      sunDiscGrad.addColorStop(0, '#ffffff');
+      sunDiscGrad.addColorStop(0.65, '#fef08a');
+      sunDiscGrad.addColorStop(1, '#d97706');
+      ctx.fillStyle = sunDiscGrad;
+      ctx.beginPath();
+      ctx.arc(cx, sunY, 66, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = '#92400e';
+      ctx.stroke();
+
+      // 5. Layered 3D Relief Mountain Peaks
+      const drawMountainPeak = (px, py, baseW, h, ridgeCount) => {
+        for (let r = 0; r < ridgeCount; r++) {
+          const offY = r * 13;
+          ctx.fillStyle = r === 0 ? '#1e293b' : (r % 2 === 0 ? '#0f172a' : '#334155');
+          ctx.beginPath();
+          ctx.moveTo(px - baseW, py + h + offY);
+          ctx.lineTo(px, py + offY);
+          ctx.lineTo(px + baseW, py + h + offY);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.strokeStyle = r === 0 ? '#fbbf24' : '#64748b';
+          ctx.lineWidth = r === 0 ? 3.5 : 2;
+          ctx.beginPath();
+          ctx.moveTo(px - baseW, py + h + offY);
+          ctx.lineTo(px, py + offY);
+          ctx.lineTo(px + baseW, py + h + offY);
+          ctx.stroke();
+        }
+      };
+
+      drawMountainPeak(cx - 125, cy - 48, 155, 130, 5);
+      drawMountainPeak(cx + 128, cy - 60, 165, 145, 5);
+      drawMountainPeak(cx, cy - 38, 135, 120, 5);
+
+      // 6. Sculpted Topographic Lithophane Wave Contours
+      for (let w = 0; w < 8; w++) {
+        const baseY = cy + 32 + w * 28;
+        ctx.fillStyle = w % 2 === 0 ? '#0f172a' : '#1e293b';
+        ctx.beginPath();
+        ctx.moveTo(cx - 250, baseY + 60);
+        for (let x = -250; x <= 250; x += 10) {
+          const yWave = baseY + Math.sin((x + w * 28) * 0.024) * 26 + Math.cos((x - w * 18) * 0.015) * 14;
+          ctx.lineTo(cx + x, yWave);
+        }
+        ctx.lineTo(cx + 250, cy + 260);
+        ctx.lineTo(cx - 250, cy + 260);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = (w % 2 === 0) ? '#f59e0b' : '#94a3b8';
+        ctx.lineWidth = (w % 2 === 0) ? 3.5 : 2;
+        ctx.beginPath();
+        for (let x = -250; x <= 250; x += 8) {
+          const yWave = baseY + Math.sin((x + w * 28) * 0.024) * 26 + Math.cos((x - w * 18) * 0.015) * 14;
+          if (x === -250) ctx.moveTo(cx + x, yWave);
+          else ctx.lineTo(cx + x, yWave);
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // 7. Curved Raised & Engraved Ring Typography ("LITHO STUDIO" & "3D RELIEF & LITHOPHANE LAB")
+      const drawArcText = (str, radius, startAngle, endAngle, isBottom, fontStr, fillStyle, strokeStyle) => {
+        ctx.save();
+        ctx.font = fontStr;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const chars = str.split('');
+        const step = (endAngle - startAngle) / Math.max(1, chars.length - 1);
+        chars.forEach((ch, idx) => {
+          const ang = startAngle + idx * step;
+          ctx.save();
+          ctx.translate(cx + Math.cos(ang) * radius, cy + Math.sin(ang) * radius);
+          ctx.rotate(isBottom ? ang - Math.PI / 2 : ang + Math.PI / 2);
+          if (strokeStyle) {
+            ctx.strokeStyle = strokeStyle;
+            ctx.lineWidth = 4;
+            ctx.strokeText(ch, 0, 0);
+          }
+          ctx.fillStyle = fillStyle;
+          ctx.fillText(ch, 0, 0);
+          ctx.restore();
+        });
+        ctx.restore();
+      };
+
+      // Top Engraved + Highlighted Brand Title: LITHO STUDIO
+      drawArcText(
+        'LITHO STUDIO',
+        276,
+        -Math.PI * 0.86,
+        -Math.PI * 0.14,
+        false,
+        '900 44px sans-serif',
+        '#f8fafc',
+        '#090d16'
+      );
+
+      // Side Medallion Studs
+      [-Math.PI, 0].forEach((a) => {
+        const sx = cx + Math.cos(a) * 276;
+        const sy = cy + Math.sin(a) * 276;
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.arc(sx, sy, 12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.arc(sx, sy, 5, 0, Math.PI * 2);
         ctx.fill();
       });
 
-      const headGrad = ctx.createRadialGradient(385, 355, 18, 402, 365, 108);
-      headGrad.addColorStop(0, '#f3d4be');
-      headGrad.addColorStop(0.55, '#dfb599');
-      headGrad.addColorStop(0.85, '#b88b6f');
-      headGrad.addColorStop(1, '#855f47');
-      ctx.fillStyle = headGrad;
-      ctx.beginPath();
-      ctx.ellipse(402, 362, 90, 98, -0.06, 0, Math.PI * 2);
-      ctx.fill();
-
-      const hairGrad = ctx.createLinearGradient(402, 255, 402, 345);
-      hairGrad.addColorStop(0, '#221e1b');
-      hairGrad.addColorStop(0.6, '#4a4039');
-      hairGrad.addColorStop(1, 'rgba(74, 64, 57, 0)');
-      ctx.fillStyle = hairGrad;
-      ctx.beginPath();
-      ctx.ellipse(404, 318, 86, 60, -0.05, Math.PI, 0, false);
-      ctx.fill();
-
-      ctx.fillStyle = 'rgba(248, 220, 205, 0.45)';
-      ctx.beginPath();
-      ctx.arc(355, 385, 26, 0, Math.PI * 2);
-      ctx.arc(435, 390, 28, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.strokeStyle = '#4e3e32';
-      ctx.lineWidth = 3.5;
-      ctx.beginPath();
-      ctx.arc(360, 366, 17, 0.15 * Math.PI, 0.85 * Math.PI);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.arc(426, 370, 17, 0.15 * Math.PI, 0.85 * Math.PI);
-      ctx.stroke();
-
-      ctx.fillStyle = '#f5dfd0';
-      ctx.beginPath();
-      ctx.ellipse(392, 390, 13, 9, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = '#a86e5e';
-      ctx.beginPath();
-      ctx.ellipse(390, 418, 17, 7.5, 0, 0, Math.PI * 2);
-      ctx.fill();
+      // Bottom Raised Gold Subtitle: 3D RELIEF & LITHOPHANE LAB
+      drawArcText(
+        '3D RELIEF & LITHOPHANE LAB',
+        278,
+        Math.PI * 0.88,
+        Math.PI * 0.12,
+        true,
+        '800 25px sans-serif',
+        '#fbbf24',
+        '#090d16'
+      );
 
       return c.toDataURL('image/png');
     }
@@ -1870,9 +1955,16 @@ With Love</textarea>
     }
 
     function initSampleImages() {
-      const img1 = new Image();
-      img1.onload = () => {
-        state.images.push({ name: 'IMG_1244', img: img1, src: img1.src });
+      const proceduralLogoUrl = createBrandLogoDataURL();
+      const hdrLogo = document.getElementById('hdrBrandLogoImg');
+      if (hdrLogo) hdrLogo.src = proceduralLogoUrl;
+
+      const finishWithLogo = (logoImg, logoSrc) => {
+        if (hdrLogo) hdrLogo.src = logoSrc;
+        const appleIconLink = document.getElementById('appleTouchIconLink');
+        if (appleIconLink) appleIconLink.href = logoSrc;
+
+        state.images.push({ name: 'LITHO_STUDIO_LOGO', img: logoImg, src: logoSrc });
         const img2 = new Image();
         img2.onload = () => {
           state.images.push({ name: 'ALPINE_SUN', img: img2, src: img2.src });
@@ -1881,7 +1973,24 @@ With Love</textarea>
         };
         img2.src = createSampleMountainDataURL();
       };
-      img1.src = createSamplePortraitDataURL();
+
+      // Try loading the high-res generated brand emblem (./logo.jpg or ./litho_studio_logo_1794179545644.jpg) first, with instant fallback to the 800x800 procedural medallion
+      const hiResLogo = new Image();
+      hiResLogo.crossOrigin = 'anonymous';
+      let settled = false;
+      hiResLogo.onload = () => {
+        if (settled) return;
+        settled = true;
+        finishWithLogo(hiResLogo, hiResLogo.src);
+      };
+      hiResLogo.onerror = () => {
+        if (settled) return;
+        settled = true;
+        const fallbackImg = new Image();
+        fallbackImg.onload = () => finishWithLogo(fallbackImg, proceduralLogoUrl);
+        fallbackImg.src = proceduralLogoUrl;
+      };
+      hiResLogo.src = './logo.jpg';
     }
 
     /*************************************************************************
@@ -5195,6 +5304,7 @@ With Love</textarea>
   </script>
 </body>
 </html>
+
 
 
 
