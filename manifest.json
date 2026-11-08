@@ -1,0 +1,19 @@
+{
+  "name": "LithoStudio 3D — Lithophane & Bambu .3MF Builder",
+  "short_name": "LithoStudio 3D",
+  "description": "Self-contained 3D Lithophane creator with physically accurate mm thickness light transmission, smart background removal, multi-line embossing/engraving, and Bambu Lab .3MF / STL export.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#071923",
+  "theme_color": "#071923",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

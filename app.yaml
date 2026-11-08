@@ -1,0 +1,14 @@
+runtime: python312
+handlers:
+  - url: /manifest.json
+    static_files: manifest.json
+    upload: manifest.json
+    secure: always
+  - url: /icon.svg
+    static_files: icon.svg
+    upload: icon.svg
+    secure: always
+  - url: /.*
+    static_files: index.html
+    upload: index.html
+    secure: always

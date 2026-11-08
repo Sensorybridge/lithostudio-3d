@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#071923"/>
+      <stop offset="55%" stop-color="#0c3b52"/>
+      <stop offset="100%" stop-color="#156585"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="36%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="65%" stop-color="#fcd34d"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="180" height="180" rx="36" fill="url(#bg)"/>
+  <circle cx="90" cy="80" r="56" fill="url(#glow)"/>
+  <circle cx="90" cy="80" r="44" fill="none" stroke="#fbbf24" stroke-width="4"/>
+  <text x="90" y="154" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-weight="900" font-size="22">LITHO 3D</text>
+</svg>
