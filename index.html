@@ -842,17 +842,45 @@
                 </div>
               </div>
 
-              <!-- Live Physical Light Transmission Meter -->
-              <div id="thicknessLightNotice" class="p-2 rounded bg-white/90 border border-slate-300 text-xs space-y-1">
+              <!-- Interactive Light Pass-Through Slider & Meter -->
+              <div id="thicknessLightNotice" class="p-2.5 rounded bg-white/95 border border-amber-400/70 shadow-2xs text-xs space-y-2">
                 <div class="flex items-center justify-between font-semibold">
-                  <span class="text-slate-700">Light Pass-Through:</span>
-                  <span id="lblLightTransPercent" class="text-slate-900">0.0% (Opaque @ 7.0mm)</span>
+                  <span class="text-slate-800 flex items-center gap-1">
+                    <span>💡 Light Pass-Through</span>
+                  </span>
+                  <span id="lblLightTransPercent" class="text-slate-900 font-bold">0.0% (Opaque @ 7.0mm)</span>
                 </div>
-                <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                  <div id="barLightTrans" class="h-full bg-amber-400 transition-all duration-150" style="width: 1%;"></div>
+
+                <!-- Interactive Draggable Yellow Bar Slider -->
+                <div class="relative flex items-center py-1">
+                  <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden pointer-events-none">
+                    <div id="barLightTrans" class="h-full bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-200 transition-all duration-75" style="width: 2%;"></div>
+                  </div>
+                  <input
+                    id="ctrlLightPassSlider"
+                    type="range"
+                    min="0"
+                    max="95"
+                    step="1"
+                    value="0"
+                    oninput="setLightPassThroughFromSlider(this.value)"
+                    title="Drag right to make plastic thinner so light shines through (Backlit Lithophane), or drag left to 0% for a thick Solid 3D Sculpture"
+                    class="absolute inset-0 w-full h-full opacity-90 cursor-pointer accent-amber-500"
+                    style="background: transparent;"
+                  />
                 </div>
-                <p id="lblThicknessHint" class="text-slate-500 leading-snug">
-                  At 7.0mm thickness, solid PLA blocks all light. Lower <strong>Min Thick</strong> to <strong>0.8–2.0mm</strong> for backlit glow.
+
+                <div class="grid grid-cols-2 gap-1.5 pt-0.5">
+                  <button type="button" onclick="setLightPassThroughFromSlider(68)" class="py-1 px-2 rounded bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-2xs transition flex items-center justify-center gap-1">
+                    <span>💡 Glow Backlit (68%)</span>
+                  </button>
+                  <button type="button" onclick="setLightPassThroughFromSlider(0)" class="py-1 px-2 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold text-[11px] shadow-2xs transition flex items-center justify-center gap-1">
+                    <span>🗿 Solid 3D (0% Opaque)</span>
+                  </button>
+                </div>
+
+                <p id="lblThicknessHint" class="text-slate-600 text-[11px] leading-snug">
+                  <strong>What this does:</strong> Drag the yellow bar right to make the plastic thinner (<strong>0.8–3.2mm</strong>) so a lamp or window shines through your photo, or drag left to <strong>0%</strong> for a thick solid 3D medallion (<strong>7–12mm</strong>).
                 </p>
               </div>
             </div>
@@ -1819,6 +1847,55 @@ CUSTOM EDITION</textarea>
       return Math.max(0, Math.min(1.0, rawT * cutoff));
     }
 
+    let isDraggingLightPassSlider = false;
+
+    function setLightPassThroughFromSlider(rawPct) {
+      const pct = Math.max(0, Math.min(95, parseFloat(rawPct) || 0));
+      isDraggingLightPassSlider = true;
+
+      if (pct <= 1) {
+        // 0% Opaque Solid 3D Relief Medallion (7-12mm)
+        state.minThick = 7.0;
+        state.maxThick = 12.0;
+        state.frameDepth = 12.0;
+        state.positiveImage = true;
+        state.lighting = 'none';
+      } else {
+        // 2%..95% Backlit Lithophane: invert Beer-Lambert curve so higher % = thinner wall = brighter light pass-through
+        const frac = Math.max(0.015, Math.min(0.95, pct / 100));
+        const effPower = Math.max(0.8, Math.min(1.8, state.lightPower || 1.4));
+        const ratio = Math.min(0.96, frac / effPower);
+        const rawMin = 0.32 - Math.log(Math.max(0.01, ratio)) / 1.15;
+        const newMin = Math.max(0.4, Math.min(4.4, Math.round(rawMin * 10) / 10));
+        const newMax = Math.max(Number((newMin + 1.6).toFixed(1)), Number((newMin + 2.4).toFixed(1)));
+        state.minThick = newMin;
+        state.maxThick = newMax;
+        state.frameDepth = newMax;
+        state.positiveImage = false;
+        if (state.lighting !== 'warm_backlight' && state.lighting !== 'white_backlight') {
+          state.lighting = 'warm_backlight';
+        }
+      }
+
+      const setVal = (id, v) => {
+        const el = document.getElementById(id);
+        if (el) el.value = v;
+      };
+      setVal('ctrlMinThick', state.minThick);
+      setVal('numMinThick', state.minThick);
+      setVal('ctrlMaxThick', state.maxThick);
+      setVal('numMaxThick', state.maxThick);
+      setVal('ctrlFrameDepth', state.frameDepth);
+      setVal('numFrameDepth', state.frameDepth);
+      setVal('ctrlLighting', state.lighting);
+      const posEl = document.getElementById('ctrlPositiveImage');
+      if (posEl) posEl.checked = state.positiveImage;
+
+      syncBacklightUI();
+      rebuildAll(true);
+      isDraggingLightPassSlider = false;
+    }
+
     function updateThicknessLightUI() {
       const minT = Math.min(state.minThick, state.maxThick);
       const maxT = Math.max(state.minThick, state.maxThick);
@@ -1834,31 +1911,36 @@ CUSTOM EDITION</textarea>
 
       const lblPct = document.getElementById('lblLightTransPercent');
       const bar = document.getElementById('barLightTrans');
+      const slider = document.getElementById('ctrlLightPassSlider');
       const hint = document.getElementById('lblThicknessHint');
       const topStat = document.getElementById('statLightPass');
 
-      bar.style.width = `${Math.max(1, Math.round(maxPass * 100))}%`;
+      const uiPassPct = Math.round(maxPass * 100);
+      if (bar) bar.style.width = `${Math.max(2, uiPassPct)}%`;
+      if (slider && !isDraggingLightPassSlider) {
+        slider.value = Math.min(95, uiPassPct);
+      }
 
-      if (minT >= 5.0) {
-        lblPct.textContent = `0.0% (Opaque @ ${minT.toFixed(1)}mm)`;
-        lblPct.className = 'text-slate-700 font-bold';
+      if (minT >= 4.8) {
+        lblPct.textContent = `0.0% (Solid Opaque @ ${minT.toFixed(1)}mm)`;
+        lblPct.className = 'text-slate-800 font-bold';
         topStat.textContent = `Light Pass: 0.0% (Opaque @ ${minT.toFixed(1)}mm)`;
         if (state.textEnable && state.textMode === 'engrave' && thinPointMM < 3.5) {
           const engravePct = Math.round(calcPhysicalTransmittance(thinPointMM, state.lightPower) * 100);
           hint.innerHTML = `Plate (${minT.toFixed(1)}mm) blocks light, but Engraved Text (${thinPointMM.toFixed(1)}mm) passes <strong>${engravePct}%</strong> light.`;
         } else {
-          hint.innerHTML = `At <strong>${minT.toFixed(1)}–${maxT.toFixed(1)}mm</strong>, solid plastic blocks all light. Click <strong>Preset: Backlit Thin (0.8–3.2mm)</strong> for light pass-through.`;
+          hint.innerHTML = `<strong>Solid 3D Medallion Mode (${minT.toFixed(1)}–${maxT.toFixed(1)}mm):</strong> Blocks light for normal room viewing. <strong>Drag the yellow bar right</strong> (or tap <strong>💡 Glow Backlit</strong>) to make a glowing backlit lithophane.`;
         }
       } else if (minT >= 3.2) {
-        lblPct.textContent = `${pctMax}% (Dim @ ${minT.toFixed(1)}mm)`;
+        lblPct.textContent = `${pctMax}% (Dim Glow @ ${minT.toFixed(1)}mm)`;
         lblPct.className = 'text-amber-800 font-bold';
         topStat.textContent = `Light Pass: ${pctMax}% (@ ${minT.toFixed(1)}mm)`;
-        hint.innerHTML = `Very thick wall (${minT.toFixed(1)}mm); only minimal light passes through.`;
+        hint.innerHTML = `<strong>Dim Backlit Mode (${minT.toFixed(1)}mm):</strong> Drag the yellow bar further right (~65%) for brighter light pass-through.`;
       } else {
         lblPct.textContent = `${pctMax}% – ${pctMin}% (${minT.toFixed(1)}–${maxT.toFixed(1)}mm)`;
         lblPct.className = 'text-emerald-800 font-bold';
         topStat.textContent = `Light Pass: ${pctMax}% max (${minT.toFixed(1)}mm)`;
-        hint.innerHTML = `Ideal backlit lithophane range: thin areas (${minT.toFixed(1)}mm) glow brightly while thick areas (${maxT.toFixed(1)}mm) shade.`;
+        hint.innerHTML = `<strong>Glowing Backlit Lithophane (${minT.toFixed(1)}–${maxT.toFixed(1)}mm):</strong> Thin areas (${minT.toFixed(1)}mm) let <strong>${pctMax}%</strong> of light shine through when held up to a lamp or window!`;
       }
     }
 
@@ -5994,6 +6076,7 @@ CUSTOM EDITION</textarea>
   </script>
 </body>
 </html>
+
 
 
 
