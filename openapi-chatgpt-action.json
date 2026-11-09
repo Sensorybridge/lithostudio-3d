@@ -1,0 +1,55 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "LithoStudio 3D — AI Lithophane & 3D Printer Configurator API",
+    "description": "Official OpenAPI 3.1 Action specification for ChatGPT Custom GPTs and AI agents to query 3D printer build volumes (Bambu Lab, Prusa, Creality, Anycubic, Elegoo, Qidi, FlashForge, Voron, Sovol), validate shape dimensions against printer bed limits, and generate pre-configured deep-link URLs into LithoStudio 3D (https://sensorybridge.github.io/lithostudio-3d/). Personal photos are never uploaded to external servers; users open the generated deep-link to drop their photo locally in WebGL.",
+    "version": "1.4.0"
+  },
+  "servers": [
+    {
+      "url": "https://sensorybridge.github.io/lithostudio-3d",
+      "description": "LithoStudio 3D GitHub Pages Production API & WebGL Studio"
+    }
+  ],
+  "paths": {
+    "/printers-api.json": {
+      "get": {
+        "operationId": "getPrintersAndMakerLabPresets",
+        "summary": "Retrieve all supported 3D printers, their X/Y/Z build volumes in mm, MakerLab CMYK / LED Backlight presets, and the default Keepsake Puck profile.",
+        "description": "Call this endpoint first when a user asks to configure a lithophane or keepsake puck for a specific 3D printer (e.g., Bambu Lab X1C, A1 Mini, X2D, Prusa MK4S, Creality K2 Plus, Voron 0.2). After retrieving the printer's bedX, bedY, and bedZ limits, construct a deep-link URL to https://sensorybridge.github.io/lithostudio-3d/?printer={printer}&shape={shape}&diameter={diameter}&height={height}&minThick={minThick}&maxThick={maxThick}&cmyk={0|1}&layFlat={0|1}&text={optional_text} ensuring diameter <= min(bedX, bedY) and height <= bedY (when layFlat=1) or bedZ (when layFlat=0).",
+        "responses": {
+          "200": {
+            "description": "JSON catalog of 3D printers, build volumes (bedX, bedY, bedZ in mm), and MakerLab presets.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "app": { "type": "string" },
+                    "version": { "type": "string" },
+                    "studio_url": { "type": "string" },
+                    "default_keepsake_profile": { "type": "object" },
+                    "makerlab_formats": { "type": "object" },
+                    "printers": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "brand": { "type": "string" },
+                          "name": { "type": "string" },
+                          "bedX": { "type": "number" },
+                          "bedY": { "type": "number" },
+                          "bedZ": { "type": "number" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

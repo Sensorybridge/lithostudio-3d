@@ -1835,6 +1835,42 @@ CUSTOM EDITION</textarea>
             </div>
           </div>
         </div>
+
+        <!-- 4. Claude MCP Server & ChatGPT Custom GPT Plugin -->
+        <div class="p-3.5 rounded-lg bg-purple-50 border border-purple-200 text-purple-950 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="font-bold text-xs uppercase tracking-wider text-purple-900 flex items-center gap-1.5">
+              <span>🤖 4. Claude MCP Server &amp; ChatGPT Custom GPT Plugin</span>
+            </div>
+            <button type="button" onclick="copyCurrentStudioDeepLink()" class="px-2 py-0.5 rounded bg-purple-700 hover:bg-purple-600 text-white font-bold text-[10px] shadow-sm">🔗 Copy Current Config Deep-Link</button>
+          </div>
+          <p class="text-[11px] leading-relaxed text-slate-700">
+            Control LithoStudio 3D from <strong>Claude Desktop / Claude Code / Cursor</strong> via the built-in local <strong>Model Context Protocol (MCP) Server</strong> (<code class="bg-white px-1 py-0.5 rounded border border-purple-200 font-mono">mcp-server.mjs</code>), or connect <strong>ChatGPT Plus / Team</strong> via the hosted <strong>OpenAPI 3.1 Action Schema</strong> (<code class="bg-white px-1 py-0.5 rounded border border-purple-200 font-mono">openapi-chatgpt-action.json</code>). All personal photos remain 100% local on your device!
+          </p>
+
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800">Option A — Claude Desktop / Cursor / Claude Code MCP Config (<code class="font-mono">claude_desktop_config.json</code>):</span>
+              <button type="button" onclick="copyCloudCmd('cmdClaudeMcpConfig')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-purple-300 font-semibold text-[10px]">Copy MCP JSON</button>
+            </div>
+            <pre id="cmdClaudeMcpConfig" class="bg-slate-900 text-purple-300 p-2.5 rounded font-mono text-[10px] overflow-x-auto select-all">{
+  "mcpServers": {
+    "lithostudio-3d": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/lithostudio-3d/mcp-server.mjs"]
+    }
+  }
+}</pre>
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800">Option B — ChatGPT Custom GPT Action (Import OpenAPI URL):</span>
+              <button type="button" onclick="copyCloudCmd('cmdChatGptOpenApiUrl')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-emerald-300 font-semibold text-[10px]">Copy Action URL</button>
+            </div>
+            <pre id="cmdChatGptOpenApiUrl" class="bg-slate-900 text-emerald-300 p-2 rounded font-mono text-[11px] overflow-x-auto select-all">https://sensorybridge.github.io/lithostudio-3d/openapi-chatgpt-action.json</pre>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -7273,12 +7309,153 @@ CUSTOM EDITION</textarea>
       } catch (e) {}
     }
 
+    function copyCurrentStudioDeepLink() {
+      const params = new URLSearchParams();
+      params.set('printer', state.printerModel);
+      params.set('shape', state.shape);
+      params.set('diameter', String(state.diameter));
+      params.set('height', String(state.height));
+      params.set('minThick', String(state.minThick));
+      params.set('maxThick', String(state.maxThick));
+      params.set('preset', state.slicerPreset);
+      if (state.cmykMode) params.set('cmyk', '1');
+      if (state.layFlatOnBed) params.set('layFlat', '1');
+      if (state.textEnabled && state.textString) {
+        params.set('text', state.textString);
+        params.set('textMode', state.textMode);
+      }
+      const base = 'https://sensorybridge.github.io/lithostudio-3d/';
+      const fullUrl = `${base}?${params.toString()}`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullUrl).then(() => {
+          showToast('Copied pre-configured ChatGPT / Claude Deep-Link URL to clipboard!');
+        }).catch(() => {});
+      }
+      return fullUrl;
+    }
+
+    function applyUrlDeepLinkParams() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        if (!params || Array.from(params.keys()).length === 0) return;
+        let changed = false;
+
+        const preset = params.get('preset');
+        if (preset && SLICER_PRESETS[preset]) {
+          applySlicerPreset(preset);
+          const selPreset = document.getElementById('selSlicerPreset');
+          if (selPreset) selPreset.value = preset;
+          changed = true;
+        }
+
+        const formatPreset = params.get('format');
+        if (formatPreset && typeof applyMakerLabFormatPreset === 'function') {
+          applyMakerLabFormatPreset(formatPreset);
+          changed = true;
+        }
+
+        const printer = params.get('printer');
+        if (printer && PRINTER_PROFILES[printer]) {
+          state.printerModel = printer;
+          const selPrinter = document.getElementById('selPrinterModel');
+          if (selPrinter) selPrinter.value = printer;
+          changed = true;
+        }
+
+        const shape = params.get('shape');
+        if (shape) {
+          state.shape = shape;
+          document.querySelectorAll('.shape-card').forEach(b => b.classList.toggle('active', b.dataset.shape === shape));
+          changed = true;
+        }
+
+        const layFlat = params.get('layFlat');
+        if (layFlat !== null) {
+          state.layFlatOnBed = (layFlat === '1' || layFlat === 'true');
+          const chkLayFlat = document.getElementById('chkLayFlatOnBed');
+          if (chkLayFlat) chkLayFlat.checked = state.layFlatOnBed;
+          changed = true;
+        }
+
+        const cmyk = params.get('cmyk');
+        if (cmyk !== null) {
+          const enableCmyk = (cmyk === '1' || cmyk === 'true');
+          if (typeof toggleCmykMakerLabMode === 'function') {
+            toggleCmykMakerLabMode(enableCmyk);
+          } else {
+            state.cmykMode = enableCmyk;
+          }
+          changed = true;
+        }
+
+        const diameter = parseFloat(params.get('diameter') || params.get('width'));
+        if (!isNaN(diameter) && diameter >= 20) {
+          state.diameter = diameter;
+          changed = true;
+        }
+
+        const height = parseFloat(params.get('height'));
+        if (!isNaN(height) && height >= 20) {
+          state.height = height;
+          changed = true;
+        }
+
+        const minThick = parseFloat(params.get('minThick'));
+        if (!isNaN(minThick) && minThick >= 0.2 && minThick <= 10) {
+          state.minThick = minThick;
+          const rngMin = document.getElementById('rngMinThick');
+          const valMin = document.getElementById('valMinThick');
+          if (rngMin) rngMin.value = minThick;
+          if (valMin) valMin.value = minThick;
+          changed = true;
+        }
+
+        const maxThick = parseFloat(params.get('maxThick'));
+        if (!isNaN(maxThick) && maxThick >= 0.8 && maxThick <= 15) {
+          state.maxThick = maxThick;
+          const rngMax = document.getElementById('rngMaxThick');
+          const valMax = document.getElementById('valMaxThick');
+          if (rngMax) rngMax.value = maxThick;
+          if (valMax) valMax.value = maxThick;
+          changed = true;
+        }
+
+        const textStr = params.get('text');
+        if (textStr !== null && textStr.trim().length > 0) {
+          state.textEnabled = true;
+          state.textString = textStr.trim();
+          const chkText = document.getElementById('chkTextEnabled');
+          const inpText = document.getElementById('inpTextString');
+          const textPanel = document.getElementById('textControlsContainer');
+          if (chkText) chkText.checked = true;
+          if (inpText) inpText.value = state.textString;
+          if (textPanel) textPanel.classList.remove('hidden');
+          const textMode = params.get('textMode');
+          if (textMode === 'emboss' || textMode === 'engrave') {
+            state.textMode = textMode;
+          }
+          changed = true;
+        }
+
+        if (changed) {
+          enforcePrinterDimensionLimits(false);
+          updateShapeUI();
+          syncAllControlsFromState();
+          buildHeightmapAndMesh();
+          const pName = (PRINTER_PROFILES[state.printerModel] || {}).name || state.printerModel;
+          showToast(`🤖 Applied AI Deep-Link Config: ${pName} (${state.shape.toUpperCase()} ${state.diameter}×${state.height}mm)`);
+        }
+      } catch (e) {}
+    }
+
     initControlBindings();
     initSampleImages();
     initIPhonePWA();
+    applyUrlDeepLinkParams();
   </script>
 </body>
 </html>
+
 
 
 
