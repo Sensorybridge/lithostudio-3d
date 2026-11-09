@@ -795,6 +795,21 @@
               <span id="icon_secShape">^</span>
             </div>
             <div id="secShape" class="cad-section-body p-2.5 space-y-2 text-xs">
+              <div class="p-2 rounded bg-emerald-950/10 border border-emerald-700/30 space-y-1">
+                <div class="flex items-center justify-between">
+                  <label class="font-bold text-slate-800 text-[11px] flex items-center gap-1">
+                    <span>🏆 Quick Format &amp; MakerLab Preset</span>
+                  </label>
+                  <span class="px-1.5 py-0.2 rounded bg-emerald-600 text-white font-bold text-[10px]">100% LOCAL</span>
+                </div>
+                <select id="ctrlMakerLabFormat" onchange="applyMakerLabFormatPreset(this.value)" class="w-full bg-white border border-emerald-600/50 rounded px-2 py-1 text-xs font-semibold text-slate-900 focus:outline-none focus:border-emerald-700">
+                  <option value="keepsake_puck" selected>🗿 Keepsake Puck (80mm Circle · 4.75–6mm) — Default</option>
+                  <option value="bambu_led_board">🟢 Bambu LED Backlight Board (144×108mm Flat · 0.8–3.2mm)</option>
+                  <option value="bambu_cmyk_plate">🎨 Bambu MakerLab CMYK 4-Color AMS Plate (144×108mm · 0.08mm)</option>
+                  <option value="bambu_curved_lamp">🌙 MakerLab Curved Nightlight (100×125mm · 120° Arc)</option>
+                  <option value="bambu_keychain">🔑 Maker's Supply Keychain Medal (50mm Circle + Top Hook)</option>
+                </select>
+              </div>
               <div>
                 <label class="block text-slate-500 text-xs mb-0.5">Shape</label>
                 <select id="ctrlShape" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-800 focus:outline-none focus:border-sky-700">
@@ -1356,6 +1371,40 @@ CUSTOM EDITION</textarea>
                 <span>⚡ Sync Model Thickness &amp; Bed Orientation to Profile</span>
               </button>
 
+              <!-- Bambu MakerLab CMYK 4-Color AMS Mode & 4-Slot Filament Guide -->
+              <div class="p-2.5 rounded bg-slate-900 text-slate-100 border border-emerald-500/40 space-y-2 text-[11px]">
+                <div class="flex items-center justify-between">
+                  <div class="font-bold text-emerald-300 flex items-center gap-1">
+                    <span>🎨 Bambu MakerLab CMYK 4-Color AMS</span>
+                  </div>
+                  <label class="toggle-switch">
+                    <input id="ctrlCmykMode" type="checkbox" onchange="toggleCmykMode(this.checked)" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <p class="text-[10px] text-slate-300 leading-snug">
+                  Simulates &amp; exports Bambu Lab's official 4-color subtractive CMYK lithophane filament stack (<strong class="text-white">AMS / AMS Lite / H3C</strong>) 100% locally on your device.
+                </p>
+                <div class="grid grid-cols-4 gap-1 text-[9px] font-bold text-center">
+                  <div class="p-1 rounded bg-white text-slate-900 border border-slate-300">
+                    <div>Slot 1</div>
+                    <div class="font-mono text-[8px] text-slate-600">#10100 White</div>
+                  </div>
+                  <div class="p-1 rounded bg-[#0086D6] text-white">
+                    <div>Slot 2</div>
+                    <div class="font-mono text-[8px] text-sky-100">#10601 Cyan</div>
+                  </div>
+                  <div class="p-1 rounded bg-[#EC008C] text-white">
+                    <div>Slot 3</div>
+                    <div class="font-mono text-[8px] text-pink-100">#10202 Mag</div>
+                  </div>
+                  <div class="p-1 rounded bg-[#FCE300] text-slate-950">
+                    <div>Slot 4</div>
+                    <div class="font-mono text-[8px] text-slate-800">#10400 Yel</div>
+                  </div>
+                </div>
+              </div>
+
               <div class="pt-1 space-y-1.5 border-t border-slate-300/80">
                 <button type="button" onclick="exportBambu3MF()" class="w-full py-1.5 px-2.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-xs transition flex items-center justify-center gap-1.5">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/></svg>
@@ -1368,6 +1417,26 @@ CUSTOM EDITION</textarea>
                   <button type="button" onclick="exportContourCutSVG()" class="py-1 px-2 rounded bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-xs transition" title="Export 1:1 millimeter outer contour vector cutting path (.svg) for Laser &amp; Blade Cut">
                     Export Cut Path .SVG
                   </button>
+                </div>
+
+                <!-- Official Bambu Connect, Bambu Studio & MakerLab Quick-Launch Bar -->
+                <div class="p-2 rounded bg-emerald-50/90 border border-emerald-300 space-y-1.5">
+                  <div class="flex items-center justify-between text-[10px] font-bold text-emerald-950">
+                    <span>🔗 Bambu Connect · Studio · MakerLab Bridge</span>
+                    <span class="font-mono text-[9px] text-emerald-700">URI API</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-1.5">
+                    <button type="button" onclick="launchBambuStudio()" class="py-1 px-2 rounded bg-[#063b2d] hover:bg-emerald-900 text-white font-bold text-[11px] transition flex items-center justify-center gap-1" title="Exports .3MF and launches Bambu Studio / OrcaSlicer via bambustudioopen:// URI scheme">
+                      <span>🟢 Open Bambu Studio</span>
+                    </button>
+                    <button type="button" onclick="launchBambuConnect()" class="py-1 px-2 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] transition flex items-center justify-center gap-1" title="Exports .3MF and invokes official bambu-connect://import-file URI scheme">
+                      <span>🚀 Bambu Connect</span>
+                    </button>
+                  </div>
+                  <div class="flex items-center justify-between pt-0.5 text-[10px] text-slate-600">
+                    <span>Private 100% Local Engine (No Cloud Upload)</span>
+                    <a href="https://makerworld.com/en/makerlab/makeMyLithophane" target="_blank" rel="noopener" class="text-emerald-800 hover:text-emerald-950 underline font-semibold" title="Open Bambu MakerLab Web Portal in a new tab">MakerLab Web ↗</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1444,6 +1513,7 @@ CUSTOM EDITION</textarea>
                   <option value="none" selected>No light</option>
                   <option value="warm_backlight">Warm Backlight (Physical mm Pass-Through)</option>
                   <option value="white_backlight">Pure White Backlight (Physical mm)</option>
+                  <option value="cmyk_backlight">🎨 Bambu MakerLab CMYK 4-Color AMS Backlight</option>
                   <option value="studio">High-Contrast Studio</option>
                 </select>
               </div>
@@ -1858,6 +1928,7 @@ CUSTOM EDITION</textarea>
       bambuWalls: 4,
       bambuSpeed: 50,
       bambuBrim: 0,
+      cmykMode: false,
 
       // Attributes
       enableHook: false,
@@ -1897,6 +1968,9 @@ CUSTOM EDITION</textarea>
 
     const modelUVCanvas = document.createElement('canvas');
     const modelUVCtx = modelUVCanvas.getContext('2d', { willReadFrequently: true });
+
+    const colorUVCanvas = document.createElement('canvas');
+    const colorUVCtx = colorUVCanvas.getContext('2d', { willReadFrequently: true });
 
     const dispCanvas = document.createElement('canvas');
     const dispCtx = dispCanvas.getContext('2d', { willReadFrequently: true });
@@ -3691,11 +3765,17 @@ CUSTOM EDITION</textarea>
 
       modelUVCanvas.width = texSize;
       modelUVCanvas.height = texSize;
+      colorUVCanvas.width = texSize;
+      colorUVCanvas.height = texSize;
 
       const bgVal = Math.round(state.bgIntensity * 255);
       modelUVCtx.save();
       modelUVCtx.fillStyle = `rgb(${bgVal}, ${bgVal}, ${bgVal})`;
       modelUVCtx.fillRect(0, 0, texSize, texSize);
+
+      colorUVCtx.save();
+      colorUVCtx.fillStyle = `rgb(${bgVal}, ${bgVal}, ${bgVal})`;
+      colorUVCtx.fillRect(0, 0, texSize, texSize);
 
       let baseW = texSize;
       let baseH = texSize;
@@ -3718,6 +3798,12 @@ CUSTOM EDITION</textarea>
       modelUVCtx.scale(state.modelMirror ? -1 : 1, state.modelFlip ? -1 : 1);
       modelUVCtx.drawImage(editCanvas, -drawW / 2, -drawH / 2, drawW, drawH);
       modelUVCtx.restore();
+
+      // Build aligned full-color UV canvas for Bambu MakerLab CMYK 4-Color AMS simulation
+      colorUVCtx.translate(texSize / 2 + panX, texSize / 2 + panY);
+      colorUVCtx.scale(state.modelMirror ? -1 : 1, state.modelFlip ? -1 : 1);
+      colorUVCtx.drawImage(colorCropCanvas, -drawW / 2, -drawH / 2, drawW, drawH);
+      colorUVCtx.restore();
 
       textFrontCanvas.width = texSize;
       textFrontCanvas.height = texSize;
@@ -3791,7 +3877,7 @@ CUSTOM EDITION</textarea>
       }
 
       glTexCtx.putImageData(packedImg, 0, 0);
-      uploadTextureToGL(glTexCanvas);
+      uploadTextureToGL(glTexCanvas, colorUVCanvas);
     }
 
     /*************************************************************************
@@ -4210,8 +4296,10 @@ CUSTOM EDITION</textarea>
       varying float vThickness;
 
       uniform sampler2D uHeightTex;
+      uniform sampler2D uColorTex;
       uniform vec3 uMaterialColor;
       uniform int uLightingMode;
+      uniform int uCmykMode;
       uniform float uLightPower;
       uniform float uMinThick;
       uniform float uMaxThick;
@@ -4292,19 +4380,39 @@ CUSTOM EDITION</textarea>
           relThick01 = mix(relThick01, frameRel, clamp(vSurfType, 0.0, 1.0));
         }
 
-        if (uLightingMode == 0) {
-          // ItsLitho Default Porcelain Lithograph View:
-          // Combines true photographic subsurface tonal depth (from photoLum) with smooth 3D Phong surface shading!
+        // Bambu MakerLab CMYK 4-Color AMS Subtractive Filament Pigment Model:
+        // Slot 1: Jade White (#FFFFFF, 10100), Slot 2: Cyan (#0086D6, 10601),
+        // Slot 3: Magenta (#EC008C, 10202), Slot 4: Yellow (#FCE300, 10400)
+        vec3 srcRGB = texture2D(uColorTex, vUV).rgb;
+        float cAmt = 1.0 - srcRGB.r;
+        float mAmt = 1.0 - srcRGB.g;
+        float yAmt = 1.0 - srcRGB.b;
+        vec3 bblCyanAbs    = vec3(1.0, 0.475, 0.161) * cAmt;
+        vec3 bblMagentaAbs = vec3(0.075, 1.0, 0.451) * mAmt;
+        vec3 bblYellowAbs  = vec3(0.012, 0.110, 1.0) * yAmt;
+        vec3 cmykPigment   = exp(-(bblCyanAbs * 1.15 + bblMagentaAbs * 1.12 + bblYellowAbs * 1.05));
+
+        if (uLightingMode == 4 || (uCmykMode == 1 && (uLightingMode == 1 || uLightingMode == 2))) {
+          // Bambu MakerLab 4-Color CMYK Backlit Lithophane View
+          float beerLambert = exp(-2.35 * relThick01);
+          float linearTransmit = 1.0 - relThick01 * 0.82;
+          float transCurve = mix(beerLambert, linearTransmit, 0.42) * (0.42 + 0.68 * uLightPower);
+          vec3 cmykGlow = mix(cmykPigment * 0.18, min(vec3(1.0), cmykPigment * 1.12 + vec3(0.04)), clamp(transCurve, 0.0, 1.0));
+          vec3 litSurface = cmykGlow * (0.80 + 0.24 * phong3D) + vec3(spec * 0.85);
+          vec3 frameCol = uMaterialColor * (0.32 + 0.34 * phong3D);
+          vec3 outCol = mix(frameCol, litSurface, photoWeight);
+          gl_FragColor = vec4(clamp(outCol, 0.08, 0.99), 1.0);
+        } else if (uLightingMode == 0) {
+          // ItsLitho Default Porcelain Lithograph View (with optional CMYK subsurface tint when CMYK mode is toggled on)
           float lithoSubsurface = mix(0.24, 0.98, pow(clamp(photoLum - backNormDelta * 0.25, 0.0, 1.0), 0.92));
           float frameShade = clamp(phong3D * 0.92, 0.22, 0.96);
           float photoShade = lithoSubsurface * (0.70 + 0.36 * phong3D) + spec;
           float finalShade = mix(frameShade, photoShade, photoWeight * reliefActive);
-          vec3 porcelainTint = mix(uMaterialColor * vec3(0.92, 0.94, 0.97), uMaterialColor, clamp(finalShade, 0.0, 1.0));
+          vec3 baseMat = (uCmykMode == 1) ? mix(uMaterialColor, cmykPigment, 0.72 * photoWeight) : uMaterialColor;
+          vec3 porcelainTint = mix(baseMat * vec3(0.92, 0.94, 0.97), baseMat, clamp(finalShade, 0.0, 1.0));
           gl_FragColor = vec4(porcelainTint * clamp(finalShade, 0.14, 0.98), 1.0);
         } else if (uLightingMode == 1 || uLightingMode == 2) {
           // ItsLitho Back-Lighted Beer-Lambert Subsurface Transmission:
-          // Uses normalized thickness relThick01 so Backlit Glow renders with full photographic dynamic range
-          // on BOTH thin lithophanes (0.8-3.2mm) AND thick Keepsake Pucks (7-12mm)!
           float beerLambert = exp(-2.65 * relThick01);
           float linearTransmit = 1.0 - relThick01 * 0.86;
           float transCurve = mix(beerLambert, linearTransmit, 0.38) * (0.35 + 0.72 * uLightPower);
@@ -4318,7 +4426,7 @@ CUSTOM EDITION</textarea>
           vec3 outCol = mix(frameCol, litSurface, photoWeight);
           gl_FragColor = vec4(clamp(outCol, 0.08, 0.99), 1.0);
         } else {
-          // Sculptural 3D Clay / Medallion Inspection View (Pure 3D relief shading + soft subsurface tone)
+          // Sculptural 3D Clay / Medallion Inspection View
           float subsurfaceTone = mix(0.36, 0.98, photoLum);
           float clayPhong = 0.28 + 0.54 * diffKey + 0.18 * diffFill;
           float combined = mix(clayPhong, clayPhong * (0.48 + 0.56 * subsurfaceTone), 0.72 * photoWeight * reliefActive) + spec * 1.3;
@@ -4367,13 +4475,26 @@ CUSTOM EDITION</textarea>
     const gridProg = createProgram(vsGridSource, fsGridSource);
 
     const heightTexture = gl.createTexture();
-    function uploadTextureToGL(canvasEl) {
+    const colorTexture = gl.createTexture();
+    function uploadTextureToGL(canvasEl, colorCanvasEl = null) {
+      gl.activeTexture(gl.TEXTURE0);
       gl.bindTexture(gl.TEXTURE_2D, heightTexture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvasEl);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+      if (colorCanvasEl) {
+        gl.activeTexture(gl.TEXTURE1);
+        gl.bindTexture(gl.TEXTURE_2D, colorTexture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, colorCanvasEl);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.activeTexture(gl.TEXTURE0);
+      }
     }
 
     const meshBuffers = {
@@ -4537,6 +4658,11 @@ CUSTOM EDITION</textarea>
         gl.bindTexture(gl.TEXTURE_2D, heightTexture);
         gl.uniform1i(gl.getUniformLocation(meshProg, 'uHeightTex'), 0);
 
+        gl.activeTexture(gl.TEXTURE1);
+        gl.bindTexture(gl.TEXTURE_2D, colorTexture);
+        gl.uniform1i(gl.getUniformLocation(meshProg, 'uColorTex'), 1);
+        gl.activeTexture(gl.TEXTURE0);
+
         const rgb = hexToRgb01(state.materialColor);
         gl.uniform3f(gl.getUniformLocation(meshProg, 'uMaterialColor'), rgb[0], rgb[1], rgb[2]);
 
@@ -4544,12 +4670,14 @@ CUSTOM EDITION</textarea>
         if (state.lighting === 'warm_backlight') lightModeInt = 1;
         else if (state.lighting === 'white_backlight') lightModeInt = 2;
         else if (state.lighting === 'studio') lightModeInt = 3;
+        else if (state.lighting === 'cmyk_backlight') lightModeInt = 4;
 
         gl.uniform1i(gl.getUniformLocation(meshProg, 'uLightingMode'), lightModeInt);
+        gl.uniform1i(gl.getUniformLocation(meshProg, 'uCmykMode'), state.cmykMode ? 1 : 0);
         gl.uniform1f(gl.getUniformLocation(meshProg, 'uLightPower'), state.lightPower);
-        gl.uniform1f(gl.getUniformLocation(meshProg, 'uMinThick'), currentMesh.minT ?? 7.0);
-        gl.uniform1f(gl.getUniformLocation(meshProg, 'uMaxThick'), currentMesh.maxT ?? 12.0);
-        gl.uniform1f(gl.getUniformLocation(meshProg, 'uFrameDepth'), state.frameType === 'flat' ? (currentMesh.minT ?? 7.0) : state.frameDepth);
+        gl.uniform1f(gl.getUniformLocation(meshProg, 'uMinThick'), currentMesh.minT ?? 4.75);
+        gl.uniform1f(gl.getUniformLocation(meshProg, 'uMaxThick'), currentMesh.maxT ?? 6.0);
+        gl.uniform1f(gl.getUniformLocation(meshProg, 'uFrameDepth'), state.frameType === 'flat' ? (currentMesh.minT ?? 4.75) : state.frameDepth);
         gl.uniform1f(gl.getUniformLocation(meshProg, 'uTextDepth'), state.textDepth);
 
         const aPos = gl.getAttribLocation(meshProg, 'aPosition');
@@ -6010,7 +6138,28 @@ CUSTOM EDITION</textarea>
         bed_temperature_max: String(m.bedTemp),
         chamber_heating: m.chamber,
         hardware_notes: m.notes,
-        filament_settings_id: [state.bambuFilament],
+        filament_settings_id: (state.cmykMode || state.bambuFilament === 'Bambu PLA CMYK Lithophane @BBL' || state.bambuPreset === 'litho_cmyk_flat' || state.bambuPreset === 'h3c_toolchanger_cmyk')
+          ? [
+              'Bambu PLA Basic @BBL',
+              'Bambu PLA Basic @BBL',
+              'Bambu PLA Basic @BBL',
+              'Bambu PLA Basic @BBL'
+            ]
+          : [state.bambuFilament],
+        filament_colour: (state.cmykMode || state.bambuFilament === 'Bambu PLA CMYK Lithophane @BBL' || state.bambuPreset === 'litho_cmyk_flat' || state.bambuPreset === 'h3c_toolchanger_cmyk')
+          ? ['#FFFFFF', '#0086D6', '#EC008C', '#FCE300']
+          : [state.materialColor || '#FFFFFF'],
+        filament_vendor: (state.cmykMode || state.bambuFilament === 'Bambu PLA CMYK Lithophane @BBL')
+          ? ['Bambu Lab', 'Bambu Lab', 'Bambu Lab', 'Bambu Lab']
+          : [m.brand || 'Bambu Lab'],
+        bambu_cmyk_ams_slots: (state.cmykMode || state.bambuFilament === 'Bambu PLA CMYK Lithophane @BBL' || state.bambuPreset === 'litho_cmyk_flat' || state.bambuPreset === 'h3c_toolchanger_cmyk')
+          ? {
+              slot_1: 'Bambu PLA Basic Jade White (10100) #FFFFFF',
+              slot_2: 'Bambu PLA Basic Cyan (10601) #0086D6',
+              slot_3: 'Bambu PLA Basic Magenta (10202) #EC008C',
+              slot_4: 'Bambu PLA Basic Yellow (10400) #FCE300'
+            }
+          : undefined,
 
         // Quality — Layer Height & Line Widths
         layer_height: layerH,
@@ -6281,6 +6430,213 @@ CUSTOM EDITION</textarea>
 
       const blob = new Blob([svgContent], { type: 'image/svg+xml' });
       triggerFileDownload(blob, `${activeName}_${m.code}_${state.shape}_${w}mm_cut.svg`);
+    }
+
+    function toggleCmykMode(enabled) {
+      state.cmykMode = !!enabled;
+      const chk = document.getElementById('ctrlCmykMode');
+      if (chk) chk.checked = state.cmykMode;
+
+      if (state.cmykMode) {
+        state.bambuFilament = 'Bambu PLA CMYK Lithophane @BBL';
+        const filEl = document.getElementById('ctrlBambuFilament');
+        if (filEl) filEl.value = state.bambuFilament;
+        if (state.lighting === 'none') {
+          state.lighting = 'cmyk_backlight';
+          const lightEl = document.getElementById('ctrlLighting');
+          if (lightEl) lightEl.value = 'cmyk_backlight';
+        }
+      } else if (state.lighting === 'cmyk_backlight') {
+        state.lighting = 'none';
+        const lightEl = document.getElementById('ctrlLighting');
+        if (lightEl) lightEl.value = 'none';
+      }
+      syncBacklightUI();
+      requestRender();
+    }
+
+    function applyMakerLabFormatPreset(presetKey) {
+      const setVal = (id, v) => {
+        const el = document.getElementById(id);
+        if (el) el.value = v;
+      };
+      const setChk = (id, v) => {
+        const el = document.getElementById(id);
+        if (el) el.checked = !!v;
+      };
+
+      if (presetKey === 'keepsake_puck') {
+        state.shape = 'circle';
+        state.diameter = 80;
+        state.height = 80;
+        state.minThick = 4.75;
+        state.maxThick = 6.0;
+        state.frameType = 'frame';
+        state.frameThick = 1.0;
+        state.frameDepth = 6.0;
+        state.frameAngle = 0;
+        state.mmPerPixel = 0.1;
+        state.previewQuality = 1;
+        state.enableHook = false;
+        state.layFlat = false;
+        state.positiveImage = false;
+        state.cmykMode = false;
+        state.lighting = 'none';
+        state.placeX = 51.1;
+        state.placeY = 50.0;
+        state.zoomFactor = 133;
+        state.bambuPreset = 'x2d_keepsake_puck';
+        state.bambuFilament = 'Bambu PLA Basic @BBL';
+      } else if (presetKey === 'bambu_led_board') {
+        // Official Bambu Maker's Supply LED Backlight Board (144×108mm)
+        state.shape = 'plane';
+        state.diameter = 144;
+        state.height = 108;
+        state.minThick = 0.8;
+        state.maxThick = 3.2;
+        state.frameType = 'frame';
+        state.frameThick = 3.0;
+        state.frameDepth = 3.2;
+        state.frameAngle = 0;
+        state.enableHook = false;
+        state.layFlat = false;
+        state.positiveImage = false;
+        state.cmykMode = false;
+        state.lighting = 'warm_backlight';
+        state.bambuPreset = 'litho_04_008';
+        state.bambuFilament = 'Bambu PLA Basic @BBL';
+      } else if (presetKey === 'bambu_cmyk_plate') {
+        // Official Bambu MakerLab CMYK 4-Color AMS Flat Lithophane (144×108mm, 0.08mm layer)
+        state.shape = 'plane';
+        state.diameter = 144;
+        state.height = 108;
+        state.minThick = 0.65;
+        state.maxThick = 2.8;
+        state.frameType = 'frame';
+        state.frameThick = 2.5;
+        state.frameDepth = 2.8;
+        state.frameAngle = 0;
+        state.enableHook = false;
+        state.layFlat = true;
+        state.positiveImage = false;
+        state.cmykMode = true;
+        state.lighting = 'cmyk_backlight';
+        state.bambuPreset = 'litho_cmyk_flat';
+        state.bambuFilament = 'Bambu PLA CMYK Lithophane @BBL';
+      } else if (presetKey === 'bambu_curved_lamp') {
+        // MakerLab Self-Standing Curved Arc Nightlight (100×125mm, 120° Arc)
+        state.shape = 'arc';
+        state.diameter = 100;
+        state.height = 125;
+        state.arcAngle = 120;
+        state.minThick = 0.8;
+        state.maxThick = 3.0;
+        state.frameType = 'frame';
+        state.frameThick = 2.5;
+        state.frameDepth = 3.5;
+        state.frameAngle = 0;
+        state.enableHook = false;
+        state.layFlat = false;
+        state.positiveImage = false;
+        state.cmykMode = false;
+        state.lighting = 'warm_backlight';
+        state.bambuPreset = 'litho_curved_arc';
+      } else if (presetKey === 'bambu_keychain') {
+        // Maker's Supply Keychain Lithophane Medal (50mm Circle + Top Hook)
+        state.shape = 'circle';
+        state.diameter = 50;
+        state.height = 50;
+        state.minThick = 0.8;
+        state.maxThick = 2.8;
+        state.frameType = 'frame';
+        state.frameThick = 2.0;
+        state.frameDepth = 3.0;
+        state.frameAngle = 0;
+        state.enableHook = true;
+        state.layFlat = false;
+        state.positiveImage = false;
+        state.cmykMode = false;
+        state.lighting = 'warm_backlight';
+        state.bambuPreset = 'litho_04_008';
+      }
+
+      const isRectOrArc = (state.shape === 'plane' || state.shape === 'arc');
+      const rowH = document.getElementById('rowHeight');
+      const rowArc = document.getElementById('rowArcAngle');
+      if (rowH) {
+        rowH.classList.toggle('hidden', !isRectOrArc);
+        rowH.classList.toggle('grid', isRectOrArc);
+      }
+      if (rowArc) {
+        rowArc.classList.toggle('hidden', state.shape !== 'arc');
+        rowArc.classList.toggle('grid', state.shape === 'arc');
+      }
+      const lblD = document.getElementById('lblDiameter');
+      if (lblD) lblD.textContent = isRectOrArc ? 'Width' : 'Diameter';
+
+      setVal('ctrlShape', state.shape);
+      setVal('ctrlDiameter', state.diameter);
+      setVal('numDiameter', state.diameter);
+      setVal('ctrlHeight', state.height);
+      setVal('numHeight', state.height);
+      setVal('ctrlArcAngle', state.arcAngle);
+      setVal('numArcAngle', state.arcAngle);
+      setVal('ctrlMinThick', state.minThick);
+      setVal('numMinThick', state.minThick);
+      setVal('ctrlMaxThick', state.maxThick);
+      setVal('numMaxThick', state.maxThick);
+      setVal('ctrlFrameType', state.frameType);
+      setVal('ctrlFrameThick', state.frameThick);
+      setVal('numFrameThick', state.frameThick);
+      setVal('ctrlFrameDepth', state.frameDepth);
+      setVal('numFrameDepth', state.frameDepth);
+      setVal('ctrlFrameAngle', state.frameAngle);
+      setVal('numFrameAngle', state.frameAngle);
+      setVal('ctrlLighting', state.lighting);
+      setVal('ctrlBambuPreset', state.bambuPreset);
+      setVal('ctrlBambuFilament', state.bambuFilament);
+      setChk('ctrlEnableHook', state.enableHook);
+      setChk('ctrlLayFlat', state.layFlat);
+      setChk('ctrlPositiveImage', state.positiveImage);
+      setChk('ctrlCmykMode', state.cmykMode);
+
+      syncBacklightUI();
+      rebuildAll(true);
+    }
+
+    function launchBambuStudio() {
+      exportBambu3MF();
+      const activeName = state.images[state.activeImageIndex]?.name || 'lithophane';
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
+      const fileName = `${activeName}_${m.code}_${state.shape}_${state.diameter}mm.3mf`;
+      const isMac = /Macintosh|Mac OS X/i.test(navigator.userAgent || '');
+      const uri = isMac
+        ? `bambustudioopen://${encodeURIComponent(fileName)}`
+        : `bambustudio://open?file=${encodeURIComponent(fileName)}`;
+      setTimeout(() => {
+        const a = document.createElement('a');
+        a.href = uri;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => a.remove(), 400);
+      }, 450);
+    }
+
+    function launchBambuConnect() {
+      exportBambu3MF();
+      const activeName = state.images[state.activeImageIndex]?.name || 'lithophane';
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
+      const fileName = `${activeName}_${m.code}_${state.shape}_${state.diameter}mm.3mf`;
+      const uri = `bambu-connect://import-file?path=${encodeURIComponent(fileName)}&name=${encodeURIComponent(activeName)}&version=1.0.0`;
+      setTimeout(() => {
+        const a = document.createElement('a');
+        a.href = uri;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => a.remove(), 400);
+      }, 450);
     }
 
     document.getElementById('btnExport3MF').addEventListener('click', exportBambu3MF);
@@ -6684,12 +7040,12 @@ CUSTOM EDITION</textarea>
     }
 
     function syncBacklightUI() {
-      const isBacklit = state.lighting === 'warm_backlight' || state.lighting === 'white_backlight';
+      const isBacklit = state.lighting === 'warm_backlight' || state.lighting === 'white_backlight' || state.lighting === 'cmyk_backlight';
       const dot = document.getElementById('backlightDot');
       const lbl = document.getElementById('backlightLabel');
       const row = document.getElementById('rowBacklightIntensity');
       dot.className = isBacklit ? 'w-2 h-2 rounded-full bg-amber-400 animate-pulse' : 'w-2 h-2 rounded-full bg-slate-400';
-      lbl.textContent = isBacklit ? 'Backlight: ON' : 'Backlight: OFF';
+      lbl.textContent = isBacklit ? (state.lighting === 'cmyk_backlight' ? 'CMYK Glow: ON' : 'Backlight: ON') : 'Backlight: OFF';
       row.classList.toggle('hidden', !isBacklit);
       row.classList.toggle('grid', isBacklit);
     }
