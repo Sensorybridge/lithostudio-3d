@@ -822,18 +822,26 @@
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label id="lblDiameter">Diameter</label>
-                <input id="ctrlDiameter" type="range" min="30" max="350" step="1" value="80" class="cad-slider" />
+                <input id="ctrlDiameter" type="range" min="30" max="256" step="1" value="80" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numDiameter" type="number" min="30" max="350" step="1" value="80" class="num-input !w-11" />
+                  <input id="numDiameter" type="number" min="30" max="256" step="1" value="80" class="num-input !w-11" />
                   <span class="text-slate-500 ml-0.5">mm</span>
                 </div>
               </div>
               <div id="rowHeight" class="hidden grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>Height</label>
-                <input id="ctrlHeight" type="range" min="30" max="350" step="1" value="80" class="cad-slider" />
+                <input id="ctrlHeight" type="range" min="30" max="260" step="1" value="80" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numHeight" type="number" min="30" max="350" step="1" value="80" class="num-input !w-11" />
+                  <input id="numHeight" type="number" min="30" max="260" step="1" value="80" class="num-input !w-11" />
                   <span class="text-slate-500 ml-0.5">mm</span>
+                </div>
+              </div>
+              <!-- Live Printer Build-Volume Dimension Limit Bar -->
+              <div id="shapePrinterLimitBar" class="px-2 py-1 rounded bg-slate-200/80 border border-slate-300 text-[10px] text-slate-700 flex items-center justify-between gap-1">
+                <span id="lblShapePrinterLimit">🔒 Max (<strong class="text-slate-900">X2D</strong>): <strong class="text-emerald-800">256 mm</strong></span>
+                <div class="flex items-center gap-1 shrink-0">
+                  <button type="button" onclick="setShapeToDefault80mm()" class="px-1.5 py-0.5 rounded bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-bold text-[9px]" title="Reset to 80mm Keepsake Default">80mm</button>
+                  <button type="button" id="btnMaxToPrinter" onclick="maximizeShapeToPrinterLimit()" class="px-1.5 py-0.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-[9px]" title="Set shape dimensions to the maximum build volume of the selected 3D printer">Max (256mm)</button>
                 </div>
               </div>
               <div id="rowArcAngle" class="hidden grid-cols-[75px_1fr_68px] items-center gap-2">
@@ -5841,13 +5849,91 @@ CUSTOM EDITION</textarea>
       'h2d_laser_40w': { name: 'Bambu H2D 40W Diode Laser Frame Cut @BBL', nozzle: 0.4, layerHeight: 0.12, initialLayer: 0.20, lineWidth: 0.42, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 55, brim: 0, minThick: 1.0, maxThick: 3.5, mmPerPixel: 0.10, layFlat: true }
     };
 
+    function getPrinterMaxShapeLimits() {
+      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
+      const hookAllowance = state.enableHook ? 12 : 0;
+      const isRectOrArc = (state.shape === 'plane' || state.shape === 'arc');
+      const maxSpanVert = Math.max(30, Math.floor((state.layFlat ? m.bedY : m.bedZ) - hookAllowance));
+      const maxSpanHoriz = Math.max(30, Math.floor(m.bedX));
+      if (isRectOrArc) {
+        return { maxW: maxSpanHoriz, maxH: maxSpanVert, machine: m, isRectOrArc: true };
+      }
+      const symMax = Math.max(30, Math.min(maxSpanHoriz, maxSpanVert));
+      return { maxW: symMax, maxH: symMax, machine: m, isRectOrArc: false };
+    }
+
+    function enforcePrinterDimensionLimits() {
+      const { maxW, maxH, machine, isRectOrArc } = getPrinterMaxShapeLimits();
+      const cDiam = document.getElementById('ctrlDiameter');
+      const nDiam = document.getElementById('numDiameter');
+      const cHeight = document.getElementById('ctrlHeight');
+      const nHeight = document.getElementById('numHeight');
+
+      if (cDiam) cDiam.max = maxW;
+      if (nDiam) nDiam.max = maxW;
+      if (cHeight) cHeight.max = maxH;
+      if (nHeight) nHeight.max = maxH;
+
+      let clamped = false;
+      if (state.diameter > maxW) {
+        state.diameter = maxW;
+        if (cDiam) cDiam.value = maxW;
+        if (nDiam) nDiam.value = maxW;
+        clamped = true;
+      }
+      if (state.height > maxH) {
+        state.height = maxH;
+        if (cHeight) cHeight.value = maxH;
+        if (nHeight) nHeight.value = maxH;
+        clamped = true;
+      }
+
+      const lblLimit = document.getElementById('lblShapePrinterLimit');
+      const btnMax = document.getElementById('btnMaxToPrinter');
+      if (lblLimit) {
+        if (isRectOrArc) {
+          lblLimit.innerHTML = `🔒 Max (<strong class="text-slate-900">${machine.code}</strong>): <strong class="text-emerald-800">${maxW} × ${maxH} mm</strong>`;
+        } else {
+          lblLimit.innerHTML = `🔒 Max (<strong class="text-slate-900">${machine.code}</strong>): <strong class="text-emerald-800">${maxW} mm</strong>`;
+        }
+      }
+      if (btnMax) {
+        btnMax.textContent = isRectOrArc ? `Max (${maxW}×${maxH})` : `Max (${maxW}mm)`;
+      }
+      return clamped;
+    }
+
+    function setShapeToDefault80mm() {
+      const { maxW, maxH } = getPrinterMaxShapeLimits();
+      state.diameter = Math.min(80, maxW);
+      state.height = Math.min(80, maxH);
+      document.getElementById('ctrlDiameter').value = state.diameter;
+      document.getElementById('numDiameter').value = state.diameter;
+      document.getElementById('ctrlHeight').value = state.height;
+      document.getElementById('numHeight').value = state.height;
+      rebuildAll(true);
+    }
+
+    function maximizeShapeToPrinterLimit() {
+      const { maxW, maxH } = getPrinterMaxShapeLimits();
+      state.diameter = maxW;
+      state.height = maxH;
+      document.getElementById('ctrlDiameter').value = state.diameter;
+      document.getElementById('numDiameter').value = state.diameter;
+      document.getElementById('ctrlHeight').value = state.height;
+      document.getElementById('numHeight').value = state.height;
+      rebuildAll(true);
+    }
+
     function updateBambuProfileUI() {
       const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
+      enforcePrinterDimensionLimits();
+
       const hdrBtn = document.getElementById('hdrBambuBtnLabel');
       const sideBtn = document.getElementById('btnSidebar3MFLabel');
       const dockBtn = document.getElementById('dockBambuLabel');
       if (hdrBtn) hdrBtn.textContent = `Bambu .3MF (${m.code})`;
-      if (sideBtn) sideBtn.textContent = `Export Bambu .3MF Project (${m.code})`;
+      if (sideBtn) sideBtn.textContent = `Export Slicer .3MF Project (${m.code})`;
       if (dockBtn) dockBtn.textContent = `.3MF (${m.code})`;
       initFloorGrid(m.bedX, m.bedY);
 
@@ -5871,8 +5957,8 @@ CUSTOM EDITION</textarea>
       const modelW = state.diameter;
       const modelH = isRectOrArc ? state.height : state.diameter;
       const fitsXY = state.layFlat
-        ? (modelW <= m.bedX - 4 && modelH <= m.bedY - 4)
-        : (modelW <= m.bedX - 4 && modelH <= m.bedZ - 4);
+        ? (modelW <= m.bedX && modelH <= m.bedY)
+        : (modelW <= m.bedX && modelH <= m.bedZ);
 
       const badge = document.getElementById('bambuBedFitBadge');
       const txt = document.getElementById('bambuBedFitText');
@@ -5882,21 +5968,13 @@ CUSTOM EDITION</textarea>
           txt.textContent = `✓ Fits ${m.code} (${Math.round(modelW)}×${Math.round(modelH)} / ${m.bedX}×${state.layFlat ? m.bedY : m.bedZ} mm)`;
         } else {
           badge.className = 'px-2 py-1 rounded bg-amber-50 border border-amber-400 text-amber-950 flex items-center justify-between text-[11px] font-semibold';
-          txt.textContent = `⚠ Exceeds ${m.code} (${Math.round(modelW)}×${Math.round(modelH)} > ${m.bedX}×${state.layFlat ? m.bedY : m.bedZ} mm)`;
+          txt.textContent = `⚠ Clamped to ${m.code} (${m.bedX}×${state.layFlat ? m.bedY : m.bedZ} mm)`;
         }
       }
     }
 
     function fitModelToBambuPlate() {
-      const m = BAMBU_MACHINES[state.bambuMachine] || BAMBU_MACHINES.x2d;
-      const safeMax = Math.floor(Math.min(m.bedX, m.bedY, m.bedZ) - 10);
-      state.diameter = Math.min(state.diameter, safeMax);
-      state.height = Math.min(state.height, safeMax);
-      document.getElementById('ctrlDiameter').value = state.diameter;
-      document.getElementById('numDiameter').value = state.diameter;
-      document.getElementById('ctrlHeight').value = state.height;
-      document.getElementById('numHeight').value = state.height;
-      rebuildAll(true);
+      maximizeShapeToPrinterLimit();
     }
 
     function syncGeometryToBambuPreset() {
@@ -6668,8 +6746,12 @@ CUSTOM EDITION</textarea>
       if (!slider || !num) return;
 
       const updateVal = (val) => {
-        const parsed = parseFloat(val);
+        let parsed = parseFloat(val);
         if (isNaN(parsed)) return;
+        const minAttr = parseFloat(slider.min);
+        const maxAttr = parseFloat(slider.max);
+        if (!isNaN(minAttr)) parsed = Math.max(minAttr, parsed);
+        if (!isNaN(maxAttr)) parsed = Math.min(maxAttr, parsed);
         state[stateKey] = parsed;
         slider.value = parsed;
         num.value = parsed;
@@ -6770,6 +6852,7 @@ CUSTOM EDITION</textarea>
         rowArc.classList.toggle('hidden', state.shape !== 'arc');
         rowArc.classList.toggle('grid', state.shape === 'arc');
         document.getElementById('lblDiameter').textContent = isRectOrArc ? 'Width' : 'Diameter';
+        enforcePrinterDimensionLimits();
         rebuildAll(true);
       });
       bindSliderAndNum('ctrlDiameter', 'numDiameter', 'diameter');
@@ -6851,11 +6934,15 @@ CUSTOM EDITION</textarea>
 
       document.getElementById('ctrlEnableHook').addEventListener('change', (e) => {
         state.enableHook = e.target.checked;
+        enforcePrinterDimensionLimits();
         rebuildAll(true);
       });
       document.getElementById('ctrlLayFlat').addEventListener('change', (e) => {
         state.layFlat = e.target.checked;
-        requestRender();
+        const wasClamped = enforcePrinterDimensionLimits();
+        updateBambuProfileUI();
+        if (wasClamped) rebuildAll(true);
+        else requestRender();
       });
 
       document.getElementById('ctrlLighting').addEventListener('change', (e) => {
@@ -6895,8 +6982,10 @@ CUSTOM EDITION</textarea>
       // Bambu Lab Machine & Cutting / Slicing Profile bindings
       document.getElementById('ctrlBambuMachine').addEventListener('change', (e) => {
         state.bambuMachine = e.target.value;
+        const wasClamped = enforcePrinterDimensionLimits();
         updateBambuProfileUI();
-        requestRender();
+        if (wasClamped) rebuildAll(true);
+        else requestRender();
       });
       document.getElementById('ctrlBambuNozzle').addEventListener('change', (e) => {
         state.bambuNozzle = e.target.value;
