@@ -484,50 +484,54 @@
             <div>
               <label class="block text-slate-500 mb-0.5 font-medium">3D Reconstruction Mode</label>
               <select id="ctrlImgEngineMode" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-semibold text-slate-800 focus:outline-none focus:border-sky-700">
-                <option value="portrait_3d" selected>👶 Smart 3D Portrait &amp; Face Sculpt (Best for People/Pets)</option>
+                <option value="itslitho_clean" selected>✨ ItsLitho Pure Photographic (1:1 True Greyscale — Default)</option>
+                <option value="portrait_3d">👶 Smart 3D Portrait &amp; Face Sculpt (Enhanced Volume)</option>
                 <option value="litho_hd">💡 HD Backlit Lithophane (Logarithmic Beer-Lambert Curve)</option>
                 <option value="bas_relief">🪙 Deep Sculpted Medallion Bas-Relief</option>
                 <option value="raw_linear">📐 Crisp Linear / Emblem Logo</option>
               </select>
             </div>
 
-            <div class="grid grid-cols-2 gap-1">
-              <button type="button" onclick="applyImageEnginePreset('portrait_3d')" class="py-1 px-1.5 rounded bg-[#062f40] hover:bg-[#0a455e] text-amber-300 font-bold text-[10px] truncate shadow-xs">
-                👶 Smooth Portrait
+            <div class="grid grid-cols-3 gap-1">
+              <button type="button" onclick="applyImageEnginePreset('itslitho_clean')" class="py-1 px-1 rounded bg-[#062f40] hover:bg-[#0a455e] text-amber-300 font-bold text-[10px] truncate shadow-xs" title="Pure 1:1 linear luminance-to-thickness mapping just like tool.itslitho.com">
+                ✨ ItsLitho 1:1
               </button>
-              <button type="button" onclick="applyImageEnginePreset('litho_hd')" class="py-1 px-1.5 rounded bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-semibold text-[10px] truncate">
-                💡 Backlit Litho HD
+              <button type="button" onclick="applyImageEnginePreset('portrait_3d')" class="py-1 px-1 rounded bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-semibold text-[10px] truncate" title="Multi-scale 3D facial volume &amp; skin smoothing">
+                👶 3D Portrait
+              </button>
+              <button type="button" onclick="applyImageEnginePreset('litho_hd')" class="py-1 px-1 rounded bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-semibold text-[10px] truncate" title="Logarithmic Beer-Lambert curve for thin backlit plates">
+                💡 Backlit HD
               </button>
             </div>
 
             <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
               <label title="Edge-preserving bilateral surface smoothing — removes fabric weave, carpet noise, and JPEG grain while keeping eyes, lips, and fingers sharp">Smooth Skin</label>
-              <input id="ctrlSurfaceSmooth" type="range" min="0" max="100" step="1" value="58" class="cad-slider" />
-              <input id="numSurfaceSmooth" type="number" min="0" max="100" step="1" value="58" class="num-input" />
+              <input id="ctrlSurfaceSmooth" type="range" min="0" max="100" step="1" value="18" class="cad-slider" />
+              <input id="numSurfaceSmooth" type="number" min="0" max="100" step="1" value="18" class="num-input" />
             </div>
 
             <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
               <label title="Multi-scale 3D facial &amp; anatomical volume boost — rounds out cheeks, forehead, nose bridge, and arms in 3D relief">3D Face Volume</label>
-              <input id="ctrlVolumeBoost" type="range" min="0" max="100" step="1" value="62" class="cad-slider" />
-              <input id="numVolumeBoost" type="number" min="0" max="100" step="1" value="62" class="num-input" />
+              <input id="ctrlVolumeBoost" type="range" min="0" max="100" step="1" value="0" class="cad-slider" />
+              <input id="numVolumeBoost" type="number" min="0" max="100" step="1" value="0" class="num-input" />
             </div>
 
             <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
               <label title="Filmic highlight &amp; shadow recovery — prevents bright faces/blankets from flattening out and lifts dark eyes/hair">HDR Tone</label>
-              <input id="ctrlHdrTone" type="range" min="0" max="100" step="1" value="60" class="cad-slider" />
-              <input id="numHdrTone" type="number" min="0" max="100" step="1" value="60" class="num-input" />
+              <input id="ctrlHdrTone" type="range" min="0" max="100" step="1" value="0" class="cad-slider" />
+              <input id="numHdrTone" type="number" min="0" max="100" step="1" value="0" class="num-input" />
             </div>
 
             <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
               <label title="Fine micro-detail clarity for eyes, eyelashes, smile lines, and text without spiky noise">Detail Clarity</label>
-              <input id="ctrlDetailSharpness" type="range" min="0" max="100" step="1" value="42" class="cad-slider" />
-              <input id="numDetailSharpness" type="number" min="0" max="100" step="1" value="42" class="num-input" />
+              <input id="ctrlDetailSharpness" type="range" min="0" max="100" step="1" value="50" class="cad-slider" />
+              <input id="numDetailSharpness" type="number" min="0" max="100" step="1" value="50" class="num-input" />
             </div>
 
             <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
               <label title="Soft 3D subject cushion — gently raises the central portrait/subject while recessing outer corners">Subject Dome</label>
-              <input id="ctrlPortraitDome" type="range" min="0" max="100" step="1" value="38" class="cad-slider" />
-              <input id="numPortraitDome" type="number" min="0" max="100" step="1" value="38" class="num-input" />
+              <input id="ctrlPortraitDome" type="range" min="0" max="100" step="1" value="0" class="cad-slider" />
+              <input id="numPortraitDome" type="number" min="0" max="100" step="1" value="0" class="num-input" />
             </div>
           </div>
         </div>
@@ -1681,13 +1685,13 @@ CUSTOM EDITION</textarea>
       images: [],
       activeImageIndex: 0,
 
-      // Pro 3D Portrait & Relief Image Engine State
-      imgEngineMode: 'portrait_3d',
-      surfaceSmooth: 58,
-      volumeBoost: 62,
-      hdrTone: 60,
-      detailSharpness: 42,
-      portraitDome: 38,
+      // Pro 3D Portrait & Relief Image Engine State (Default: ItsLitho Pure Photographic 1:1)
+      imgEngineMode: 'itslitho_clean',
+      surfaceSmooth: 18,
+      volumeBoost: 0,
+      hdrTone: 0,
+      detailSharpness: 50,
+      portraitDome: 0,
 
       // Smart Background Removal State
       bgEnable: false,
@@ -3131,7 +3135,13 @@ CUSTOM EDITION</textarea>
       const sel = document.getElementById('ctrlImgEngineMode');
       if (sel) sel.value = mode;
 
-      if (mode === 'portrait_3d') {
+      if (mode === 'itslitho_clean') {
+        state.surfaceSmooth = 18;
+        state.volumeBoost = 0;
+        state.hdrTone = 0;
+        state.detailSharpness = 50;
+        state.portraitDome = 0;
+      } else if (mode === 'portrait_3d') {
         state.surfaceSmooth = 58;
         state.volumeBoost = 62;
         state.hdrTone = 60;
@@ -3307,8 +3317,9 @@ CUSTOM EDITION</textarea>
       }
 
       // Step 2: Adaptive Percentile Normalization & Filmic HDR Highlight/Shadow Recovery
-      const engineMode = state.imgEngineMode || 'portrait_3d';
+      const engineMode = state.imgEngineMode || 'itslitho_clean';
       const isRawMode = engineMode === 'raw_linear';
+      const isItsLithoClean = engineMode === 'itslitho_clean';
       const isBuiltInLogo = item.name === 'LITHO_STUDIO_LOGO';
 
       const hdrAmt = isRawMode ? 0.0 : (state.hdrTone / 100.0) * (isBuiltInLogo ? 0.35 : 1.0);
@@ -3363,7 +3374,7 @@ CUSTOM EDITION</textarea>
           // Logarithmic Beer-Lambert compensation curve for backlit transmission
           const logL = Math.log(1.0 + 2.4 * x) / Math.log(3.4);
           x = x * 0.35 + logL * 0.65;
-        } else if (engineMode === 'portrait_3d' || engineMode === 'bas_relief') {
+        } else if ((engineMode === 'portrait_3d' || engineMode === 'bas_relief') && volAmt > 0.01) {
           // Gentle skin presence lift so warm faces & hands sit slightly proud of neutral grey backgrounds
           const skinLift = skinMap[p] * (0.075 * volAmt) * (1.0 - x * 0.45);
           x = Math.min(1.0, x + skinLift);
@@ -3377,12 +3388,13 @@ CUSTOM EDITION</textarea>
       const cleanLum = new Float32Array(numPx);
       bilateralSmoothFloat32(toneLum, tmpBuf1, cleanLum, w, h, smoothAmt);
 
-      // Step 4: Multi-Scale 3D Frequency Pyramid (Macro Base + Mid Anatomical Volume + Controlled Fine Detail)
+      // Step 4: Multi-Scale 3D Frequency Pyramid (Skipped when in pure ItsLitho 1:1 mode unless sliders are moved)
       const minDim = Math.min(w, h);
       const midField = new Float32Array(numPx);
       const macroField = new Float32Array(numPx);
+      const needsFreqSculpt = !isRawMode && (volAmt > 0.01 || Math.abs(sharpAmt - 0.5) > 0.01 || domeAmt > 0.01);
 
-      if (!isRawMode && (volAmt > 0.01 || Math.abs(sharpAmt - 0.5) > 0.01 || domeAmt > 0.01)) {
+      if (needsFreqSculpt) {
         const rMid = Math.max(3, Math.round(minDim * 0.014));
         const rMacro = Math.max(12, Math.round(minDim * 0.062));
         fastGaussianBlurFloat32(cleanLum, midField, tmpBuf1, w, h, rMid);
@@ -3410,7 +3422,7 @@ CUSTOM EDITION</textarea>
 
           let final01 = cleanLum[p];
 
-          if (!isRawMode) {
+          if (needsFreqSculpt) {
             const fine = cleanLum[p] - midField[p];
             const mid = midField[p] - macroField[p];
             const macro = macroField[p];
@@ -3431,8 +3443,10 @@ CUSTOM EDITION</textarea>
               final01 += domeDelta;
             }
 
-            // Smooth S-curve final polish so 3D heightmap uses full dynamic range without hard clipping
-            final01 = Math.max(0.02, Math.min(0.98, final01));
+            final01 = Math.max(0.0, Math.min(1.0, final01));
+          } else if (isItsLithoClean) {
+            // Pure 1:1 ItsLitho linear greyscale mapping (zero artificial halos or histogram warping)
+            final01 = Math.max(0.0, Math.min(1.0, cleanLum[p]));
           }
 
           if (maskData) {
@@ -3731,15 +3745,15 @@ CUSTOM EDITION</textarea>
      * WATERTIGHT 3D MESH GENERATOR
      *************************************************************************/
     function generateLithophaneMesh(customRes = null) {
-      const qualitySteps = [110, 160, 220, 280, 340];
-      const gridN = customRes || qualitySteps[state.previewQuality] || 220;
+      const qualitySteps = [130, 190, 260, 320, 380];
+      const gridN = customRes || qualitySteps[state.previewQuality] || 260;
 
       buildModelUVAndTextures(1024);
 
       dispCanvas.width = gridN;
       dispCanvas.height = gridN;
       dispCtx.save();
-      dispCtx.filter = customRes ? 'blur(0.5px)' : 'blur(0.9px)';
+      dispCtx.filter = customRes ? 'blur(0.35px)' : 'blur(0.45px)';
       dispCtx.drawImage(glTexCanvas, 0, 0, gridN, gridN);
       dispCtx.restore();
       const dispPixels = dispCtx.getImageData(0, 0, gridN, gridN).data;
@@ -4091,11 +4105,15 @@ CUSTOM EDITION</textarea>
       }
     `;
 
-    // Studio-Grade Multi-Scale 3D Relief & Physical Beer-Lambert Fragment Shader:
-    // - Multi-scale normal reconstruction (fine 1.35px + mid 3.4px + macro 7.0px) eliminates 1-pixel Sobel noise
-    // - Signed Laplacian Curvature shades actual 3D valleys/crevices and highlights convex ridges
-    // - Half-Lambert 3-point studio lighting + Blinn-Phong satin PLA sheen + porcelain subsurface depth
-    //   prevents white clipping so faces, cheeks, eyes, and fingers render with smooth 3D volume!
+    // ItsLitho-Style Subsurface Porcelain + Three.js Vertex-Normal Phong 3D Lithograph Shader:
+    // - Why ItsLitho renders every photo so well:
+    //   1) Pure 1:1 greyscale-to-thickness mapping (photoLum / hCenter) directly drives subsurface light transmission
+    //      and porcelain depth at every pixel, so flat dark areas (hair/coats) and flat bright areas (skin/sky) keep
+    //      their true photographic tone instead of turning into an embossed edge-sketch!
+    //   2) Smooth Three.js-style vertex normals (vNormal) + gentle micro-relief normal blend (zero artificial cavityAO
+    //      dark outlines) give realistic 3D PLA surface sheen, bevels, and frame geometry when rotating the model.
+    //   3) Normalized relative thickness transmission works across ANY thickness range (both 0.8–3.2mm thin plates
+    //      AND 7–12mm Keepsake Pucks!).
     const fsMeshSource = `
       precision highp float;
 
@@ -4122,13 +4140,12 @@ CUSTOM EDITION</textarea>
         float photoLum = centerSample.b;
 
         float reliefSpanMM = max(0.0, uMaxThick - uMinThick);
-        float reliefActive = clamp(reliefSpanMM / 1.4, 0.0, 1.0);
-        float bumpGain = clamp(reliefSpanMM / 2.5, 0.0, 1.8) * 2.45;
+        float reliefActive = clamp(reliefSpanMM / 1.0, 0.0, 1.0);
+        // Gentle, natural PLA relief slope gain (no high-pass emboss exaggeration)
+        float bumpGain = clamp(reliefSpanMM / 2.8, 0.0, 1.25) * 0.95;
 
-        // Multi-scale height sampling (Fine + Mid + Macro) for silky-smooth 3D facial contours
-        float sFine = 1.35 / 1024.0;
-        float sMid  = 3.40 / 1024.0;
-        float sWide = 7.00 / 1024.0;
+        float sFine = 1.25 / 1024.0;
+        float sMid  = 2.80 / 1024.0;
 
         float hLf = texture2D(uHeightTex, vUV + vec2(-sFine, 0.0)).r;
         float hRf = texture2D(uHeightTex, vUV + vec2( sFine, 0.0)).r;
@@ -4140,94 +4157,85 @@ CUSTOM EDITION</textarea>
         float hDm = texture2D(uHeightTex, vUV + vec2(0.0, -sMid)).r;
         float hUm = texture2D(uHeightTex, vUV + vec2(0.0,  sMid)).r;
 
-        float hLw = texture2D(uHeightTex, vUV + vec2(-sWide, 0.0)).r;
-        float hRw = texture2D(uHeightTex, vUV + vec2( sWide, 0.0)).r;
-        float hDw = texture2D(uHeightTex, vUV + vec2(0.0, -sWide)).r;
-        float hUw = texture2D(uHeightTex, vUV + vec2(0.0,  sWide)).r;
-
-        float dHdx = ((hRf - hLf) * 0.25 + (hRm - hLm) * 0.45 + (hRw - hLw) * 0.30) * bumpGain;
-        float dHdy = -((hUf - hDf) * 0.25 + (hUm - hDm) * 0.45 + (hUw - hDw) * 0.30) * bumpGain;
+        float dHdx = ((hRf - hLf) * 0.55 + (hRm - hLm) * 0.45) * bumpGain;
+        float dHdy = -((hUf - hDf) * 0.55 + (hUm - hDm) * 0.45) * bumpGain;
 
         if (vSurfType > 1.5) {
           float bL = texture2D(uHeightTex, vUV + vec2(-sFine, 0.0)).g;
           float bR = texture2D(uHeightTex, vUV + vec2( sFine, 0.0)).g;
           float bD = texture2D(uHeightTex, vUV + vec2(0.0, -sFine)).g;
           float bU = texture2D(uHeightTex, vUV + vec2(0.0,  sFine)).g;
-          dHdx = (bR - bL) * 6.5;
-          dHdy = -(bU - bD) * 6.5;
+          dHdx = (bR - bL) * 5.0;
+          dHdy = -(bU - bD) * 5.0;
         }
 
         float photoWeight = clamp(1.0 - vSurfType, 0.0, 1.0);
         if (vSurfType > 1.5) photoWeight = 1.0;
 
         vec3 microN = normalize(vec3(-dHdx * photoWeight, -dHdy * photoWeight, 1.0));
+        // Primary Three.js-style vertex normal blended with fine texture normal
         vec3 N = normalize(vec3(
-          baseN.x * 0.38 + microN.x * 0.62,
-          baseN.y * 0.38 + microN.y * 0.62,
-          abs(baseN.z) * 0.52 + microN.z * 0.48
+          baseN.x * 0.62 + microN.x * 0.38,
+          baseN.y * 0.62 + microN.y * 0.38,
+          abs(baseN.z) * 0.68 + microN.z * 0.32
         ));
 
-        // Signed Laplacian Curvature Cavity (positive in valleys/crevices, negative on convex ridges)
-        float hAvgMid  = 0.25 * (hLm + hRm + hDm + hUm);
-        float hAvgWide = 0.25 * (hLw + hRw + hDw + hUw);
-        float laplacian = (hAvgMid - hCenter) * 2.2 + (hAvgWide - hCenter) * 1.6;
-        float cavityAO = clamp(laplacian * reliefActive, -0.10, 0.24) * photoWeight;
-
-        // 3-Point Studio Half-Lambert Lighting + Satin PLA Specular Sheen
-        vec3 keyLight  = normalize(vec3(-0.34, 0.46, 0.82));
-        vec3 fillLight = normalize(vec3(0.46, -0.28, 0.84));
+        // Three.js Phong Directional + Hemisphere Fill Lighting
+        vec3 keyLight  = normalize(vec3(-0.30, 0.42, 0.86));
+        vec3 fillLight = normalize(vec3(0.38, -0.25, 0.89));
         vec3 viewDir   = vec3(0.0, 0.0, 1.0);
 
-        float wrapKey  = clamp(dot(N, keyLight) * 0.52 + 0.48, 0.0, 1.0);
-        float diffKey  = pow(wrapKey, 1.40);
+        float diffKey  = clamp(dot(N, keyLight) * 0.5 + 0.5, 0.0, 1.0);
         float diffFill = clamp(dot(N, fillLight) * 0.5 + 0.5, 0.0, 1.0);
 
         vec3 halfVec = normalize(keyLight + viewDir);
-        float spec = pow(max(dot(N, halfVec), 0.0), 26.0) * 0.10 * photoWeight * reliefActive;
-        float rim  = pow(1.0 - max(dot(N, viewDir), 0.0), 2.8) * 0.06 * photoWeight * reliefActive;
+        float spec = pow(max(dot(N, halfVec), 0.0), 32.0) * 0.08 * photoWeight * reliefActive;
 
-        float geomLit = 0.25 + 0.48 * diffKey + 0.15 * diffFill - cavityAO + rim;
+        // Smooth 3D surface shading factor (frames, bevels, and 3D tilt response)
+        float phong3D = 0.52 + 0.36 * diffKey + 0.12 * diffFill;
+
+        // Back-face text engraving/embossing thickness delta
+        float backSigned = (backCode - (128.0 / 255.0)) * 2.0;
+        float backNormDelta = (backSigned * uTextDepth) / max(1.2, reliefSpanMM);
+
+        // Normalized relative lithograph thickness in [0..1] (0 = thinnest/brightest, 1 = thickest/darkest)
+        float relThick01 = clamp((1.0 - photoLum) + backNormDelta * 0.35, 0.0, 1.0);
+        if (vSurfType > 0.01 && vSurfType < 1.5) {
+          float frameRel = clamp((uFrameDepth - uMinThick) / max(0.5, reliefSpanMM), 0.0, 1.0);
+          relThick01 = mix(relThick01, frameRel, clamp(vSurfType, 0.0, 1.0));
+        }
 
         if (uLightingMode == 0) {
-          // Opaque "No light" mode: Studio 3D normal shading + porcelain subsurface tonal depth (zero white clipping!)
-          float subsurfaceTone = mix(0.46, 1.04, photoLum);
-          float combined = mix(geomLit, geomLit * (0.56 + 0.54 * subsurfaceTone), 0.66 * photoWeight * reliefActive) + spec;
-          // Filmic soft shoulder so bright cheeks/foreheads never clip to flat white
-          float finalShade = combined / (1.0 + max(0.0, combined - 0.80) * 0.48);
-          vec3 studioTint = mix(uMaterialColor * vec3(0.90, 0.93, 0.97), uMaterialColor * vec3(1.0, 0.995, 0.985), clamp(finalShade, 0.0, 1.0));
-          gl_FragColor = vec4(studioTint * clamp(finalShade, 0.16, 0.97), 1.0);
+          // ItsLitho Default Porcelain Lithograph View:
+          // Combines true photographic subsurface tonal depth (from photoLum) with smooth 3D Phong surface shading!
+          float lithoSubsurface = mix(0.24, 0.98, pow(clamp(photoLum - backNormDelta * 0.25, 0.0, 1.0), 0.92));
+          float frameShade = clamp(phong3D * 0.92, 0.22, 0.96);
+          float photoShade = lithoSubsurface * (0.70 + 0.36 * phong3D) + spec;
+          float finalShade = mix(frameShade, photoShade, photoWeight * reliefActive);
+          vec3 porcelainTint = mix(uMaterialColor * vec3(0.92, 0.94, 0.97), uMaterialColor, clamp(finalShade, 0.0, 1.0));
+          gl_FragColor = vec4(porcelainTint * clamp(finalShade, 0.14, 0.98), 1.0);
         } else if (uLightingMode == 1 || uLightingMode == 2) {
-          // Physical Beer-Lambert Backlit Lithophane Transmission
-          // Uses backlit thickness profile (thin = bright photoLum) when photoWeight > 0
-          float lithoThickMM = uMinThick + (1.0 - photoLum) * reliefSpanMM;
-          if (vSurfType > 0.01 && vSurfType < 1.5) {
-            lithoThickMM = mix(lithoThickMM, uFrameDepth, clamp(vSurfType, 0.0, 1.0));
-          }
-          float backSigned = (backCode - (128.0 / 255.0)) * 2.0;
-          float backDeltaMM = backSigned * uTextDepth;
-          float pixelThickMM = max(0.4, lithoThickMM + backDeltaMM);
-
-          float effMM = max(0.0, pixelThickMM - 0.32);
-          float rawTrans = exp(-1.12 * effMM) * uLightPower;
-          float thickCutoff = clamp(1.0 - max(0.0, (pixelThickMM - 4.4) / 1.8), 0.0, 1.0);
-          float transmission = clamp(rawTrans * thickCutoff, 0.0, 1.12);
+          // ItsLitho Back-Lighted Beer-Lambert Subsurface Transmission:
+          // Uses normalized thickness relThick01 so Backlit Glow renders with full photographic dynamic range
+          // on BOTH thin lithophanes (0.8-3.2mm) AND thick Keepsake Pucks (7-12mm)!
+          float beerLambert = exp(-2.65 * relThick01);
+          float linearTransmit = 1.0 - relThick01 * 0.86;
+          float transCurve = mix(beerLambert, linearTransmit, 0.38) * (0.35 + 0.72 * uLightPower);
 
           vec3 glowColor = (uLightingMode == 1)
-            ? vec3(1.0, 0.86, 0.62)
-            : vec3(0.96, 0.99, 1.0);
+            ? mix(vec3(0.42, 0.24, 0.10), vec3(1.0, 0.93, 0.76), clamp(transCurve, 0.0, 1.0))
+            : mix(vec3(0.22, 0.26, 0.32), vec3(0.97, 0.99, 1.0), clamp(transCurve, 0.0, 1.0));
 
-          vec3 frontDimAmbient = uMaterialColor * (0.16 + 0.16 * diffKey + 0.05 * diffFill - cavityAO * 0.5);
-          vec3 litCol = frontDimAmbient + glowColor * transmission;
-          // Soft highlight shoulder to preserve glowing facial detail
-          litCol = litCol / (vec3(1.0) + max(vec3(0.0), litCol - vec3(0.84)) * 0.45);
-          gl_FragColor = vec4(clamp(litCol, 0.05, 0.99), 1.0);
+          vec3 litSurface = glowColor * (0.78 + 0.26 * phong3D) + vec3(spec * 0.8);
+          vec3 frameCol = uMaterialColor * (0.28 + 0.32 * phong3D);
+          vec3 outCol = mix(frameCol, litSurface, photoWeight);
+          gl_FragColor = vec4(clamp(outCol, 0.08, 0.99), 1.0);
         } else {
-          // High-Contrast Sculptural Studio (Raking Key Light + Deep Bronze/Slate Cavity Contrast)
-          float subsurfaceTone = mix(0.42, 1.05, photoLum);
-          float studioGeom = 0.18 + 0.58 * diffKey + 0.14 * diffFill - cavityAO * 1.35 + rim * 1.4;
-          float combined = mix(studioGeom, studioGeom * (0.52 + 0.56 * subsurfaceTone), 0.58 * photoWeight * reliefActive) + spec * 1.4;
-          float finalShade = combined / (1.0 + max(0.0, combined - 0.80) * 0.48);
-          gl_FragColor = vec4(uMaterialColor * clamp(finalShade, 0.12, 0.98), 1.0);
+          // Sculptural 3D Clay / Medallion Inspection View (Pure 3D relief shading + soft subsurface tone)
+          float subsurfaceTone = mix(0.36, 0.98, photoLum);
+          float clayPhong = 0.28 + 0.54 * diffKey + 0.18 * diffFill;
+          float combined = mix(clayPhong, clayPhong * (0.48 + 0.56 * subsurfaceTone), 0.72 * photoWeight * reliefActive) + spec * 1.3;
+          gl_FragColor = vec4(uMaterialColor * clamp(combined, 0.12, 0.98), 1.0);
         }
       }
     `;

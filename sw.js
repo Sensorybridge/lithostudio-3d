@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lithostudio-3d-v7';
+const CACHE_NAME = 'lithostudio-3d-v8';
 const ASSETS = [
   './',
   './index.html',
