@@ -1080,27 +1080,27 @@ CUSTOM EDITION</textarea>
             </div>
           </div>
 
-          <!-- 3B. Bambu Lab Machine & Cutting / Slicing Profiles -->
+          <!-- 3B. 3D Printer Brands, Hardware Specs & Slicing Profiles -->
           <div class="rounded-sm overflow-hidden shadow-xs border border-emerald-800/30">
             <div class="cad-section-header px-2.5 py-1.5 flex items-center justify-between text-xs font-bold !bg-[#063b2d]" onclick="toggleSection('secBambuProfile')">
               <span class="flex items-center gap-1.5">
-                <span>Bambu Lab Machine &amp; Profiles</span>
-                <span class="bg-emerald-300 text-slate-950 px-1 py-0.2 rounded text-[11px] font-extrabold">ALL SERIES</span>
+                <span>3D Printer Brand &amp; Slicer Profiles</span>
+                <span class="bg-emerald-300 text-slate-950 px-1 py-0.2 rounded text-[11px] font-extrabold">ALL BRANDS</span>
               </span>
               <span id="icon_secBambuProfile">^</span>
             </div>
             <div id="secBambuProfile" class="cad-section-body p-2.5 space-y-2 text-xs">
               <div>
-                <label class="block text-slate-500 text-xs mb-0.5">Bambu Lab Printer Model (Official Lineup)</label>
+                <label class="block text-slate-500 text-xs mb-0.5">3D Printer Brand &amp; Model (Official Lineups)</label>
                 <select id="ctrlBambuMachine" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-semibold text-slate-800 focus:outline-none focus:border-emerald-700">
-                  <optgroup label="X Series (X2D Dual-Extruder &amp; X1 Flagship CoreXY)">
+                  <optgroup label="🟢 Bambu Lab — X Series (X2D Dual-Extruder &amp; X1 Flagship CoreXY)">
                     <option value="x2d" selected>Bambu Lab X2D — Main Nozzle (256×256×260 mm)</option>
                     <option value="x2d_dual">Bambu Lab X2D — Dual / Aux Nozzle (235.5×256×256 mm)</option>
                     <option value="x1c">Bambu Lab X1 Carbon (X1C — 256×256×256 mm)</option>
                     <option value="x1e">Bambu Lab X1E (Enterprise — 256×256×256 mm)</option>
                     <option value="x1">Bambu Lab X1 (Base — 256×256×256 mm)</option>
                   </optgroup>
-                  <optgroup label="H Series (H3C Tool-Changer, H2S, H2D &amp; H2C Large-Format)">
+                  <optgroup label="🟢 Bambu Lab — H Series (H3C Tool-Changer, H2S, H2D &amp; H2C)">
                     <option value="h3c">Bambu Lab H3C — 9-Material Tool Changer (330×320×325 mm)</option>
                     <option value="h2s">Bambu Lab H2S — Biggest Single-Nozzle (340×320×340 mm)</option>
                     <option value="h2d">Bambu Lab H2D — Total 2-Nozzle Area (350×320×325 mm)</option>
@@ -1110,20 +1110,51 @@ CUSTOM EDITION</textarea>
                     <option value="h2c">Bambu Lab H2C — Total 2-Nozzle Area (330×320×320 mm)</option>
                     <option value="h2c_dual">Bambu Lab H2C — Dual Nozzle Mode (300×320×320 mm)</option>
                   </optgroup>
-                  <optgroup label="P Series (P2S Next-Gen &amp; P1 CoreXY Performance)">
+                  <optgroup label="🟢 Bambu Lab — P &amp; A Series (P2S, P1S, P1P, A2L, A1 &amp; A1 mini)">
                     <option value="p2s">Bambu Lab P2S — Next-Gen Enclosed (256×256×256 mm)</option>
                     <option value="p1s">Bambu Lab P1S — Enclosed CoreXY (256×256×256 mm)</option>
                     <option value="p1p">Bambu Lab P1P — Open Frame CoreXY (256×256×256 mm)</option>
-                  </optgroup>
-                  <optgroup label="A Series (A2L Extra-Large Cut/Plot &amp; A1 Bedslinger)">
                     <option value="a2l">Bambu Lab A2L — Extra-Large + Blade/Pen Cut (330×320×325 mm)</option>
                     <option value="a1">Bambu Lab A1 — Full Size (256×256×256 mm)</option>
                     <option value="a1_mini">Bambu Lab A1 mini — Compact (180×180×180 mm)</option>
                   </optgroup>
+                  <optgroup label="🟠 Prusa Research (Core ONE, MK4S, XL 5-Tool, MK3S+, MINI+)">
+                    <option value="prusa_core_one">Prusa Core ONE — Enclosed CoreXY (250×220×270 mm)</option>
+                    <option value="prusa_mk4s">Original Prusa MK4S / MK4 — Nextruder (250×210×220 mm)</option>
+                    <option value="prusa_xl">Original Prusa XL — 5-Toolhead Changer (360×360×360 mm)</option>
+                    <option value="prusa_mk3s">Original Prusa i3 MK3S+ (250×210×210 mm)</option>
+                    <option value="prusa_mini">Original Prusa MINI+ (180×180×180 mm)</option>
+                  </optgroup>
+                  <optgroup label="🔵 Creality (K2 Plus CFS, K1 Max, K1C/K1, Ender-3 V3 KE/SE)">
+                    <option value="creality_k2_plus">Creality K2 Plus (CFS Multi-Color — 350×350×350 mm)</option>
+                    <option value="creality_k1_max">Creality K1 Max — Large CoreXY (300×300×300 mm)</option>
+                    <option value="creality_k1c">Creality K1C / K1 SE — Carbon CoreXY (220×220×250 mm)</option>
+                    <option value="creality_ender3_v3">Creality Ender-3 V3 / V3 KE / V3 SE (220×220×250 mm)</option>
+                    <option value="creality_ender3_v3_plus">Creality Ender-3 V3 Plus — Large CoreXZ (300×300×330 mm)</option>
+                  </optgroup>
+                  <optgroup label="🟣 Anycubic (Kobra S1, Kobra 3 Max &amp; Combo ACE Pro)">
+                    <option value="anycubic_kobra_s1">Anycubic Kobra S1 Combo (ACE Pro CoreXY — 250×250×250 mm)</option>
+                    <option value="anycubic_kobra_3">Anycubic Kobra 3 Combo (ACE Pro 4/8-Color — 250×250×260 mm)</option>
+                    <option value="anycubic_kobra_3_max">Anycubic Kobra 3 Max Combo (ACE Pro — 420×420×500 mm)</option>
+                  </optgroup>
+                  <optgroup label="🔷 Elegoo (Centauri Carbon CoreXY, Neptune 4 Pro / Plus / Max)">
+                    <option value="elegoo_centauri_carbon">Elegoo Centauri Carbon — Enclosed CoreXY (256×256×256 mm)</option>
+                    <option value="elegoo_neptune_4_pro">Elegoo Neptune 4 / 4 Pro — Klipper (225×225×265 mm)</option>
+                    <option value="elegoo_neptune_4_plus">Elegoo Neptune 4 Plus — Large Klipper (320×320×385 mm)</option>
+                    <option value="elegoo_neptune_4_max">Elegoo Neptune 4 Max — XL Klipper (420×420×480 mm)</option>
+                  </optgroup>
+                  <optgroup label="🔴 Qidi Tech, FlashForge, Voron Design &amp; Sovol">
+                    <option value="qidi_plus_4">Qidi Tech Plus 4 — 370°C + 65°C Chamber (305×305×280 mm)</option>
+                    <option value="qidi_q1_pro">Qidi Tech Q1 Pro — Active Heated Chamber (245×245×240 mm)</option>
+                    <option value="flashforge_ad5m_pro">FlashForge Adventurer 5M / 5M Pro CoreXY (220×220×220 mm)</option>
+                    <option value="voron_24_350">Voron 2.4 R2 (350×350×350 mm — Flying Gantry CoreXY)</option>
+                    <option value="voron_trident_300">Voron Trident (300×300×250 mm — Enclosed CoreXY)</option>
+                    <option value="sovol_sv08">Sovol SV08 — Open-Source Flying Gantry (350×350×345 mm)</option>
+                  </optgroup>
                 </select>
               </div>
 
-              <!-- Live Official Bambu Lab Hardware Specs Card -->
+              <!-- Live Official Printer Hardware Specs Card -->
               <div id="bambuMachineSpecsCard" class="p-2 rounded bg-slate-900 text-slate-100 border border-slate-700 space-y-1 text-[11px]">
                 <div class="flex items-center justify-between border-b border-slate-700 pb-1">
                   <span id="specPrinterTitle" class="font-bold text-amber-300">Bambu Lab X2D (Dual-Extruder CoreXY)</span>
@@ -1154,40 +1185,47 @@ CUSTOM EDITION</textarea>
                   <label class="block text-slate-500 text-[11px] mb-0.5">Build Plate Type</label>
                   <select id="ctrlBambuPlate" class="w-full bg-white border border-slate-300 rounded px-1.5 py-1 text-xs text-slate-800">
                     <option value="textured_plate" selected>Textured PEI Plate</option>
-                    <option value="supertack_plate">Cool Plate SuperTack</option>
+                    <option value="supertack_plate">Cool Plate SuperTack / CryoGrip</option>
                     <option value="hot_plate">Smooth PEI / High Temp</option>
-                    <option value="cool_plate">Bambu Cool Plate</option>
-                    <option value="eng_plate">Engineering Plate</option>
+                    <option value="cool_plate">Cool Plate / Satin Sheet</option>
+                    <option value="eng_plate">Engineering / Garolite Plate</option>
                     <option value="cutting_mat">H2D / A2L Blade &amp; Laser Mat</option>
                   </select>
                 </div>
               </div>
 
               <div id="bambuBedFitBadge" class="px-2 py-1 rounded bg-emerald-50 border border-emerald-300 text-emerald-950 flex items-center justify-between text-[11px] font-medium">
-                <span id="bambuBedFitText">✓ Fits X2D Plate (150×150 / 256×256 mm)</span>
+                <span id="bambuBedFitText">✓ Fits X2D Plate (80×80 / 256×260 mm)</span>
                 <button type="button" onclick="fitModelToBambuPlate()" class="underline font-bold text-emerald-800 hover:text-emerald-950 ml-1">Fit Max</button>
               </div>
 
               <div>
-                <label class="block text-slate-500 text-xs mb-0.5">Bambu Studio Process / Cutting Profile</label>
+                <label class="block text-slate-500 text-xs mb-0.5">Slicer Process Profile (Bambu Studio / OrcaSlicer / PrusaSlicer / Creality)</label>
                 <select id="ctrlBambuPreset" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-800 focus:outline-none focus:border-emerald-700">
-                  <optgroup label="⭐ Keepsake Puck Profiles (Default — Solid 3D Relief Puck)">
+                  <optgroup label="⭐ Keepsake Puck Profiles (Default — 80mm Circle, 4.75–6mm Thick)">
                     <option value="x2d_keepsake_puck" selected>0.08mm High Quality @BBL X2D - Keepsake Puck (Optimal Default)</option>
                     <option value="x2d_keepsake_exact">0.08mm High Quality @BBL X2D - Keepsake (Your Exact Screenshot Profile)</option>
-                    <option value="04_deep_relief">0.12mm Heavy Sculptural Keepsake Puck @BBL (6 Walls, 25% Gyroid)</option>
+                    <option value="04_deep_relief">0.12mm Heavy Sculptural Keepsake Puck (6 Walls, 25% Gyroid)</option>
                   </optgroup>
-                  <optgroup label="Lithophane Specialized Profiles (@BBL Backlit Lithophane)">
-                    <option value="litho_02_006">0.06mm Extra-Fine Lithophane @BBL (0.2 Nozzle, Arachne)</option>
-                    <option value="litho_02_008">0.08mm Ultra-Fine Lithophane @BBL (0.2 Nozzle, Arachne)</option>
-                    <option value="litho_02_010">0.10mm Fine Lithophane @BBL (0.2 Nozzle, 99 Walls)</option>
-                    <option value="litho_04_008">0.08mm Extra-Fine Lithophane @BBL (0.4 Nozzle, Arachne)</option>
-                    <option value="litho_04_010">0.10mm High-Detail Lithophane @BBL (0.4 Nozzle, Arachne)</option>
-                    <option value="litho_04_012">0.12mm Standard Backlit Lithophane @BBL (0.4 Nozzle)</option>
-                    <option value="litho_04_016">0.16mm Fast Backlit Lithophane @BBL (0.4 Nozzle)</option>
-                    <option value="litho_cmyk_flat">0.08mm CMYK Flat Face-Up Lithophane @BBL (0.4 Nozzle)</option>
-                    <option value="litho_curved_arc">0.10mm Self-Standing Curved Arc Lithophane @BBL (8mm Brim)</option>
+                  <optgroup label="🌐 Multi-Brand Profiles (Prusa, Creality, Anycubic, Elegoo, Qidi, Voron)">
+                    <option value="prusa_008_ultradetail">0.08mm UltraDetail @Prusa (Core ONE / MK4S / XL — Input Shaper)</option>
+                    <option value="creality_008_k2_k1">0.08mm Hyper-Detail @Creality (K2 Plus / K1 Max / K1C / Ender-3 V3)</option>
+                    <option value="anycubic_008_kobra">0.08mm High-Precision @Anycubic (Kobra S1 / Kobra 3 ACE Pro)</option>
+                    <option value="elegoo_008_klipper">0.08mm Fine Lithophane &amp; Keepsake @Elegoo (Centauri Carbon / Neptune 4)</option>
+                    <option value="qidi_voron_008_abs">0.08mm High-Speed CoreXY @Qidi Plus 4 / Voron 2.4 / Sovol SV08</option>
                   </optgroup>
-                  <optgroup label="X2D, H3C, H2S, H2C, P2S &amp; A2L Flagship Profiles (@BBL)">
+                  <optgroup label="💡 Lithophane Specialized Profiles (0.8–3.2mm Thin Backlit)">
+                    <option value="litho_02_006">0.06mm Extra-Fine Lithophane (0.2 Nozzle, Arachne)</option>
+                    <option value="litho_02_008">0.08mm Ultra-Fine Lithophane (0.2 Nozzle, Arachne)</option>
+                    <option value="litho_02_010">0.10mm Fine Lithophane (0.2 Nozzle, 99 Walls)</option>
+                    <option value="litho_04_008">0.08mm Extra-Fine Lithophane (0.4 Nozzle, Arachne)</option>
+                    <option value="litho_04_010">0.10mm High-Detail Lithophane (0.4 Nozzle, Arachne)</option>
+                    <option value="litho_04_012">0.12mm Standard Backlit Lithophane (0.4 Nozzle)</option>
+                    <option value="litho_04_016">0.16mm Fast Backlit Lithophane (0.4 Nozzle)</option>
+                    <option value="litho_cmyk_flat">0.08mm CMYK Flat Face-Up Lithophane (0.4 Nozzle)</option>
+                    <option value="litho_curved_arc">0.10mm Self-Standing Curved Arc Lithophane (8mm Brim)</option>
+                  </optgroup>
+                  <optgroup label="🚀 Bambu Lab X2D, H3C, H2S, H2C, P2S &amp; A2L Flagship Profiles">
                     <option value="x2d_dual_litho">0.10mm X2D Dual-Nozzle Lithophane + Breakaway Support @BBL X2D</option>
                     <option value="h3c_toolchanger_cmyk">0.08mm H3C 9-Material Tool-Changer CMYK Lithophane @BBL H3C</option>
                     <option value="h2s_jumbo_litho">0.12mm H2S 340mm Jumbo Large-Format Lithophane @BBL H2S</option>
@@ -1195,30 +1233,28 @@ CUSTOM EDITION</textarea>
                     <option value="p2s_high_flow">0.10mm P2S High-Extrusion Precision Lithophane @BBL P2S</option>
                     <option value="a2l_blade_cut">0.12mm A2L Extra-Large Relief + Drag-Blade Cut @BBL A2L</option>
                   </optgroup>
-                  <optgroup label="Official Bambu Studio 0.4mm Nozzle Profiles (@BBL)">
-                    <option value="bbl_04_008">0.08mm Extra Fine @BBL (0.4 Nozzle)</option>
-                    <option value="bbl_04_012">0.12mm Fine @BBL (0.4 Nozzle)</option>
-                    <option value="bbl_04_016_hq">0.16mm High Quality @BBL (0.4 Nozzle)</option>
-                    <option value="bbl_04_016">0.16mm Optimal @BBL (0.4 Nozzle)</option>
-                    <option value="bbl_04_020">0.20mm Standard @BBL (0.4 Nozzle)</option>
-                    <option value="bbl_04_020_str">0.20mm Strength @BBL (0.4 Nozzle — 6 Walls, 25% Gyroid)</option>
-                    <option value="bbl_04_024">0.24mm Draft @BBL (0.4 Nozzle)</option>
-                    <option value="bbl_04_028">0.28mm Extra Draft @BBL (0.4 Nozzle)</option>
+                  <optgroup label="Official Standard 0.4mm Nozzle Profiles">
+                    <option value="bbl_04_008">0.08mm Extra Fine (0.4 Nozzle)</option>
+                    <option value="bbl_04_012">0.12mm Fine (0.4 Nozzle)</option>
+                    <option value="bbl_04_016_hq">0.16mm High Quality (0.4 Nozzle)</option>
+                    <option value="bbl_04_016">0.16mm Optimal (0.4 Nozzle)</option>
+                    <option value="bbl_04_020">0.20mm Standard (0.4 Nozzle)</option>
+                    <option value="bbl_04_020_str">0.20mm Strength (0.4 Nozzle — 6 Walls, 25% Gyroid)</option>
+                    <option value="bbl_04_024">0.24mm Draft (0.4 Nozzle)</option>
+                    <option value="bbl_04_028">0.28mm Extra Draft (0.4 Nozzle)</option>
                   </optgroup>
-                  <optgroup label="Official Bambu Studio 0.2mm Nozzle Profiles (@BBL)">
-                    <option value="bbl_02_006">0.06mm High Quality @BBL (0.2 Nozzle)</option>
-                    <option value="bbl_02_008">0.08mm Extra Fine @BBL (0.2 Nozzle)</option>
-                    <option value="bbl_02_010">0.10mm Fine @BBL (0.2 Nozzle)</option>
-                    <option value="bbl_02_012">0.12mm Standard @BBL (0.2 Nozzle)</option>
-                    <option value="bbl_02_014">0.14mm Draft @BBL (0.2 Nozzle)</option>
-                  </optgroup>
-                  <optgroup label="Official Bambu Studio 0.6mm &amp; 0.8mm Nozzle Profiles (@BBL)">
-                    <option value="bbl_06_018">0.18mm Fine @BBL (0.6 Nozzle)</option>
-                    <option value="bbl_06_024">0.24mm Standard @BBL (0.6 Nozzle)</option>
-                    <option value="bbl_06_030">0.30mm Draft @BBL (0.6 Nozzle)</option>
-                    <option value="bbl_08_024">0.24mm Fine @BBL (0.8 Nozzle)</option>
-                    <option value="bbl_08_032">0.32mm Standard @BBL (0.8 Nozzle)</option>
-                    <option value="bbl_08_040">0.40mm Draft @BBL (0.8 Nozzle)</option>
+                  <optgroup label="Official 0.2mm, 0.6mm &amp; 0.8mm Nozzle Profiles">
+                    <option value="bbl_02_006">0.06mm High Quality (0.2 Nozzle)</option>
+                    <option value="bbl_02_008">0.08mm Extra Fine (0.2 Nozzle)</option>
+                    <option value="bbl_02_010">0.10mm Fine (0.2 Nozzle)</option>
+                    <option value="bbl_02_012">0.12mm Standard (0.2 Nozzle)</option>
+                    <option value="bbl_02_014">0.14mm Draft (0.2 Nozzle)</option>
+                    <option value="bbl_06_018">0.18mm Fine (0.6 Nozzle)</option>
+                    <option value="bbl_06_024">0.24mm Standard (0.6 Nozzle)</option>
+                    <option value="bbl_06_030">0.30mm Draft (0.6 Nozzle)</option>
+                    <option value="bbl_08_024">0.24mm Fine (0.8 Nozzle)</option>
+                    <option value="bbl_08_032">0.32mm Standard (0.8 Nozzle)</option>
+                    <option value="bbl_08_040">0.40mm Draft (0.8 Nozzle)</option>
                   </optgroup>
                   <optgroup label="Bambu H2D / A2L Laser &amp; Blade Cutting">
                     <option value="h2d_blade_cut">Bambu H2D / A2L Drag-Blade Contour Cut + 3D Lithophane</option>
@@ -1229,9 +1265,9 @@ CUSTOM EDITION</textarea>
               </div>
 
               <div>
-                <label class="block text-slate-500 text-xs mb-0.5">Bambu Filament Preset</label>
+                <label class="block text-slate-500 text-xs mb-0.5">Filament Brand &amp; Material Preset</label>
                 <select id="ctrlBambuFilament" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-800 focus:outline-none focus:border-emerald-700">
-                  <optgroup label="Bambu Lab PLA (Recommended for Keepsake Pucks &amp; Lithophanes)">
+                  <optgroup label="🟢 Bambu Lab Filaments (Keepsake Pucks &amp; Lithophanes)">
                     <option value="Bambu PLA Basic @BBL" selected>Bambu PLA Basic — Jade White (10100)</option>
                     <option value="Bambu PLA Matte @BBL">Bambu PLA Matte — Ivory White (11100)</option>
                     <option value="Bambu PLA CMYK Lithophane @BBL">Bambu PLA CMYK Lithophane Bundle</option>
@@ -1240,16 +1276,26 @@ CUSTOM EDITION</textarea>
                     <option value="Bambu PLA Marble @BBL">Bambu PLA Marble — White Stone</option>
                     <option value="Bambu PLA Glow @BBL">Bambu PLA Glow — Luminous</option>
                     <option value="Bambu PLA Wood @BBL">Bambu PLA Wood — Classic Birch</option>
-                    <option value="Bambu PLA-CF @BBL">Bambu PLA-CF — Carbon Fiber</option>
                   </optgroup>
-                  <optgroup label="Bambu Lab PETG / PCTG / ABS / ASA / Dual-Nozzle Support">
+                  <optgroup label="🌐 Popular Lithophane &amp; Keepsake Filaments (Polymaker, eSUN, Prusament, Sunlu, Elegoo, Creality)">
+                    <option value="Polymaker PolyLite PLA Pro">Polymaker PolyLite / PolyTerra PLA — Cold White</option>
+                    <option value="eSUN PLA+ Cold White">eSUN PLA+ — Cold White (Classic Lithophane Standard)</option>
+                    <option value="Prusament PLA Prusa White">Prusament PLA — Prusa White / Vanilla White</option>
+                    <option value="SUNLU PLA+ White">SUNLU PLA+ / Meta PLA — Pure White</option>
+                    <option value="Elegoo Rapid PLA+ White">Elegoo Rapid PLA+ — White</option>
+                    <option value="Creality Hyper PLA White">Creality Hyper PLA — White</option>
+                    <option value="Overture Matte PLA White">Overture Matte / Rock PLA — White</option>
+                    <option value="Hatchbox PLA Cool White">Hatchbox PLA — Cool White</option>
+                    <option value="American Filament Lithophane PLA">American Filament — Classic Lithophane White PLA</option>
+                  </optgroup>
+                  <optgroup label="PETG / PCTG / ABS / ASA / Dual-Nozzle Support">
                     <option value="Bambu PETG HF @BBL">Bambu PETG HF — White (33100)</option>
                     <option value="Bambu PETG Translucent @BBL">Bambu PETG Translucent — Clear/Frost</option>
                     <option value="Bambu PCTG @BBL">Bambu PCTG — High-Clarity Tough White</option>
                     <option value="Bambu ABS @BBL">Bambu ABS — White (Enclosed Printers)</option>
                     <option value="Bambu ASA @BBL">Bambu ASA — White (Outdoor UV)</option>
                     <option value="Bambu Support for PLA/PETG @BBL">Bambu Support for PLA/PETG (X2D/H2D/H2C/H3C Aux)</option>
-                    <option value="Bambu PPA-CF @BBL">Bambu PPA-CF / PPS-CF (350°C X2D/H2D/H3C)</option>
+                    <option value="Bambu PPA-CF @BBL">Bambu PPA-CF / PPS-CF (350°C X2D/H2D/H3C/Plus 4)</option>
                     <option value="Bambu TPU 95A HF @BBL">Bambu TPU 95A HF — Flexible</option>
                     <option value="Generic PLA @BBL">Generic PLA / PLA+ White</option>
                   </optgroup>
@@ -1313,13 +1359,13 @@ CUSTOM EDITION</textarea>
               <div class="pt-1 space-y-1.5 border-t border-slate-300/80">
                 <button type="button" onclick="exportBambu3MF()" class="w-full py-1.5 px-2.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-xs transition flex items-center justify-center gap-1.5">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/></svg>
-                  <span id="btnSidebar3MFLabel">Export Bambu .3MF Project (X2D)</span>
+                  <span id="btnSidebar3MFLabel">Export Slicer .3MF Project (X2D)</span>
                 </button>
                 <div class="grid grid-cols-2 gap-1.5">
-                  <button type="button" onclick="exportBambuPresetJSON()" class="py-1 px-2 rounded bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-xs transition" title="Export standalone Bambu Studio / OrcaSlicer process profile (.json)">
+                  <button type="button" onclick="exportBambuPresetJSON()" class="py-1 px-2 rounded bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-xs transition" title="Export standalone Bambu Studio / OrcaSlicer / PrusaSlicer / Creality Print process profile (.json)">
                     Export Slicer .JSON
                   </button>
-                  <button type="button" onclick="exportContourCutSVG()" class="py-1 px-2 rounded bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-xs transition" title="Export 1:1 millimeter outer contour vector cutting path (.svg) for Bambu Suite / H2D Laser &amp; Blade Cut">
+                  <button type="button" onclick="exportContourCutSVG()" class="py-1 px-2 rounded bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-xs transition" title="Export 1:1 millimeter outer contour vector cutting path (.svg) for Laser &amp; Blade Cut">
                     Export Cut Path .SVG
                   </button>
                 </div>
@@ -5117,6 +5163,394 @@ CUSTOM EDITION</textarea>
         chamber: 'Compact Open Frame (≤48 dB)',
         extruders: 1,
         notes: 'Compact 180×180×180 mm Bedslinger • Quick-Swap Nozzle + Active Motor Noise Cancelling'
+      },
+
+      // =====================================================
+      // PRUSA RESEARCH (Core ONE, MK4S, XL 5-Tool, MK3S+, MINI+)
+      // =====================================================
+      prusa_core_one: {
+        code: 'Core-ONE',
+        printerName: 'Prusa Core ONE',
+        printerVariant: '0.4 nozzle (Enclosed CoreXY)',
+        bedX: 250,
+        bedY: 220,
+        bedZ: 270,
+        plateFamily: '250×220 mm Prusa Sheet',
+        maxSpeed: 600,
+        maxAccel: 20000,
+        nozzleTemp: 290,
+        bedTemp: 120,
+        chamber: '55 °C Active Vent Control',
+        extruders: 1,
+        notes: 'Enclosed CoreXY with Nextruder + High-Flow CHT Nozzle • 360° Part Cooling • MMU3 5-Color Compatible'
+      },
+      prusa_mk4s: {
+        code: 'MK4S',
+        printerName: 'Original Prusa MK4S / MK4',
+        printerVariant: '0.4 nozzle (Nextruder)',
+        bedX: 250,
+        bedY: 210,
+        bedZ: 220,
+        plateFamily: '250×210 mm Prusa Sheet',
+        maxSpeed: 500,
+        maxAccel: 10000,
+        nozzleTemp: 290,
+        bedTemp: 120,
+        chamber: 'Open Frame (Enclosure Opt)',
+        extruders: 1,
+        notes: 'Nextruder Loadcell Perfect First Layer • 360° High-Output Turbine Fan • Input Shaper & Phase Stepping'
+      },
+      prusa_xl: {
+        code: 'Prusa-XL',
+        printerName: 'Original Prusa XL (5-Tool)',
+        printerVariant: '0.4 nozzle (5-Toolhead Changer)',
+        bedX: 360,
+        bedY: 360,
+        bedZ: 360,
+        plateFamily: '360×360 mm 16-Tile Modular Bed',
+        maxSpeed: 500,
+        maxAccel: 10000,
+        nozzleTemp: 290,
+        bedTemp: 120,
+        chamber: 'Semi-Enclosed / Draft Shield',
+        extruders: 5,
+        notes: '5 Independent Nextruder Toolheads • Zero-Purge Multi-Material & CMYK Lithophane • 360×360×360 mm'
+      },
+      prusa_mk3s: {
+        code: 'MK3S+',
+        printerName: 'Original Prusa i3 MK3S+',
+        printerVariant: '0.4 nozzle',
+        bedX: 250,
+        bedY: 210,
+        bedZ: 210,
+        plateFamily: '250×210 mm Spring Steel',
+        maxSpeed: 200,
+        maxAccel: 4000,
+        nozzleTemp: 300,
+        bedTemp: 120,
+        chamber: 'Open Frame',
+        extruders: 1,
+        notes: 'Classic Prusa Workhorse • SuperPINDA Auto-Mesh Leveling + Bondtech Dual-Drive Extruder'
+      },
+      prusa_mini: {
+        code: 'MINI+',
+        printerName: 'Original Prusa MINI+',
+        printerVariant: '0.4 nozzle',
+        bedX: 180,
+        bedY: 180,
+        bedZ: 180,
+        plateFamily: '180×180 mm Compact Sheet',
+        maxSpeed: 300,
+        maxAccel: 5000,
+        nozzleTemp: 280,
+        bedTemp: 100,
+        chamber: 'Compact Cantilever',
+        extruders: 1,
+        notes: 'Compact 180×180×180 mm Cantilever Printer with Input Shaper Firmware & SuperPINDA'
+      },
+
+      // =====================================================
+      // CREALITY (K2 Plus CFS, K1 Max, K1C, Ender-3 V3 Series)
+      // =====================================================
+      creality_k2_plus: {
+        code: 'K2-Plus',
+        printerName: 'Creality K2 Plus (CFS)',
+        printerVariant: '0.4 nozzle (350mm CoreXY)',
+        bedX: 350,
+        bedY: 350,
+        bedZ: 350,
+        plateFamily: '350×350 mm PEI Plate',
+        maxSpeed: 600,
+        maxAccel: 30000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '60 °C Active Heated',
+        extruders: 1,
+        notes: 'Flagship 350×350×350 mm CoreXY • FOC Step-Servo Motors • Up to 16-Color CFS Multi-Filament System'
+      },
+      creality_k1_max: {
+        code: 'K1-Max',
+        printerName: 'Creality K1 Max',
+        printerVariant: '0.4 nozzle (Unicorn Hotend)',
+        bedX: 300,
+        bedY: 300,
+        bedZ: 300,
+        plateFamily: '300×300 mm PEI Plate',
+        maxSpeed: 600,
+        maxAccel: 20000,
+        nozzleTemp: 300,
+        bedTemp: 100,
+        chamber: 'Enclosed + AI LiDAR Camera',
+        extruders: 1,
+        notes: 'Large-Format 300×300×300 mm High-Speed CoreXY • AI LiDAR First-Layer Inspection • Klipper Creality OS'
+      },
+      creality_k1c: {
+        code: 'K1C',
+        printerName: 'Creality K1C / K1 SE',
+        printerVariant: '0.4 nozzle (Tri-Metal Unicorn)',
+        bedX: 220,
+        bedY: 220,
+        bedZ: 250,
+        plateFamily: '220×220 mm PEI Plate',
+        maxSpeed: 600,
+        maxAccel: 20000,
+        nozzleTemp: 300,
+        bedTemp: 100,
+        chamber: 'Enclosed + Carbon Filter',
+        extruders: 1,
+        notes: '220×220×250 mm CoreXY • Clog-Free Tri-Metal Unicorn Nozzle + AI Camera • Ideal for 80mm Keepsake Pucks'
+      },
+      creality_ender3_v3: {
+        code: 'Ender3-V3',
+        printerName: 'Creality Ender-3 V3 / V3 KE / SE',
+        printerVariant: '0.4 nozzle',
+        bedX: 220,
+        bedY: 220,
+        bedZ: 250,
+        plateFamily: '220×220 mm PEI Plate',
+        maxSpeed: 500,
+        maxAccel: 8000,
+        nozzleTemp: 300,
+        bedTemp: 100,
+        chamber: 'Open Frame (CoreXZ / Sprite)',
+        extruders: 1,
+        notes: 'World’s Most Popular 220×220×250 mm Format • Auto Z-Offset & Input Shaping'
+      },
+      creality_ender3_v3_plus: {
+        code: 'Ender3-V3+',
+        printerName: 'Creality Ender-3 V3 Plus',
+        printerVariant: '0.4 nozzle (Large CoreXZ)',
+        bedX: 300,
+        bedY: 300,
+        bedZ: 330,
+        plateFamily: '300×300 mm PEI Plate',
+        maxSpeed: 500,
+        maxAccel: 10000,
+        nozzleTemp: 300,
+        bedTemp: 100,
+        chamber: 'Open Frame CoreXZ',
+        extruders: 1,
+        notes: 'Large 300×300×330 mm CoreXZ with Dual Y-Axis Motors & Support Rods'
+      },
+
+      // =====================================================
+      // ANYCUBIC (Kobra S1, Kobra 3 Combo, Kobra 3 Max)
+      // =====================================================
+      anycubic_kobra_s1: {
+        code: 'Kobra-S1',
+        printerName: 'Anycubic Kobra S1 Combo',
+        printerVariant: '0.4 nozzle (Enclosed CoreXY)',
+        bedX: 250,
+        bedY: 250,
+        bedZ: 250,
+        plateFamily: '250×250 mm PEI Plate',
+        maxSpeed: 600,
+        maxAccel: 20000,
+        nozzleTemp: 320,
+        bedTemp: 120,
+        chamber: 'Enclosed + Active Dryer ACE Pro',
+        extruders: 1,
+        notes: 'Enclosed 250×250×250 mm CoreXY • ACE Pro 4/8-Color Active-Drying Multi-Color Unit (great for CMYK Lithophanes)'
+      },
+      anycubic_kobra_3: {
+        code: 'Kobra-3',
+        printerName: 'Anycubic Kobra 3 Combo',
+        printerVariant: '0.4 nozzle (ACE Pro Multi-Color)',
+        bedX: 250,
+        bedY: 250,
+        bedZ: 260,
+        plateFamily: '250×250 mm PEI Plate',
+        maxSpeed: 600,
+        maxAccel: 15000,
+        nozzleTemp: 300,
+        bedTemp: 110,
+        chamber: 'Open Frame + ACE Pro Dryer',
+        extruders: 1,
+        notes: '250×250×260 mm High-Speed Bedslinger + ACE Pro Active Filament Dryer & 4/8-Color Hub'
+      },
+      anycubic_kobra_3_max: {
+        code: 'Kobra3-Max',
+        printerName: 'Anycubic Kobra 3 Max Combo',
+        printerVariant: '0.4 nozzle (420mm Giant Volume)',
+        bedX: 420,
+        bedY: 420,
+        bedZ: 500,
+        plateFamily: '420×420 mm PEI Plate',
+        maxSpeed: 600,
+        maxAccel: 10000,
+        nozzleTemp: 300,
+        bedTemp: 90,
+        chamber: 'Ultra-Large Open Frame',
+        extruders: 1,
+        notes: 'Massive 420×420×500 mm Build Volume • Print Giant Wall-Art Lithophanes or 16 Keepsake Pucks at Once'
+      },
+
+      // =====================================================
+      // ELEGOO (Centauri Carbon CoreXY, Neptune 4 Pro / Plus / Max)
+      // =====================================================
+      elegoo_centauri_carbon: {
+        code: 'Centauri-C',
+        printerName: 'Elegoo Centauri Carbon',
+        printerVariant: '0.4 nozzle (Enclosed CoreXY)',
+        bedX: 256,
+        bedY: 256,
+        bedZ: 256,
+        plateFamily: '256×256 mm Dual-Sided Plate',
+        maxSpeed: 500,
+        maxAccel: 20000,
+        nozzleTemp: 320,
+        bedTemp: 110,
+        chamber: 'Enclosed Die-Cast Aluminum',
+        extruders: 1,
+        notes: '256×256×256 mm Enclosed CoreXY • 320 °C Hardened Nozzle • Automatic Vibration Compensation'
+      },
+      elegoo_neptune_4_pro: {
+        code: 'Neptune4-Pro',
+        printerName: 'Elegoo Neptune 4 / 4 Pro',
+        printerVariant: '0.4 nozzle (Klipper)',
+        bedX: 225,
+        bedY: 225,
+        bedZ: 265,
+        plateFamily: '225×225 mm PEI Plate',
+        maxSpeed: 500,
+        maxAccel: 10000,
+        nozzleTemp: 300,
+        bedTemp: 110,
+        chamber: 'Open Frame + Dual-Zone Bed',
+        extruders: 1,
+        notes: 'Klipper High-Speed 225×225×265 mm • All-Metal Dual-Gear Direct Extruder + 100W+150W Segmented Heated Bed'
+      },
+      elegoo_neptune_4_plus: {
+        code: 'Neptune4-Plus',
+        printerName: 'Elegoo Neptune 4 Plus',
+        printerVariant: '0.4 nozzle (320mm Klipper)',
+        bedX: 320,
+        bedY: 320,
+        bedZ: 385,
+        plateFamily: '320×320 mm PEI Plate',
+        maxSpeed: 500,
+        maxAccel: 12000,
+        nozzleTemp: 300,
+        bedTemp: 100,
+        chamber: 'Open Frame + Accelerometer',
+        extruders: 1,
+        notes: '320×320×385 mm Klipper Format • Built-in X/Y Input Shaping Accelerometers + Wi-Fi'
+      },
+      elegoo_neptune_4_max: {
+        code: 'Neptune4-Max',
+        printerName: 'Elegoo Neptune 4 Max',
+        printerVariant: '0.4 nozzle (420mm XL Klipper)',
+        bedX: 420,
+        bedY: 420,
+        bedZ: 480,
+        plateFamily: '420×420 mm PEI Plate',
+        maxSpeed: 500,
+        maxAccel: 8000,
+        nozzleTemp: 300,
+        bedTemp: 85,
+        chamber: 'XL Open Frame',
+        extruders: 1,
+        notes: '420×420×480 mm Extra-Large Klipper Printer for Full-Size Portrait Lithophane Panels'
+      },
+
+      // =====================================================
+      // QIDI TECH, FLASHFORGE, VORON DESIGN & SOVOL
+      // =====================================================
+      qidi_plus_4: {
+        code: 'Qidi-Plus4',
+        printerName: 'Qidi Tech Plus 4',
+        printerVariant: '0.4 nozzle (370°C Bimetal)',
+        bedX: 305,
+        bedY: 305,
+        bedZ: 280,
+        plateFamily: '305×305 mm PEI Plate',
+        maxSpeed: 600,
+        maxAccel: 20000,
+        nozzleTemp: 370,
+        bedTemp: 120,
+        chamber: '65 °C Active Heated (400W)',
+        extruders: 1,
+        notes: '305×305×280 mm Industrial CoreXY • 370 °C Nozzle + 65 °C Active Chamber + Qidi Box Multi-Color Ready'
+      },
+      qidi_q1_pro: {
+        code: 'Qidi-Q1Pro',
+        printerName: 'Qidi Tech Q1 Pro',
+        printerVariant: '0.4 nozzle (Active Chamber)',
+        bedX: 245,
+        bedY: 245,
+        bedZ: 240,
+        plateFamily: '245×245 mm PEI Plate',
+        maxSpeed: 600,
+        maxAccel: 20000,
+        nozzleTemp: 350,
+        bedTemp: 120,
+        chamber: '60 °C Active Heated',
+        extruders: 1,
+        notes: '245×245×240 mm Dual-Z CoreXY with Active Heated Chamber & Tri-Metal Nozzle'
+      },
+      flashforge_ad5m_pro: {
+        code: 'AD5M-Pro',
+        printerName: 'FlashForge Adventurer 5M / 5M Pro',
+        printerVariant: '0.4 nozzle (3-Sec Quick-Swap)',
+        bedX: 220,
+        bedY: 220,
+        bedZ: 220,
+        plateFamily: '220×220 mm PEI Plate',
+        maxSpeed: 600,
+        maxAccel: 20000,
+        nozzleTemp: 280,
+        bedTemp: 110,
+        chamber: 'Enclosed + Dual HEPA/Carbon',
+        extruders: 1,
+        notes: '220×220×220 mm All-Metal CoreXY • 3-Second Quick-Release Nozzle (0.25/0.4/0.6/0.8 mm)'
+      },
+      voron_24_350: {
+        code: 'Voron-2.4',
+        printerName: 'Voron 2.4 R2 (350mm)',
+        printerVariant: '0.4 nozzle (Stealthburner Klipper)',
+        bedX: 350,
+        bedY: 350,
+        bedZ: 350,
+        plateFamily: '350×350 mm MIC6 Cast Bed',
+        maxSpeed: 700,
+        maxAccel: 25000,
+        nozzleTemp: 300,
+        bedTemp: 120,
+        chamber: 'Enclosed Acrylic (~60 °C)',
+        extruders: 1,
+        notes: 'Quad-Gantry-Leveling Flying-Gantry CoreXY • Native Klipper + OrcaSlicer / SuperSlicer Support'
+      },
+      voron_trident_300: {
+        code: 'Trident-300',
+        printerName: 'Voron Trident (300mm)',
+        printerVariant: '0.4 nozzle (3-Leadscrew CoreXY)',
+        bedX: 300,
+        bedY: 300,
+        bedZ: 250,
+        plateFamily: '300×300 mm MIC6 Cast Bed',
+        maxSpeed: 700,
+        maxAccel: 25000,
+        nozzleTemp: 300,
+        bedTemp: 120,
+        chamber: 'Enclosed (~60 °C)',
+        extruders: 1,
+        notes: '3-Point Z-Tilt Enclosed CoreXY • Ultra-Consistent Z-Layer Stacking for 0.08mm Lithophanes & Keepsakes'
+      },
+      sovol_sv08: {
+        code: 'Sovol-SV08',
+        printerName: 'Sovol SV08 (Flying Gantry)',
+        printerVariant: '0.4 nozzle (Open-Source CoreXY)',
+        bedX: 350,
+        bedY: 350,
+        bedZ: 345,
+        plateFamily: '350×350 mm PEI Plate',
+        maxSpeed: 700,
+        maxAccel: 40000,
+        nozzleTemp: 300,
+        bedTemp: 100,
+        chamber: 'Open / Optional Enclosure',
+        extruders: 1,
+        notes: '350×350×345 mm Voron-2.4-Inspired Quad-Gantry CoreXY • Klipper & OrcaSlicer Ready'
       }
     };
 
@@ -5220,6 +5654,13 @@ CUSTOM EDITION</textarea>
         mmPerPixel: 0.10,
         layFlat: false
       },
+
+      // Multi-Brand Keepsake & Lithophane Profiles (Prusa, Creality, Anycubic, Elegoo, Qidi, Voron)
+      'prusa_008_ultradetail': { name: '0.08mm UltraDetail @Prusa (Core ONE / MK4S / XL)', nozzle: 0.4, layerHeight: 0.08, initialLayer: 0.20, lineWidth: 0.40, outerWallLineWidth: 0.38, topSurfaceLineWidth: 0.38, walls: 4, topShellLayers: 12, bottomShellLayers: 7, infillDensity: '20%', infillPattern: 'gyroid', wallGenerator: 'arachne', scarfSeam: true, speed: 45, normalAccel: 1000, brim: 0, diameter: 80, minThick: 4.75, maxThick: 6.0, frameThick: 1.0, frameDepth: 6.0, positiveImage: false, placeX: 51.1, placeY: 50.0, zoomFactor: 133, mmPerPixel: 0.10, layFlat: false },
+      'creality_008_k2_k1': { name: '0.08mm Hyper-Detail @Creality (K2 Plus / K1 Max / K1C / Ender-3 V3)', nozzle: 0.4, layerHeight: 0.08, initialLayer: 0.20, lineWidth: 0.42, outerWallLineWidth: 0.38, topSurfaceLineWidth: 0.38, walls: 4, topShellLayers: 12, bottomShellLayers: 7, infillDensity: '20%', infillPattern: 'gyroid', wallGenerator: 'arachne', scarfSeam: true, speed: 50, normalAccel: 1000, brim: 0, diameter: 80, minThick: 4.75, maxThick: 6.0, frameThick: 1.0, frameDepth: 6.0, positiveImage: false, placeX: 51.1, placeY: 50.0, zoomFactor: 133, mmPerPixel: 0.10, layFlat: false },
+      'anycubic_008_kobra': { name: '0.08mm High-Precision @Anycubic (Kobra S1 / Kobra 3 ACE Pro)', nozzle: 0.4, layerHeight: 0.08, initialLayer: 0.20, lineWidth: 0.42, outerWallLineWidth: 0.38, topSurfaceLineWidth: 0.38, walls: 4, topShellLayers: 12, bottomShellLayers: 7, infillDensity: '20%', infillPattern: 'gyroid', wallGenerator: 'arachne', scarfSeam: true, speed: 50, normalAccel: 1000, brim: 0, diameter: 80, minThick: 4.75, maxThick: 6.0, frameThick: 1.0, frameDepth: 6.0, positiveImage: false, placeX: 51.1, placeY: 50.0, zoomFactor: 133, mmPerPixel: 0.10, layFlat: false },
+      'elegoo_008_klipper': { name: '0.08mm Fine Lithophane & Keepsake @Elegoo (Centauri / Neptune 4)', nozzle: 0.4, layerHeight: 0.08, initialLayer: 0.20, lineWidth: 0.42, outerWallLineWidth: 0.38, topSurfaceLineWidth: 0.38, walls: 4, topShellLayers: 12, bottomShellLayers: 7, infillDensity: '20%', infillPattern: 'gyroid', wallGenerator: 'arachne', scarfSeam: true, speed: 50, normalAccel: 1000, brim: 0, diameter: 80, minThick: 4.75, maxThick: 6.0, frameThick: 1.0, frameDepth: 6.0, positiveImage: false, placeX: 51.1, placeY: 50.0, zoomFactor: 133, mmPerPixel: 0.10, layFlat: false },
+      'qidi_voron_008_abs': { name: '0.08mm High-Speed CoreXY @Qidi Plus 4 / Voron 2.4 / Sovol SV08', nozzle: 0.4, layerHeight: 0.08, initialLayer: 0.20, lineWidth: 0.40, outerWallLineWidth: 0.38, topSurfaceLineWidth: 0.38, walls: 4, topShellLayers: 12, bottomShellLayers: 7, infillDensity: '20%', infillPattern: 'gyroid', wallGenerator: 'arachne', scarfSeam: true, speed: 55, normalAccel: 1200, brim: 0, diameter: 80, minThick: 4.75, maxThick: 6.0, frameThick: 1.0, frameDepth: 6.0, positiveImage: false, placeX: 51.1, placeY: 50.0, zoomFactor: 133, mmPerPixel: 0.10, layFlat: false },
 
       // Specialized Lithophane Profiles
       'litho_02_006': { name: '0.06mm Extra-Fine Lithophane @BBL 0.2', nozzle: 0.2, layerHeight: 0.06, initialLayer: 0.10, lineWidth: 0.22, walls: 99, infillDensity: '100%', infillPattern: 'rectilinear', wallGenerator: 'arachne', speed: 30, brim: 6, minThick: 0.6, maxThick: 2.6, mmPerPixel: 0.06, layFlat: false },
