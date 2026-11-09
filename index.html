@@ -350,8 +350,8 @@
       <button id="btnPresetThin" title="Standard Backlit Lithophane thicknesses (0.8mm - 3.2mm — allows light to pass through)" class="hdr-btn bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 font-medium">
         <span>Backlit (0.8–3.2mm)</span>
       </button>
-      <button id="btnPresetScreenshot" title="Match exact screenshot thicknesses (7mm - 12mm — opaque deep relief)" class="hdr-btn bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">
-        <span>Opaque (7–12mm)</span>
+      <button id="btnPresetScreenshot" title="Keepsake Puck default (80mm Circle, 4.75–6mm Thick, 1mm Frame, Positive Image OFF, Zoom 133%)" class="hdr-btn bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">
+        <span>Keepsake (4.75–6mm)</span>
       </button>
       <div class="h-4 w-px bg-slate-700 mx-0.5 hide-below-960"></div>
       <button id="btnExportPNG" class="hdr-btn bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700" title="Download processed grayscale heightmap image">
@@ -385,9 +385,9 @@
         <span id="bgRemoveQuickLabel">Smart BG: OFF</span>
       </button>
       <div id="meshStatsBadge" class="hide-below-960 flex items-center gap-1.5 bg-white px-2 py-0.5 rounded border border-slate-300 text-slate-700 text-xs font-medium shrink-0">
-        <span id="statDimensions">150 × 150 × 12 mm</span>
+        <span id="statDimensions">80 × 80 × 6.0 mm</span>
         <span class="text-slate-300">|</span>
-        <span id="statLightPass" class="text-slate-600">Light Pass: 0.0% (Opaque @ 7.0mm)</span>
+        <span id="statLightPass" class="text-slate-600">Light Pass: 0.0% (Opaque @ 4.75mm)</span>
       </div>
       <button id="btnQuickBacklight" onclick="toggleQuickBacklight()" class="hdr-btn border border-amber-500/60 bg-amber-50 text-amber-900 font-semibold hover:bg-amber-100">
         <span id="backlightDot" class="w-2 h-2 rounded-full bg-slate-400 shrink-0"></span>
@@ -807,17 +807,17 @@
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label id="lblDiameter">Diameter</label>
-                <input id="ctrlDiameter" type="range" min="30" max="350" step="1" value="150" class="cad-slider" />
+                <input id="ctrlDiameter" type="range" min="30" max="350" step="1" value="80" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numDiameter" type="number" min="30" max="350" step="1" value="150" class="num-input !w-11" />
+                  <input id="numDiameter" type="number" min="30" max="350" step="1" value="80" class="num-input !w-11" />
                   <span class="text-slate-500 ml-0.5">mm</span>
                 </div>
               </div>
               <div id="rowHeight" class="hidden grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>Height</label>
-                <input id="ctrlHeight" type="range" min="30" max="350" step="1" value="150" class="cad-slider" />
+                <input id="ctrlHeight" type="range" min="30" max="350" step="1" value="80" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numHeight" type="number" min="30" max="350" step="1" value="150" class="num-input !w-11" />
+                  <input id="numHeight" type="number" min="30" max="350" step="1" value="80" class="num-input !w-11" />
                   <span class="text-slate-500 ml-0.5">mm</span>
                 </div>
               </div>
@@ -831,17 +831,17 @@
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>Min Thick</label>
-                <input id="ctrlMinThick" type="range" min="0.4" max="15" step="0.1" value="7" class="cad-slider" />
+                <input id="ctrlMinThick" type="range" min="0.4" max="15" step="0.05" value="4.75" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numMinThick" type="number" min="0.4" max="15" step="0.1" value="7" class="num-input !w-11" />
+                  <input id="numMinThick" type="number" min="0.4" max="15" step="0.05" value="4.75" class="num-input !w-12" />
                   <span class="text-slate-500 ml-0.5">mm</span>
                 </div>
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>Max Thick</label>
-                <input id="ctrlMaxThick" type="range" min="0.8" max="25" step="0.1" value="12" class="cad-slider" />
+                <input id="ctrlMaxThick" type="range" min="0.8" max="25" step="0.05" value="6" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numMaxThick" type="number" min="0.8" max="25" step="0.1" value="12" class="num-input !w-11" />
+                  <input id="numMaxThick" type="number" min="0.8" max="25" step="0.05" value="6" class="num-input !w-12" />
                   <span class="text-slate-500 ml-0.5">mm</span>
                 </div>
               </div>
@@ -852,7 +852,7 @@
                   <span class="text-slate-800 flex items-center gap-1">
                     <span>💡 Light Pass-Through</span>
                   </span>
-                  <span id="lblLightTransPercent" class="text-slate-900 font-bold">0.0% (Opaque @ 7.0mm)</span>
+                  <span id="lblLightTransPercent" class="text-slate-900 font-bold">0.0% (Opaque @ 4.75mm)</span>
                 </div>
 
                 <!-- Interactive Draggable Yellow Bar Slider -->
@@ -868,7 +868,7 @@
                     step="1"
                     value="0"
                     oninput="setLightPassThroughFromSlider(this.value)"
-                    title="Drag right to make plastic thinner so light shines through (Backlit Lithophane), or drag left to 0% for a thick Solid 3D Sculpture"
+                    title="Drag right to make plastic thinner so light shines through (Backlit Lithophane), or drag left to 0% for a thick Solid 3D Keepsake Puck"
                     class="absolute inset-0 w-full h-full opacity-90 cursor-pointer accent-amber-500"
                     style="background: transparent;"
                   />
@@ -879,12 +879,12 @@
                     <span>💡 Glow Backlit (68%)</span>
                   </button>
                   <button type="button" onclick="setLightPassThroughFromSlider(0)" class="py-1 px-2 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold text-[11px] shadow-2xs transition flex items-center justify-center gap-1">
-                    <span>🗿 Solid 3D (0% Opaque)</span>
+                    <span>🗿 Keepsake Puck (4.75–6mm)</span>
                   </button>
                 </div>
 
                 <p id="lblThicknessHint" class="text-slate-600 text-[11px] leading-snug">
-                  <strong>What this does:</strong> Drag the yellow bar right to make the plastic thinner (<strong>0.8–3.2mm</strong>) so a lamp or window shines through your photo, or drag left to <strong>0%</strong> for a thick solid 3D medallion (<strong>7–12mm</strong>).
+                  <strong>What this does:</strong> Drag the yellow bar right to make the plastic thinner (<strong>0.8–3.2mm</strong>) so a lamp or window shines through your photo, or drag left to <strong>0%</strong> for your solid Keepsake Puck (<strong>4.75–6mm</strong>).
                 </p>
               </div>
             </div>
@@ -907,17 +907,17 @@
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>Thickness</label>
-                <input id="ctrlFrameThick" type="range" min="0.5" max="25" step="0.5" value="3" class="cad-slider" />
+                <input id="ctrlFrameThick" type="range" min="0.5" max="25" step="0.5" value="1" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numFrameThick" type="number" min="0.5" max="25" step="0.5" value="3" class="num-input !w-11" />
+                  <input id="numFrameThick" type="number" min="0.5" max="25" step="0.5" value="1" class="num-input !w-11" />
                   <span class="text-slate-500 ml-0.5">mm</span>
                 </div>
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>Depth</label>
-                <input id="ctrlFrameDepth" type="range" min="1" max="25" step="0.5" value="12" class="cad-slider" />
+                <input id="ctrlFrameDepth" type="range" min="1" max="25" step="0.5" value="6" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numFrameDepth" type="number" min="1" max="25" step="0.5" value="12" class="num-input !w-11" />
+                  <input id="numFrameDepth" type="number" min="1" max="25" step="0.5" value="6" class="num-input !w-11" />
                   <span class="text-slate-500 ml-0.5">mm</span>
                 </div>
               </div>
@@ -1335,7 +1335,7 @@ CUSTOM EDITION</textarea>
             </div>
             <div id="secQuality" class="cad-section-body p-2.5 space-y-2 text-xs">
               <div class="text-slate-600 font-medium">
-                Estimated file size: <span id="lblEstFileSize" class="font-bold text-slate-900">172 MB</span>
+                Estimated file size: <span id="lblEstFileSize" class="font-bold text-slate-900">49 MB</span>
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>mm per pixel</label>
@@ -1348,7 +1348,7 @@ CUSTOM EDITION</textarea>
               <div class="space-y-1">
                 <div class="grid grid-cols-[75px_1fr] items-center gap-2">
                   <label>Preview Model</label>
-                  <input id="ctrlPreviewQuality" type="range" min="0" max="4" step="1" value="2" class="cad-slider" />
+                  <input id="ctrlPreviewQuality" type="range" min="0" max="4" step="1" value="1" class="cad-slider" />
                 </div>
                 <div class="grid grid-cols-5 text-slate-500 text-center pl-[75px] text-[12px]">
                   <span>Lousy</span>
@@ -1431,9 +1431,9 @@ CUSTOM EDITION</textarea>
             </div>
             <div id="secImageOpts" class="cad-section-body p-2.5 space-y-2 text-xs">
               <div class="flex items-center justify-between">
-                <label title="On = Positive 3D Relief (Face/Light is raised). Off = Backlit Negative Lithophane (Light is thin, Dark is thick)">Positive image</label>
+                <label title="On = Positive 3D Relief (Face/Light is raised). Off = Standard Lithophane (Light is thin, Dark is thick)">Positive image</label>
                 <label class="toggle-switch">
-                  <input id="ctrlPositiveImage" type="checkbox" checked />
+                  <input id="ctrlPositiveImage" type="checkbox" />
                   <span class="toggle-slider"></span>
                 </label>
               </div>
@@ -1453,25 +1453,25 @@ CUSTOM EDITION</textarea>
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label class="leading-tight">Placement horizontal</label>
-                <input id="ctrlPlaceX" type="range" min="0" max="100" step="0.1" value="50.0" class="cad-slider" />
+                <input id="ctrlPlaceX" type="range" min="0" max="100" step="0.1" value="51.1" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numPlaceX" type="number" min="0" max="100" step="0.1" value="50.0" class="num-input !w-12" />
+                  <input id="numPlaceX" type="number" min="0" max="100" step="0.1" value="51.1" class="num-input !w-12" />
                   <span class="text-slate-500 ml-0.5">%</span>
                 </div>
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label class="leading-tight">Placement vertical</label>
-                <input id="ctrlPlaceY" type="range" min="0" max="100" step="0.1" value="50.0" class="cad-slider" />
+                <input id="ctrlPlaceY" type="range" min="0" max="100" step="0.1" value="50" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numPlaceY" type="number" min="0" max="100" step="0.1" value="50.0" class="num-input !w-12" />
+                  <input id="numPlaceY" type="number" min="0" max="100" step="0.1" value="50" class="num-input !w-12" />
                   <span class="text-slate-500 ml-0.5">%</span>
                 </div>
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>Zoom factor</label>
-                <input id="ctrlZoom" type="range" min="20" max="300" step="1" value="100" class="cad-slider" />
+                <input id="ctrlZoom" type="range" min="20" max="300" step="1" value="133" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numZoom" type="number" min="20" max="300" step="1" value="100" class="num-input !w-12" />
+                  <input id="numZoom" type="number" min="20" max="300" step="1" value="133" class="num-input !w-12" />
                   <span class="text-slate-500 ml-0.5">%</span>
                 </div>
               </div>
@@ -1729,18 +1729,18 @@ CUSTOM EDITION</textarea>
       editMirror: false,
       editFlip: false,
 
-      // MODEL Tab - Shape options
+      // MODEL Tab - Shape options (Default: Keepsake Puck 80mm, 4.75–6mm)
       shape: 'circle',
-      diameter: 150,
-      height: 150,
+      diameter: 80,
+      height: 80,
       arcAngle: 120,
-      minThick: 7.0,
-      maxThick: 12.0,
+      minThick: 4.75,
+      maxThick: 6.0,
 
-      // MODEL Tab - Frame options
+      // MODEL Tab - Frame options (Default: Frame 1mm Thick, 6mm Depth, 0 Deg Angle)
       frameType: 'frame',
-      frameThick: 3.0,
-      frameDepth: 12.0,
+      frameThick: 1.0,
+      frameDepth: 6.0,
       frameAngle: 0,
 
       // Writing / Text options (Front & Back, Emboss & Engrave)
@@ -1759,9 +1759,9 @@ CUSTOM EDITION</textarea>
       textY: 82,
       backReadable: true,
 
-      // Quality options
+      // Quality options (Default: 0.1 mm per pixel, Low preview = 49 MB native)
       mmPerPixel: 0.1,
-      previewQuality: 2,
+      previewQuality: 1,
 
       // Bambu Lab Machine & Cutting / Slicing Profile options (Default: Optimal X2D Keepsake Puck)
       bambuMachine: 'x2d',
@@ -1784,13 +1784,13 @@ CUSTOM EDITION</textarea>
       materialColor: '#ffffff',
       autoUpdate: true,
 
-      // Image options in Model tab
-      positiveImage: true,
+      // Image options in Model tab (Default: Positive image OFF, 51.1% X, 50% Y, 133% Zoom)
+      positiveImage: false,
       modelFlip: false,
       modelMirror: false,
-      placeX: 50.0,
+      placeX: 51.1,
       placeY: 50.0,
-      zoomFactor: 100
+      zoomFactor: 133
     };
 
     const colorCropCanvas = document.createElement('canvas');
@@ -1833,10 +1833,10 @@ CUSTOM EDITION</textarea>
       thicknesses: null,
       indices: null,
       triCount: 0,
-      minT: 7.0,
-      maxT: 12.0,
-      widthMM: 150,
-      heightMM: 150
+      minT: 4.75,
+      maxT: 6.0,
+      widthMM: 80,
+      heightMM: 80
     };
 
     /*************************************************************************
@@ -1845,14 +1845,13 @@ CUSTOM EDITION</textarea>
      * - 0.8 mm -> ~58% light transmission (bright glow)
      * - 1.6 mm -> ~23% light transmission (mid-tone)
      * - 3.2 mm -> ~3.6% light transmission (deep shadow)
-     * - 5.0 mm -> ~0.4% light transmission (opaque)
-     * - 7.0 mm -> ~0.04% light transmission (0.0% — completely opaque!)
+     * - 4.75 mm -> ~0.0% light transmission (Keepsake Puck default)
      *************************************************************************/
     function calcPhysicalTransmittance(thicknessMM, lightPower = 1.0) {
       const effectiveMM = Math.max(0, thicknessMM - 0.32);
       const rawT = Math.exp(-1.15 * effectiveMM) * lightPower;
-      // Cutoff tiny sub-1% leakage in thick (>4.8mm) plastic so 7mm is 100% dark/opaque
-      const cutoff = Math.max(0, 1.0 - Math.max(0, (thicknessMM - 4.2) / 1.8));
+      // Cutoff tiny sub-1% leakage in thick (>=4.7mm) plastic so 4.75mm is 0.0% opaque
+      const cutoff = Math.max(0, 1.0 - Math.max(0, (thicknessMM - 3.8) / 0.9));
       return Math.max(0, Math.min(1.0, rawT * cutoff));
     }
 
@@ -1863,11 +1862,12 @@ CUSTOM EDITION</textarea>
       isDraggingLightPassSlider = true;
 
       if (pct <= 1) {
-        // 0% Opaque Solid 3D Relief Medallion (7-12mm)
-        state.minThick = 7.0;
-        state.maxThick = 12.0;
-        state.frameDepth = 12.0;
-        state.positiveImage = true;
+        // 0% Keepsake Puck Default (4.75–6mm, 1mm Frame, 6mm Depth, Positive image OFF, No light)
+        state.minThick = 4.75;
+        state.maxThick = 6.0;
+        state.frameThick = 1.0;
+        state.frameDepth = 6.0;
+        state.positiveImage = false;
         state.lighting = 'none';
       } else {
         // 2%..95% Backlit Lithophane: invert Beer-Lambert curve so higher % = thinner wall = brighter light pass-through
@@ -1875,8 +1875,8 @@ CUSTOM EDITION</textarea>
         const effPower = Math.max(0.8, Math.min(1.8, state.lightPower || 1.4));
         const ratio = Math.min(0.96, frac / effPower);
         const rawMin = 0.32 - Math.log(Math.max(0.01, ratio)) / 1.15;
-        const newMin = Math.max(0.4, Math.min(4.4, Math.round(rawMin * 10) / 10));
-        const newMax = Math.max(Number((newMin + 1.6).toFixed(1)), Number((newMin + 2.4).toFixed(1)));
+        const newMin = Math.max(0.4, Math.min(4.2, Math.round(rawMin * 20) / 20));
+        const newMax = Math.max(Number((newMin + 1.25).toFixed(2)), Number((newMin + 2.2).toFixed(2)));
         state.minThick = newMin;
         state.maxThick = newMax;
         state.frameDepth = newMax;
@@ -1894,6 +1894,8 @@ CUSTOM EDITION</textarea>
       setVal('numMinThick', state.minThick);
       setVal('ctrlMaxThick', state.maxThick);
       setVal('numMaxThick', state.maxThick);
+      setVal('ctrlFrameThick', state.frameThick);
+      setVal('numFrameThick', state.frameThick);
       setVal('ctrlFrameDepth', state.frameDepth);
       setVal('numFrameDepth', state.frameDepth);
       setVal('ctrlLighting', state.lighting);
@@ -1930,15 +1932,15 @@ CUSTOM EDITION</textarea>
         slider.value = Math.min(95, uiPassPct);
       }
 
-      if (minT >= 4.8) {
-        lblPct.textContent = `0.0% (Solid Opaque @ ${minT.toFixed(1)}mm)`;
+      if (minT >= 4.7) {
+        lblPct.textContent = `0.0% (Keepsake @ ${minT.toFixed(2).replace(/\.00$/, '.0')}mm)`;
         lblPct.className = 'text-slate-800 font-bold';
-        topStat.textContent = `Light Pass: 0.0% (Opaque @ ${minT.toFixed(1)}mm)`;
+        topStat.textContent = `Light Pass: 0.0% (Keepsake @ ${minT.toFixed(2).replace(/\.00$/, '.0')}mm)`;
         if (state.textEnable && state.textMode === 'engrave' && thinPointMM < 3.5) {
           const engravePct = Math.round(calcPhysicalTransmittance(thinPointMM, state.lightPower) * 100);
-          hint.innerHTML = `Plate (${minT.toFixed(1)}mm) blocks light, but Engraved Text (${thinPointMM.toFixed(1)}mm) passes <strong>${engravePct}%</strong> light.`;
+          hint.innerHTML = `Plate (${minT.toFixed(2)}mm) blocks light, but Engraved Text (${thinPointMM.toFixed(1)}mm) passes <strong>${engravePct}%</strong> light.`;
         } else {
-          hint.innerHTML = `<strong>Solid 3D Medallion Mode (${minT.toFixed(1)}–${maxT.toFixed(1)}mm):</strong> Blocks light for normal room viewing. <strong>Drag the yellow bar right</strong> (or tap <strong>💡 Glow Backlit</strong>) to make a glowing backlit lithophane.`;
+          hint.innerHTML = `<strong>Keepsake Puck Mode (${minT}–${maxT}mm):</strong> Your optimal keepsake thickness is active. <strong>Drag the yellow bar right</strong> (or tap <strong>💡 Glow Backlit</strong>) for a thin backlit lithophane.`;
         }
       } else if (minT >= 3.2) {
         lblPct.textContent = `${pctMax}% (Dim Glow @ ${minT.toFixed(1)}mm)`;
@@ -4074,7 +4076,7 @@ CUSTOM EDITION</textarea>
     const camera = {
       yaw: 0.0,
       pitch: 0.06,
-      distance: 275,
+      distance: 175,
       panX: 0,
       panY: 0
     };
@@ -5080,7 +5082,7 @@ CUSTOM EDITION</textarea>
     };
 
     const BAMBU_PRESETS = {
-      // Keepsake Puck Profiles (Default — Solid 3D Relief Keepsake Medallion)
+      // Keepsake Puck Profiles (Default — 80mm Circle, 4.75–6mm Thick, 1mm Frame, 6mm Depth)
       'x2d_keepsake_puck': {
         name: '0.08mm High Quality @BBL X2D - Keepsake Puck (Optimal)',
         nozzle: 0.4,
@@ -5118,8 +5120,15 @@ CUSTOM EDITION</textarea>
         outerWallAccel: 1000,
         topSurfaceAccel: 1000,
         brim: 0,
-        minThick: 7.0,
-        maxThick: 12.0,
+        diameter: 80,
+        minThick: 4.75,
+        maxThick: 6.0,
+        frameThick: 1.0,
+        frameDepth: 6.0,
+        positiveImage: false,
+        placeX: 51.1,
+        placeY: 50.0,
+        zoomFactor: 133,
         mmPerPixel: 0.10,
         layFlat: false
       },
@@ -5160,8 +5169,15 @@ CUSTOM EDITION</textarea>
         outerWallAccel: 1000,
         topSurfaceAccel: 2000,
         brim: 0,
-        minThick: 6.0,
-        maxThick: 14.0,
+        diameter: 80,
+        minThick: 4.75,
+        maxThick: 6.0,
+        frameThick: 1.0,
+        frameDepth: 6.0,
+        positiveImage: false,
+        placeX: 51.1,
+        placeY: 50.0,
+        zoomFactor: 133,
         mmPerPixel: 0.10,
         layFlat: false
       },
@@ -5293,9 +5309,19 @@ CUSTOM EDITION</textarea>
         document.getElementById('rowArcAngle').classList.toggle('grid', state.shape === 'arc');
       }
 
+      if (p.diameter !== undefined) {
+        state.diameter = p.diameter;
+        state.height = p.diameter;
+        document.getElementById('ctrlDiameter').value = state.diameter;
+        document.getElementById('numDiameter').value = state.diameter;
+        document.getElementById('ctrlHeight').value = state.height;
+        document.getElementById('numHeight').value = state.height;
+      }
+
       state.minThick = p.minThick;
       state.maxThick = p.maxThick;
-      state.frameDepth = Math.max(p.maxThick, 3.2);
+      state.frameThick = p.frameThick !== undefined ? p.frameThick : state.frameThick;
+      state.frameDepth = p.frameDepth !== undefined ? p.frameDepth : Math.max(p.maxThick, 3.2);
       state.mmPerPixel = p.mmPerPixel;
       state.layFlat = p.layFlat;
 
@@ -5303,11 +5329,29 @@ CUSTOM EDITION</textarea>
       document.getElementById('numMinThick').value = state.minThick;
       document.getElementById('ctrlMaxThick').value = state.maxThick;
       document.getElementById('numMaxThick').value = state.maxThick;
+      document.getElementById('ctrlFrameThick').value = state.frameThick;
+      document.getElementById('numFrameThick').value = state.frameThick;
       document.getElementById('ctrlFrameDepth').value = state.frameDepth;
       document.getElementById('numFrameDepth').value = state.frameDepth;
       document.getElementById('ctrlMmPerPixel').value = state.mmPerPixel;
       document.getElementById('numMmPerPixel').value = state.mmPerPixel;
       document.getElementById('ctrlLayFlat').checked = state.layFlat;
+
+      if (p.placeX !== undefined) {
+        state.placeX = p.placeX;
+        document.getElementById('ctrlPlaceX').value = state.placeX;
+        document.getElementById('numPlaceX').value = state.placeX;
+      }
+      if (p.placeY !== undefined) {
+        state.placeY = p.placeY;
+        document.getElementById('ctrlPlaceY').value = state.placeY;
+        document.getElementById('numPlaceY').value = state.placeY;
+      }
+      if (p.zoomFactor !== undefined) {
+        state.zoomFactor = p.zoomFactor;
+        document.getElementById('ctrlZoom').value = state.zoomFactor;
+        document.getElementById('numZoom').value = state.zoomFactor;
+      }
 
       const safeMax = Math.floor(Math.min(m.bedX, m.bedY, m.bedZ) - 10);
       if (state.diameter > safeMax) {
@@ -5321,7 +5365,14 @@ CUSTOM EDITION</textarea>
         document.getElementById('numHeight').value = state.height;
       }
 
-      if (p.maxThick <= 4.0) {
+      if (p.positiveImage !== undefined) {
+        state.positiveImage = p.positiveImage;
+        const posEl = document.getElementById('ctrlPositiveImage');
+        if (posEl) posEl.checked = p.positiveImage;
+        state.lighting = 'none';
+        document.getElementById('ctrlLighting').value = 'none';
+        syncBacklightUI();
+      } else if (p.maxThick <= 4.0) {
         state.positiveImage = false;
         const posEl = document.getElementById('ctrlPositiveImage');
         if (posEl) posEl.checked = false;
@@ -6072,19 +6123,53 @@ CUSTOM EDITION</textarea>
       });
 
       document.getElementById('btnPresetScreenshot').addEventListener('click', () => {
-        state.minThick = 7;
-        state.maxThick = 12;
-        state.frameDepth = 12;
-        state.positiveImage = true;
+        state.shape = 'circle';
+        state.diameter = 80;
+        state.height = 80;
+        state.minThick = 4.75;
+        state.maxThick = 6.0;
+        state.frameType = 'frame';
+        state.frameThick = 1.0;
+        state.frameDepth = 6.0;
+        state.frameAngle = 0;
+        state.mmPerPixel = 0.1;
+        state.previewQuality = 1;
+        state.enableHook = false;
+        state.positiveImage = false;
+        state.modelFlip = false;
+        state.modelMirror = false;
+        state.placeX = 51.1;
+        state.placeY = 50.0;
+        state.zoomFactor = 133;
         state.lighting = 'none';
-        document.getElementById('ctrlMinThick').value = 7;
-        document.getElementById('numMinThick').value = 7;
-        document.getElementById('ctrlMaxThick').value = 12;
-        document.getElementById('numMaxThick').value = 12;
-        document.getElementById('ctrlFrameDepth').value = 12;
-        document.getElementById('numFrameDepth').value = 12;
+        document.getElementById('ctrlShape').value = 'circle';
+        document.getElementById('ctrlDiameter').value = 80;
+        document.getElementById('numDiameter').value = 80;
+        document.getElementById('ctrlHeight').value = 80;
+        document.getElementById('numHeight').value = 80;
+        document.getElementById('ctrlMinThick').value = 4.75;
+        document.getElementById('numMinThick').value = 4.75;
+        document.getElementById('ctrlMaxThick').value = 6.0;
+        document.getElementById('numMaxThick').value = 6.0;
+        document.getElementById('ctrlFrameType').value = 'frame';
+        document.getElementById('ctrlFrameThick').value = 1.0;
+        document.getElementById('numFrameThick').value = 1.0;
+        document.getElementById('ctrlFrameDepth').value = 6.0;
+        document.getElementById('numFrameDepth').value = 6.0;
+        document.getElementById('ctrlFrameAngle').value = 0;
+        document.getElementById('numFrameAngle').value = 0;
+        document.getElementById('ctrlMmPerPixel').value = 0.1;
+        document.getElementById('numMmPerPixel').value = 0.1;
+        document.getElementById('ctrlPreviewQuality').value = 1;
+        document.getElementById('ctrlEnableHook').checked = false;
+        document.getElementById('ctrlPlaceX').value = 51.1;
+        document.getElementById('numPlaceX').value = 51.1;
+        document.getElementById('ctrlPlaceY').value = 50;
+        document.getElementById('numPlaceY').value = 50;
+        document.getElementById('ctrlZoom').value = 133;
+        document.getElementById('numZoom').value = 133;
         const posEl = document.getElementById('ctrlPositiveImage');
-        if (posEl) posEl.checked = true;
+        if (posEl) posEl.checked = false;
         const lightEl = document.getElementById('ctrlLighting');
         if (lightEl) lightEl.value = 'none';
         syncBacklightUI();
