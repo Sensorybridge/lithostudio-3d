@@ -1,0 +1,13 @@
+{
+  "appId": "com.sensorybridge.lithostudio3d",
+  "appName": "LithoStudio 3D",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "backgroundColor": "#071923",
+  "ios": {
+    "contentInset": "never",
+    "allowsLinkPreview": false,
+    "scrollEnabled": false,
+    "preferredContentMode": "mobile"
+  }
+}

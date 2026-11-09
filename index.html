@@ -1672,6 +1672,45 @@ CUSTOM EDITION</textarea>
             <pre id="cmdCloudRun" class="bg-slate-900 text-emerald-300 p-2.5 rounded font-mono text-[11px] overflow-x-auto select-all">git clone https://github.com/Sensorybridge/lithostudio-3d.git &amp;&amp; cd lithostudio-3d &amp;&amp; gcloud run deploy lithostudio-3d --source . --region us-central1 --allow-unauthenticated</pre>
           </div>
         </div>
+
+        <!-- Section 3: Release Free on Apple App Store (Xcode / TestFlight / App Store Connect) -->
+        <div class="p-3 rounded-md bg-amber-50/90 border border-amber-300 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-slate-950 text-xs flex items-center gap-1.5">
+              <span>🏆 3. Release Free on Apple App Store &amp; Xcode (Pre-Configured in Your Repo)</span>
+            </h4>
+            <span class="px-2 py-0.5 rounded bg-amber-300 text-slate-950 font-extrabold text-[10px]">CAPACITOR iOS + 1024px ICON</span>
+          </div>
+
+          <p class="text-slate-700 leading-snug text-[11px]">
+            Your repository now includes <code class="bg-white px-1 py-0.5 rounded border border-amber-300 font-mono">capacitor.config.json</code> (Bundle ID: <code class="font-mono">com.sensorybridge.lithostudio3d</code>), <code class="bg-white px-1 py-0.5 rounded border border-amber-300 font-mono">icon-1024.png</code> (1024×1024 RGB with zero alpha), <code class="bg-white px-1 py-0.5 rounded border border-amber-300 font-mono">privacy.html</code>, and <code class="bg-white px-1 py-0.5 rounded border border-amber-300 font-mono">build-ios-appstore.sh</code>.
+          </p>
+
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-800">Option A — Build &amp; Install Free on Your iPhone via Mac + Xcode (or Publish to App Store):</span>
+              <button type="button" onclick="copyCloudCmd('cmdIosAppStore')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-[10px]">Copy Command</button>
+            </div>
+            <pre id="cmdIosAppStore" class="bg-slate-900 text-amber-300 p-2.5 rounded font-mono text-[11px] overflow-x-auto select-all">git clone https://github.com/Sensorybridge/lithostudio-3d.git &amp;&amp; cd lithostudio-3d &amp;&amp; chmod +x build-ios-appstore.sh &amp;&amp; ./build-ios-appstore.sh</pre>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] bg-white p-2.5 rounded border border-amber-200">
+            <div>
+              <div class="font-bold text-slate-900 mb-0.5">🆓 Free Personal / Sideload &amp; PWA ($0):</div>
+              <ul class="list-disc list-inside text-slate-700 space-y-0.5">
+                <li><strong>Safari Add to Home Screen ($0)</strong>: Anyone can install full-screen from your link for $0 without Apple's fee.</li>
+                <li><strong>Xcode Personal Team ($0)</strong>: Sign in with your normal Apple ID in Xcode → plug in iPhone → press <strong>Run (▶)</strong>.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="font-bold text-slate-900 mb-0.5">🌎 Public Apple App Store Listing:</div>
+              <ul class="list-disc list-inside text-slate-700 space-y-0.5">
+                <li><strong>Price Tier</strong>: Set to <strong>$0.00 (Free)</strong> in App Store Connect (note: Apple charges developers $99/yr for a public App Store Developer account).</li>
+                <li><strong>Privacy Policy URL</strong>: <a href="https://sensorybridge.github.io/lithostudio-3d/privacy.html" target="_blank" rel="noopener" class="text-indigo-700 underline font-semibold">sensorybridge.github.io/lithostudio-3d/privacy.html</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

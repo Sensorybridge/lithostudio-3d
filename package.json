@@ -1,0 +1,20 @@
+{
+  "name": "lithostudio-3d",
+  "version": "1.0.0",
+  "description": "LithoStudio 3D — 100% On-Device 3D Lithophane & Keepsake Puck Generator for iPhone, iPad & Bambu Lab",
+  "private": true,
+  "scripts": {
+    "prepare:www": "mkdir -p www && cp index.html lithophane_studio.html manifest.json sw.js privacy.html logo.jpg icon-1024.png icon-512.png icon-192.png apple-touch-icon.png icon.svg www/",
+    "ios:setup": "npm install && npm run prepare:www && npx cap add ios && npx cap sync ios",
+    "ios:sync": "npm run prepare:www && npx cap sync ios",
+    "ios:open": "npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^6.0.0"
+  }
+}
