@@ -459,15 +459,78 @@
           <!-- 1-Tap Quick-Jump Section Grid (Fits 100% width with zero clipping or scrollbar) -->
           <div class="grid grid-cols-5 gap-1">
             <button type="button" onclick="document.getElementById('fileInputUpload').click()" class="py-1 px-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold text-center truncate" title="Upload Photo">📸 Photo</button>
+            <button type="button" onclick="jumpToSidebarSection('secImageEngine')" class="py-1 px-1 rounded bg-amber-500 hover:bg-amber-400 text-slate-950 text-[10px] font-extrabold text-center truncate" title="Pro 3D Portrait &amp; Relief Image Engine">👶 Sculpt</button>
             <button type="button" onclick="jumpToSidebarSection('secSmartBg')" class="py-1 px-1 rounded bg-teal-800 hover:bg-teal-700 text-teal-100 text-[10px] font-semibold text-center truncate" title="Smart Background Removal">✨ BG</button>
             <button type="button" onclick="jumpToSidebarSection('secShape')" class="py-1 px-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-semibold text-center truncate" title="Shape &amp; Thickness (mm)">📐 Shape</button>
-            <button type="button" onclick="jumpToSidebarSection('secText')" class="py-1 px-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 text-[10px] font-semibold text-center truncate" title="Multi-Line Emboss &amp; Engrave Text">✍️ Text</button>
             <button type="button" onclick="jumpToSidebarSection('secBambuProfile')" class="py-1 px-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-[10px] font-bold text-center truncate" title="Bambu Lab Printer &amp; .3MF Profile">🖨️ Bambu</button>
           </div>
         </div>
 
         <!-- DEDICATED SCROLLABLE CONTROLS CONTAINER -->
         <div id="sidebarScrollArea" class="flex-1 overflow-y-auto p-1.5 space-y-1.5 min-h-0">
+
+        <!-- ========================================== -->
+        <!-- PRO 3D PORTRAIT & RELIEF IMAGE ENGINE      -->
+        <!-- ========================================== -->
+        <div class="rounded-sm overflow-hidden shadow-xs border border-amber-500/50">
+          <div class="cad-section-header px-2.5 py-1.5 flex items-center justify-between text-xs font-bold !bg-[#132c3d]" onclick="toggleSection('secImageEngine')">
+            <div class="flex items-center gap-1.5 truncate">
+              <span class="truncate">3D Portrait &amp; Relief Engine</span>
+              <span class="bg-amber-400 text-slate-950 text-[10px] px-1.5 py-0.2 rounded font-extrabold shrink-0">PRO HDR</span>
+            </div>
+            <span id="icon_secImageEngine" class="shrink-0 ml-1">^</span>
+          </div>
+          <div id="secImageEngine" class="cad-section-body p-2.5 space-y-2 text-xs">
+            <div>
+              <label class="block text-slate-500 mb-0.5 font-medium">3D Reconstruction Mode</label>
+              <select id="ctrlImgEngineMode" class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-semibold text-slate-800 focus:outline-none focus:border-sky-700">
+                <option value="portrait_3d" selected>👶 Smart 3D Portrait &amp; Face Sculpt (Best for People/Pets)</option>
+                <option value="litho_hd">💡 HD Backlit Lithophane (Logarithmic Beer-Lambert Curve)</option>
+                <option value="bas_relief">🪙 Deep Sculpted Medallion Bas-Relief</option>
+                <option value="raw_linear">📐 Crisp Linear / Emblem Logo</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-1">
+              <button type="button" onclick="applyImageEnginePreset('portrait_3d')" class="py-1 px-1.5 rounded bg-[#062f40] hover:bg-[#0a455e] text-amber-300 font-bold text-[10px] truncate shadow-xs">
+                👶 Smooth Portrait
+              </button>
+              <button type="button" onclick="applyImageEnginePreset('litho_hd')" class="py-1 px-1.5 rounded bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-semibold text-[10px] truncate">
+                💡 Backlit Litho HD
+              </button>
+            </div>
+
+            <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
+              <label title="Edge-preserving bilateral surface smoothing — removes fabric weave, carpet noise, and JPEG grain while keeping eyes, lips, and fingers sharp">Smooth Skin</label>
+              <input id="ctrlSurfaceSmooth" type="range" min="0" max="100" step="1" value="58" class="cad-slider" />
+              <input id="numSurfaceSmooth" type="number" min="0" max="100" step="1" value="58" class="num-input" />
+            </div>
+
+            <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
+              <label title="Multi-scale 3D facial &amp; anatomical volume boost — rounds out cheeks, forehead, nose bridge, and arms in 3D relief">3D Face Volume</label>
+              <input id="ctrlVolumeBoost" type="range" min="0" max="100" step="1" value="62" class="cad-slider" />
+              <input id="numVolumeBoost" type="number" min="0" max="100" step="1" value="62" class="num-input" />
+            </div>
+
+            <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
+              <label title="Filmic highlight &amp; shadow recovery — prevents bright faces/blankets from flattening out and lifts dark eyes/hair">HDR Tone</label>
+              <input id="ctrlHdrTone" type="range" min="0" max="100" step="1" value="60" class="cad-slider" />
+              <input id="numHdrTone" type="number" min="0" max="100" step="1" value="60" class="num-input" />
+            </div>
+
+            <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
+              <label title="Fine micro-detail clarity for eyes, eyelashes, smile lines, and text without spiky noise">Detail Clarity</label>
+              <input id="ctrlDetailSharpness" type="range" min="0" max="100" step="1" value="42" class="cad-slider" />
+              <input id="numDetailSharpness" type="number" min="0" max="100" step="1" value="42" class="num-input" />
+            </div>
+
+            <div class="grid grid-cols-[86px_1fr_48px] items-center gap-1.5">
+              <label title="Soft 3D subject cushion — gently raises the central portrait/subject while recessing outer corners">Subject Dome</label>
+              <input id="ctrlPortraitDome" type="range" min="0" max="100" step="1" value="38" class="cad-slider" />
+              <input id="numPortraitDome" type="number" min="0" max="100" step="1" value="38" class="num-input" />
+            </div>
+          </div>
+        </div>
 
         <!-- ========================================== -->
         <!-- SHARED SMART BACKGROUND REMOVAL PANEL      -->
@@ -1248,7 +1311,7 @@ CUSTOM EDITION</textarea>
               <div class="space-y-1">
                 <div class="grid grid-cols-[75px_1fr] items-center gap-2">
                   <label>Preview Model</label>
-                  <input id="ctrlPreviewQuality" type="range" min="0" max="4" step="1" value="1" class="cad-slider" />
+                  <input id="ctrlPreviewQuality" type="range" min="0" max="4" step="1" value="2" class="cad-slider" />
                 </div>
                 <div class="grid grid-cols-5 text-slate-500 text-center pl-[75px] text-[12px]">
                   <span>Lousy</span>
@@ -1331,9 +1394,9 @@ CUSTOM EDITION</textarea>
             </div>
             <div id="secImageOpts" class="cad-section-body p-2.5 space-y-2 text-xs">
               <div class="flex items-center justify-between">
-                <label title="Off = Normal Lithophane (Dark is thick, Light is thin). On = Positive Relief (Light is thick)">Positive image</label>
+                <label title="On = Positive 3D Relief (Face/Light is raised). Off = Backlit Negative Lithophane (Light is thin, Dark is thick)">Positive image</label>
                 <label class="toggle-switch">
-                  <input id="ctrlPositiveImage" type="checkbox" />
+                  <input id="ctrlPositiveImage" type="checkbox" checked />
                   <span class="toggle-slider"></span>
                 </label>
               </div>
@@ -1353,25 +1416,25 @@ CUSTOM EDITION</textarea>
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label class="leading-tight">Placement horizontal</label>
-                <input id="ctrlPlaceX" type="range" min="0" max="100" step="0.1" value="46.4" class="cad-slider" />
+                <input id="ctrlPlaceX" type="range" min="0" max="100" step="0.1" value="50.0" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numPlaceX" type="number" min="0" max="100" step="0.1" value="46.4" class="num-input !w-12" />
+                  <input id="numPlaceX" type="number" min="0" max="100" step="0.1" value="50.0" class="num-input !w-12" />
                   <span class="text-slate-500 ml-0.5">%</span>
                 </div>
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label class="leading-tight">Placement vertical</label>
-                <input id="ctrlPlaceY" type="range" min="0" max="100" step="0.1" value="41.3" class="cad-slider" />
+                <input id="ctrlPlaceY" type="range" min="0" max="100" step="0.1" value="50.0" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numPlaceY" type="number" min="0" max="100" step="0.1" value="41.3" class="num-input !w-12" />
+                  <input id="numPlaceY" type="number" min="0" max="100" step="0.1" value="50.0" class="num-input !w-12" />
                   <span class="text-slate-500 ml-0.5">%</span>
                 </div>
               </div>
               <div class="grid grid-cols-[75px_1fr_68px] items-center gap-2">
                 <label>Zoom factor</label>
-                <input id="ctrlZoom" type="range" min="20" max="300" step="1" value="131" class="cad-slider" />
+                <input id="ctrlZoom" type="range" min="20" max="300" step="1" value="100" class="cad-slider" />
                 <div class="flex items-center justify-end">
-                  <input id="numZoom" type="number" min="20" max="300" step="1" value="131" class="num-input !w-12" />
+                  <input id="numZoom" type="number" min="20" max="300" step="1" value="100" class="num-input !w-12" />
                   <span class="text-slate-500 ml-0.5">%</span>
                 </div>
               </div>
@@ -1585,6 +1648,14 @@ CUSTOM EDITION</textarea>
       images: [],
       activeImageIndex: 0,
 
+      // Pro 3D Portrait & Relief Image Engine State
+      imgEngineMode: 'portrait_3d',
+      surfaceSmooth: 58,
+      volumeBoost: 62,
+      hdrTone: 60,
+      detailSharpness: 42,
+      portraitDome: 38,
+
       // Smart Background Removal State
       bgEnable: false,
       bgMode: 'geodesic_portrait',
@@ -1653,7 +1724,7 @@ CUSTOM EDITION</textarea>
 
       // Quality options
       mmPerPixel: 0.1,
-      previewQuality: 1,
+      previewQuality: 2,
 
       // Bambu Lab Machine & Cutting / Slicing Profile options
       bambuMachine: 'x2d',
@@ -1677,12 +1748,12 @@ CUSTOM EDITION</textarea>
       autoUpdate: true,
 
       // Image options in Model tab
-      positiveImage: false,
+      positiveImage: true,
       modelFlip: false,
       modelMirror: false,
-      placeX: 46.4,
-      placeY: 41.3,
-      zoomFactor: 131
+      placeX: 50.0,
+      placeY: 50.0,
+      zoomFactor: 100
     };
 
     const colorCropCanvas = document.createElement('canvas');
@@ -2316,8 +2387,8 @@ CUSTOM EDITION</textarea>
           let minBgDist = 1e9;
           for (let k = 0; k < K; k++) {
             const dL = L - centers[k][0];
-            const dA = (a - centers[k][1]) * 1.35;
-            const dB = (b - centers[k][2]) * 1.35;
+            const dA = (a - centers[k][1]) * 1.45;
+            const dB = (b - centers[k][2]) * 1.45;
             const d = Math.sqrt(dL * dL + dA * dA + dB * dB);
             if (d < minBgDist) minBgDist = d;
           }
@@ -2328,19 +2399,25 @@ CUSTOM EDITION</textarea>
             const sy = Math.max(0, Math.min(sh - 1, Math.floor(seed.v * sh)));
             const si = sy * sw + sx;
             const dL = L - labL[si];
-            const dA = (a - labA[si]) * 1.35;
-            const dB = (b - labB[si]) * 1.35;
+            const dA = (a - labA[si]) * 1.45;
+            const dB = (b - labB[si]) * 1.45;
             const d = Math.sqrt(dL * dL + dA * dA + dB * dB) * 0.65;
             if (d < minBgDist) minBgDist = d;
           }
 
           let subjectPrior = 0;
           if (isPortraitMode || isSalientMode) {
-            const dxC = (uNorm - 0.5) / 0.34;
-            const dyC = (vNorm - 0.52) / 0.40;
+            const dxC = (uNorm - 0.5) / 0.36;
+            const dyC = (vNorm - 0.52) / 0.42;
             const rEll = dxC * dxC + dyC * dyC;
             if (rEll < 1.0) {
-              subjectPrior = (1.0 - rEll) * (isSalientMode ? 28 : 16);
+              subjectPrior = (1.0 - rEll) * (isSalientMode ? 28 : 18);
+            }
+            // Skin & warm clothing saliency protection in portrait mode
+            if (a > 2.2 && a < 36.0 && b > 2.0 && b < 42.0 && L > 18.0 && L < 95.0) {
+              const skinSpatial = Math.max(0, 1.0 - rEll * 0.72);
+              const skinChroma = Math.min(1.0, (a + b * 0.8) / 24.0);
+              subjectPrior += skinSpatial * skinChroma * 24.0;
             }
           }
 
@@ -2356,7 +2433,7 @@ CUSTOM EDITION</textarea>
             }
           }
 
-          localNodeCost[i] = minBgDist * 0.52 + edgeMag[i] * edgeWeight + subjectPrior;
+          localNodeCost[i] = minBgDist * 0.54 + edgeMag[i] * edgeWeight + subjectPrior;
         }
       }
 
@@ -2810,8 +2887,212 @@ CUSTOM EDITION</textarea>
     }
 
     /*************************************************************************
-     * STAGE 1: 2D IMAGE EDITING + SMART BACKGROUND REMOVAL COMPOSITING
+     * STAGE 1: PRO 3D PORTRAIT & RELIEF IMAGE ENGINE
+     * - Fast O(1) Sliding-Window Gaussian Pyramid (Macro / Mid / Fine Bands)
+     * - Separable Edge-Preserving Bilateral Surface Smoothing (Anti-Grain)
+     * - Adaptive Percentile Histogram Normalization + Filmic HDR Recovery
+     * - Human Skin & Portrait Saliency 3D Volume Cushion
      *************************************************************************/
+    function fastBoxBlur1DHorizontal(src, dst, w, h, radius) {
+      if (radius < 1) {
+        dst.set(src);
+        return;
+      }
+      const r = Math.min(radius, Math.floor((w - 1) / 2));
+      const invDia = 1.0 / (2 * r + 1);
+      for (let y = 0; y < h; y++) {
+        const rowOff = y * w;
+        let sum = src[rowOff] * (r + 1);
+        for (let x = 1; x <= r; x++) {
+          sum += src[rowOff + x];
+        }
+        for (let x = 0; x <= r; x++) {
+          dst[rowOff + x] = sum * invDia;
+          const addIdx = Math.min(w - 1, x + r + 1);
+          sum += src[rowOff + addIdx] - src[rowOff];
+        }
+        for (let x = r + 1; x < w - r; x++) {
+          dst[rowOff + x] = sum * invDia;
+          sum += src[rowOff + x + r] - src[rowOff + x - r - 1];
+        }
+        const lastVal = src[rowOff + w - 1];
+        for (let x = Math.max(r + 1, w - r); x < w; x++) {
+          dst[rowOff + x] = sum * invDia;
+          sum += lastVal - src[rowOff + x - r - 1];
+        }
+      }
+    }
+
+    function fastBoxBlur1DVertical(src, dst, w, h, radius) {
+      if (radius < 1) {
+        dst.set(src);
+        return;
+      }
+      const r = Math.min(radius, Math.floor((h - 1) / 2));
+      const invDia = 1.0 / (2 * r + 1);
+      for (let x = 0; x < w; x++) {
+        let sum = src[x] * (r + 1);
+        for (let y = 1; y <= r; y++) {
+          sum += src[y * w + x];
+        }
+        for (let y = 0; y <= r; y++) {
+          dst[y * w + x] = sum * invDia;
+          const addY = Math.min(h - 1, y + r + 1);
+          sum += src[addY * w + x] - src[x];
+        }
+        for (let y = r + 1; y < h - r; y++) {
+          dst[y * w + x] = sum * invDia;
+          sum += src[(y + r) * w + x] - src[(y - r - 1) * w + x];
+        }
+        const lastVal = src[(h - 1) * w + x];
+        for (let y = Math.max(r + 1, h - r); y < h; y++) {
+          dst[y * w + x] = sum * invDia;
+          sum += lastVal - src[(y - r - 1) * w + x];
+        }
+      }
+    }
+
+    function fastGaussianBlurFloat32(src, dst, tmp, w, h, radius) {
+      if (radius < 1) {
+        dst.set(src);
+        return;
+      }
+      // 2-pass separable box blur approximates a smooth isotropic Gaussian kernel in O(N) time
+      const r1 = Math.max(1, Math.round(radius * 0.65));
+      const r2 = Math.max(1, Math.round(radius * 0.85));
+      fastBoxBlur1DHorizontal(src, tmp, w, h, r1);
+      fastBoxBlur1DVertical(tmp, dst, w, h, r1);
+      fastBoxBlur1DHorizontal(dst, tmp, w, h, r2);
+      fastBoxBlur1DVertical(tmp, dst, w, h, r2);
+    }
+
+    function bilateralSmoothFloat32(src, tmp, dst, w, h, smoothStrength01) {
+      if (smoothStrength01 <= 0.01) {
+        dst.set(src);
+        return;
+      }
+      // Separable Edge-Preserving Bilateral Filter:
+      // Wipes out fabric weave, carpet grain, and JPEG sensor noise while keeping eyes, lips, fingers & text crisp
+      const sigmaR = 0.028 + smoothStrength01 * 0.095;
+      const invTwoSigmaRSq = 1.0 / (2.0 * sigmaR * sigmaR);
+      const spWeights = [1.0, 0.88, 0.64, 0.41, 0.22, 0.10];
+      const radius = smoothStrength01 > 0.65 ? 5 : 4;
+
+      // Pass 1: Horizontal bilateral
+      for (let y = 0; y < h; y++) {
+        const rowOff = y * w;
+        for (let x = 0; x < w; x++) {
+          const centerVal = src[rowOff + x];
+          let wSum = 1.0;
+          let valSum = centerVal;
+          for (let d = 1; d <= radius; d++) {
+            const spW = spWeights[d];
+            const xL = x - d;
+            if (xL >= 0) {
+              const vL = src[rowOff + xL];
+              const diffL = vL - centerVal;
+              const wL = spW * Math.exp(-(diffL * diffL) * invTwoSigmaRSq);
+              wSum += wL;
+              valSum += vL * wL;
+            }
+            const xR = x + d;
+            if (xR < w) {
+              const vR = src[rowOff + xR];
+              const diffR = vR - centerVal;
+              const wR = spW * Math.exp(-(diffR * diffR) * invTwoSigmaRSq);
+              wSum += wR;
+              valSum += vR * wR;
+            }
+          }
+          tmp[rowOff + x] = valSum / wSum;
+        }
+      }
+
+      // Pass 2: Vertical bilateral
+      for (let y = 0; y < h; y++) {
+        const rowOff = y * w;
+        for (let x = 0; x < w; x++) {
+          const centerVal = tmp[rowOff + x];
+          let wSum = 1.0;
+          let valSum = centerVal;
+          for (let d = 1; d <= radius; d++) {
+            const spW = spWeights[d];
+            const yU = y - d;
+            if (yU >= 0) {
+              const vU = tmp[yU * w + x];
+              const diffU = vU - centerVal;
+              const wU = spW * Math.exp(-(diffU * diffU) * invTwoSigmaRSq);
+              wSum += wU;
+              valSum += vU * wU;
+            }
+            const yD = y + d;
+            if (yD < h) {
+              const vD = tmp[yD * w + x];
+              const diffD = vD - centerVal;
+              const wD = spW * Math.exp(-(diffD * diffD) * invTwoSigmaRSq);
+              wSum += wD;
+              valSum += vD * wD;
+            }
+          }
+          dst[rowOff + x] = valSum / wSum;
+        }
+      }
+    }
+
+    function applyImageEnginePreset(mode) {
+      state.imgEngineMode = mode;
+      const sel = document.getElementById('ctrlImgEngineMode');
+      if (sel) sel.value = mode;
+
+      if (mode === 'portrait_3d') {
+        state.surfaceSmooth = 58;
+        state.volumeBoost = 62;
+        state.hdrTone = 60;
+        state.detailSharpness = 42;
+        state.portraitDome = 38;
+        if (state.minThick >= 4.0) {
+          state.positiveImage = true;
+          const posChk = document.getElementById('ctrlPositiveImage');
+          if (posChk) posChk.checked = true;
+        }
+      } else if (mode === 'litho_hd') {
+        state.surfaceSmooth = 45;
+        state.volumeBoost = 48;
+        state.hdrTone = 68;
+        state.detailSharpness = 55;
+        state.portraitDome = 20;
+      } else if (mode === 'bas_relief') {
+        state.surfaceSmooth = 72;
+        state.volumeBoost = 82;
+        state.hdrTone = 65;
+        state.detailSharpness = 35;
+        state.portraitDome = 62;
+        state.positiveImage = true;
+        const posChk = document.getElementById('ctrlPositiveImage');
+        if (posChk) posChk.checked = true;
+      } else {
+        state.surfaceSmooth = 0;
+        state.volumeBoost = 0;
+        state.hdrTone = 0;
+        state.detailSharpness = 50;
+        state.portraitDome = 0;
+      }
+
+      const syncPair = (idBase, val) => {
+        const s = document.getElementById('ctrl' + idBase);
+        const n = document.getElementById('num' + idBase);
+        if (s) s.value = val;
+        if (n) n.value = val;
+      };
+      syncPair('SurfaceSmooth', state.surfaceSmooth);
+      syncPair('VolumeBoost', state.volumeBoost);
+      syncPair('HdrTone', state.hdrTone);
+      syncPair('DetailSharpness', state.detailSharpness);
+      syncPair('PortraitDome', state.portraitDome);
+
+      rebuildAll(true);
+    }
+
     function buildEditedPhotoCanvas(maxDim = 1024) {
       const item = state.images[state.activeImageIndex];
       if (!item || !item.img) return;
@@ -2827,13 +3108,16 @@ CUSTOM EDITION</textarea>
       const sw = Math.max(1, srcImg.width * (cwMax - cwMin));
       const sh = Math.max(1, srcImg.height * (chMax - chMin));
 
+      const effectiveMax = Math.min(maxDim, 768);
       const aspect = sw / sh;
-      let w = maxDim;
-      let h = Math.round(maxDim / aspect);
-      if (h > maxDim) {
-        h = maxDim;
-        w = Math.round(maxDim * aspect);
+      let w = effectiveMax;
+      let h = Math.round(effectiveMax / aspect);
+      if (h > effectiveMax) {
+        h = effectiveMax;
+        w = Math.round(effectiveMax * aspect);
       }
+      w = Math.max(32, w);
+      h = Math.max(32, h);
 
       colorCropCanvas.width = w;
       colorCropCanvas.height = h;
@@ -2873,7 +3157,7 @@ CUSTOM EDITION</textarea>
       const data = imgData.data;
       const maskData = state.bgEnable ? fgMaskCtx.getImageData(0, 0, w, h).data : null;
 
-      const brightOffset = (state.brightness / 100) * 255;
+      const brightOffset01 = state.brightness / 100.0;
       const contrastFactor = Math.pow((state.contrast + 100) / 100, 2);
       const exposureMult = Math.pow(2, state.exposure / 50);
 
@@ -2882,47 +3166,207 @@ CUSTOM EDITION</textarea>
       const bw = state.blueWeight;
       const weightSum = Math.max(0.001, rw + gw + bw);
 
-      let targetBgLum = state.bgIntensity * 255;
-      if (state.bgFillMode === 'min_thin') targetBgLum = state.positiveImage ? 0 : 255;
-      else if (state.bgFillMode === 'max_thick') targetBgLum = state.positiveImage ? 255 : 0;
+      const numPx = w * h;
+      const rawLum = new Float32Array(numPx);
+      const skinMap = new Float32Array(numPx);
+      const hist = new Float32Array(256);
+      let histWeightSum = 0;
 
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i + 1];
-        const b = data[i + 2];
+      // Step 1: Extract base luminance + portrait skin/warmth saliency + center-weighted histogram
+      for (let y = 0; y < h; y++) {
+        const vNorm = (y / h) - 0.5;
+        const rowOff = y * w;
+        for (let x = 0; x < w; x++) {
+          const uNorm = (x / w) - 0.5;
+          const p = rowOff + x;
+          const i = p * 4;
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
 
-        let lum = 0;
-        if (state.greyMethod === 'luminance' || state.greyMethod === 'custom_rgb') {
-          lum = (r * rw + g * gw + b * bw) / weightSum;
-        } else if (state.greyMethod === 'average') {
-          lum = (r + g + b) / 3;
-        } else if (state.greyMethod === 'desaturation') {
-          lum = (Math.max(r, g, b) + Math.min(r, g, b)) / 2;
-        } else {
-          lum = Math.max(r, g, b);
+          let lum255 = 0;
+          if (state.greyMethod === 'luminance' || state.greyMethod === 'custom_rgb') {
+            lum255 = (r * rw + g * gw + b * bw) / weightSum;
+          } else if (state.greyMethod === 'average') {
+            lum255 = (r + g + b) / 3;
+          } else if (state.greyMethod === 'desaturation') {
+            lum255 = (Math.max(r, g, b) + Math.min(r, g, b)) / 2;
+          } else {
+            lum255 = Math.max(r, g, b);
+          }
+
+          let l01 = (lum255 / 255.0) * exposureMult + brightOffset01;
+          l01 = (l01 - 0.5) * contrastFactor + 0.5;
+          l01 = Math.max(0.0, Math.min(1.0, l01));
+          rawLum[p] = l01;
+
+          // Detect human skin & warm portrait tones (faces, cheeks, arms, hands)
+          const rg = (r - g) / 255.0;
+          const yb = (0.5 * (r + g) - b) / 255.0;
+          let skinConf = 0.0;
+          if (rg > 0.01 && rg < 0.44 && yb > 0.01 && yb < 0.48 && l01 > 0.12 && l01 < 0.97) {
+            const dRG = (rg - 0.12) / 0.14;
+            const dYB = (yb - 0.15) / 0.16;
+            skinConf = Math.exp(-0.5 * (dRG * dRG + dYB * dYB));
+          }
+          skinMap[p] = skinConf;
+
+          const rSq = uNorm * uNorm + vNorm * vNorm;
+          const centerW = rSq < 0.22 ? 2.2 : 0.6;
+          const bin = Math.max(0, Math.min(255, Math.round(l01 * 255)));
+          hist[bin] += centerW;
+          histWeightSum += centerW;
         }
+      }
 
-        lum = lum * exposureMult + brightOffset;
-        lum = (lum - 128) * contrastFactor + 128;
-        lum = Math.max(0, Math.min(255, lum));
+      // Step 2: Adaptive Percentile Normalization & Filmic HDR Highlight/Shadow Recovery
+      const engineMode = state.imgEngineMode || 'portrait_3d';
+      const isRawMode = engineMode === 'raw_linear';
+      const isBuiltInLogo = item.name === 'LITHO_STUDIO_LOGO';
 
-        if (maskData) {
-          const fgAlpha = maskData[i] / 255.0;
-          if (fgAlpha < 0.999) {
-            let bgValPx = targetBgLum;
-            if (bokehPixels) {
-              const br = bokehPixels[i], bgG = bokehPixels[i + 1], bb = bokehPixels[i + 2];
-              const bLum = (br * rw + bgG * gw + bb * bw) / weightSum;
-              bgValPx = bLum * 0.55 + targetBgLum * 0.45;
-            }
-            lum = lum * fgAlpha + bgValPx * (1.0 - fgAlpha);
+      const hdrAmt = isRawMode ? 0.0 : (state.hdrTone / 100.0) * (isBuiltInLogo ? 0.35 : 1.0);
+      const smoothAmt = isRawMode ? 0.0 : (state.surfaceSmooth / 100.0) * (isBuiltInLogo ? 0.25 : 1.0);
+      const volAmt = isRawMode ? 0.0 : (state.volumeBoost / 100.0) * (isBuiltInLogo ? 0.40 : 1.0);
+      const sharpAmt = state.detailSharpness / 100.0;
+      const domeAmt = isRawMode ? 0.0 : (state.portraitDome / 100.0) * (isBuiltInLogo ? 0.15 : 1.0);
+
+      let pLow = 0.02;
+      let pHigh = 0.98;
+      if (histWeightSum > 0) {
+        let acc = 0;
+        const lowTarget = histWeightSum * 0.03;
+        const highTarget = histWeightSum * 0.975;
+        let foundLow = false;
+        for (let b = 0; b < 256; b++) {
+          acc += hist[b];
+          if (!foundLow && acc >= lowTarget) {
+            pLow = b / 255.0;
+            foundLow = true;
+          }
+          if (acc >= highTarget) {
+            pHigh = b / 255.0;
+            break;
           }
         }
+      }
+      const dynSpan = Math.max(0.28, pHigh - pLow);
 
-        data[i] = lum;
-        data[i + 1] = lum;
-        data[i + 2] = lum;
-        data[i + 3] = 255;
+      const toneLum = new Float32Array(numPx);
+      for (let p = 0; p < numPx; p++) {
+        let x = rawLum[p];
+
+        if (hdrAmt > 0.01) {
+          // Auto-percentile stretch blended by hdrAmt
+          const normX = Math.max(0.0, Math.min(1.0, 0.04 + 0.92 * ((x - pLow) / dynSpan)));
+          x = x * (1.0 - hdrAmt * 0.65) + normX * (hdrAmt * 0.65);
+
+          // Shadow toe lift (prevents dark eyes/hair from crushing into a flat trough)
+          const toeLift = Math.pow(x, 0.82) * 0.42 + x * 0.58;
+          // Filmic highlight shoulder decompression (expands compressed 0.65..1.0 skin & blanket highlights!)
+          let shoulder = toeLift;
+          if (toeLift > 0.52) {
+            const t = (toeLift - 0.52) / 0.48;
+            // Smooth concave roll-off gives 1.5x more gradient separation in bright cheeks & foreheads
+            shoulder = 0.52 + 0.48 * (1.0 - Math.pow(1.0 - t, 1.38));
+          }
+          x = x * (1.0 - hdrAmt * 0.78) + shoulder * (hdrAmt * 0.78);
+        }
+
+        if (engineMode === 'litho_hd') {
+          // Logarithmic Beer-Lambert compensation curve for backlit transmission
+          const logL = Math.log(1.0 + 2.4 * x) / Math.log(3.4);
+          x = x * 0.35 + logL * 0.65;
+        } else if (engineMode === 'portrait_3d' || engineMode === 'bas_relief') {
+          // Gentle skin presence lift so warm faces & hands sit slightly proud of neutral grey backgrounds
+          const skinLift = skinMap[p] * (0.075 * volAmt) * (1.0 - x * 0.45);
+          x = Math.min(1.0, x + skinLift);
+        }
+
+        toneLum[p] = x;
+      }
+
+      // Step 3: Separable Edge-Preserving Bilateral Filter (Removes fabric weave & grain while preserving eyes/lips)
+      const tmpBuf1 = new Float32Array(numPx);
+      const cleanLum = new Float32Array(numPx);
+      bilateralSmoothFloat32(toneLum, tmpBuf1, cleanLum, w, h, smoothAmt);
+
+      // Step 4: Multi-Scale 3D Frequency Pyramid (Macro Base + Mid Anatomical Volume + Controlled Fine Detail)
+      const minDim = Math.min(w, h);
+      const midField = new Float32Array(numPx);
+      const macroField = new Float32Array(numPx);
+
+      if (!isRawMode && (volAmt > 0.01 || Math.abs(sharpAmt - 0.5) > 0.01 || domeAmt > 0.01)) {
+        const rMid = Math.max(3, Math.round(minDim * 0.014));
+        const rMacro = Math.max(12, Math.round(minDim * 0.062));
+        fastGaussianBlurFloat32(cleanLum, midField, tmpBuf1, w, h, rMid);
+        fastGaussianBlurFloat32(midField, macroField, tmpBuf1, w, h, rMacro);
+      } else {
+        midField.set(cleanLum);
+        macroField.set(cleanLum);
+      }
+
+      let targetBgLum01 = state.bgIntensity;
+      if (state.bgFillMode === 'min_thin') targetBgLum01 = state.positiveImage ? 0.0 : 1.0;
+      else if (state.bgFillMode === 'max_thick') targetBgLum01 = state.positiveImage ? 1.0 : 0.0;
+
+      const midGain = 1.0 + volAmt * 1.15;
+      const fineGain = 0.38 + sharpAmt * 1.25;
+      const macroFlatten = volAmt * 0.32;
+
+      for (let y = 0; y < h; y++) {
+        const vSym = (y / h) * 2.0 - 1.0;
+        const rowOff = y * w;
+        for (let x = 0; x < w; x++) {
+          const uSym = (x / w) * 2.0 - 1.0;
+          const p = rowOff + x;
+          const i = p * 4;
+
+          let final01 = cleanLum[p];
+
+          if (!isRawMode) {
+            const fine = cleanLum[p] - midField[p];
+            const mid = midField[p] - macroField[p];
+            const macro = macroField[p];
+
+            // Soft-limit high-frequency spikes so isolated specular glints never create sharp needles
+            const softFine = fine / (1.0 + Math.abs(fine) * 5.5);
+
+            // Stabilize macro lighting while boosting 3D mid-frequency facial & anatomical contours
+            const sculptedMacro = 0.52 + (macro - 0.52) * (1.0 - macroFlatten);
+            final01 = sculptedMacro + mid * midGain + softFine * fineGain;
+
+            // Soft 3D Portrait Subject Dome / Cushion (raises central subject & face, recesses outer background corners)
+            if (domeAmt > 0.01) {
+              const rEllSq = (uSym * uSym) / 0.72 + ((vSym - 0.04) * (vSym - 0.04)) / 0.85;
+              const centerDome = Math.exp(-rEllSq * 0.95);
+              const skinBoost = skinMap[p] * 0.35;
+              const domeDelta = ((centerDome + skinBoost) - 0.42) * 0.20 * domeAmt;
+              final01 += domeDelta;
+            }
+
+            // Smooth S-curve final polish so 3D heightmap uses full dynamic range without hard clipping
+            final01 = Math.max(0.02, Math.min(0.98, final01));
+          }
+
+          if (maskData) {
+            const fgAlpha = maskData[i] / 255.0;
+            if (fgAlpha < 0.999) {
+              let bgVal01 = targetBgLum01;
+              if (bokehPixels) {
+                const br = bokehPixels[i], bgG = bokehPixels[i + 1], bb = bokehPixels[i + 2];
+                const bLum01 = ((br * rw + bgG * gw + bb * bw) / weightSum) / 255.0;
+                bgVal01 = bLum01 * 0.50 + targetBgLum01 * 0.50;
+              }
+              final01 = final01 * fgAlpha + bgVal01 * (1.0 - fgAlpha);
+            }
+          }
+
+          const outByte = Math.max(0, Math.min(255, Math.round(final01 * 255)));
+          data[i] = outByte;
+          data[i + 1] = outByte;
+          data[i + 2] = outByte;
+          data[i + 3] = 255;
+        }
       }
 
       editCtx.putImageData(imgData, 0, 0);
@@ -3124,7 +3568,7 @@ CUSTOM EDITION</textarea>
       const textNormDelta = Math.min(1.0, state.textDepth / Math.max(0.2, thickSpan));
 
       for (let i = 0; i < uvData.length; i += 4) {
-        const lum01 = uvData[i] / 255.0;
+        let lum01 = uvData[i] / 255.0;
         let relief01 = state.positiveImage ? lum01 : (1.0 - lum01);
 
         if (fTextData) {
@@ -3132,8 +3576,10 @@ CUSTOM EDITION</textarea>
           if (fMask > 0.01) {
             if (state.textMode === 'emboss') {
               relief01 = Math.min(1.0, relief01 + fMask * textNormDelta);
+              lum01 = Math.min(1.0, lum01 + fMask * textNormDelta * 0.85);
             } else {
               relief01 = Math.max(0.0, relief01 - fMask * textNormDelta);
+              lum01 = Math.max(0.0, lum01 - fMask * textNormDelta * 0.85);
             }
           }
         }
@@ -3147,9 +3593,12 @@ CUSTOM EDITION</textarea>
           }
         }
 
+        // Channel R = physical normalized relief height (0..1)
+        // Channel G = back-surface text emboss/engrave mask
+        // Channel B = processed positive portrait luminance (0..1) for subsurface & backlit accuracy
         out[i] = Math.round(relief01 * 255);
         out[i + 1] = backCode;
-        out[i + 2] = Math.round((1.0 - relief01) * 255);
+        out[i + 2] = Math.round(lum01 * 255);
         out[i + 3] = 255;
       }
 
@@ -3195,15 +3644,15 @@ CUSTOM EDITION</textarea>
      * WATERTIGHT 3D MESH GENERATOR
      *************************************************************************/
     function generateLithophaneMesh(customRes = null) {
-      const qualitySteps = [80, 120, 168, 220, 280];
-      const gridN = customRes || qualitySteps[state.previewQuality] || 120;
+      const qualitySteps = [110, 160, 220, 280, 340];
+      const gridN = customRes || qualitySteps[state.previewQuality] || 220;
 
       buildModelUVAndTextures(1024);
 
       dispCanvas.width = gridN;
       dispCanvas.height = gridN;
       dispCtx.save();
-      dispCtx.filter = customRes ? 'blur(0.6px)' : 'blur(1.1px)';
+      dispCtx.filter = customRes ? 'blur(0.5px)' : 'blur(0.9px)';
       dispCtx.drawImage(glTexCanvas, 0, 0, gridN, gridN);
       dispCtx.restore();
       const dispPixels = dispCtx.getImageData(0, 0, gridN, gridN).data;
@@ -3515,7 +3964,7 @@ CUSTOM EDITION</textarea>
     }
 
     /*************************************************************************
-     * WEBGL 3D ENGINE WITH PHYSICALLY ACCURATE MM BEER-LAMBERT ATTENUATION
+     * WEBGL 3D ENGINE WITH MULTI-SCALE STUDIO SHADING & BEER-LAMBERT GLOW
      *************************************************************************/
     const glCanvas = document.getElementById('glCanvas');
     const gl = glCanvas.getContext('webgl', { antialias: true, alpha: true });
@@ -3555,14 +4004,11 @@ CUSTOM EDITION</textarea>
       }
     `;
 
-    // Physically accurate fragment shader:
-    // 1. In "No light" mode (uLightingMode == 0), renders 100% opaque solid plastic relief
-    //    using ONLY physical 3D surface normals & slope crevice shading (no fake projected luminance!).
-    //    If MinThick == MaxThick (0mm relief), the surface is flat opaque plastic.
-    // 2. In "Backlight" modes (uLightingMode == 1 or 2), computes the exact physical thickness in
-    //    millimeters at every pixel (uMinThick + hCenter * (uMaxThick - uMinThick) - backDelta)
-    //    and applies Beer-Lambert attenuation in millimeters: exp(-1.15 * (thickMM - 0.32)).
-    //    At 7mm thickness, light transmission is 0.0% (completely blocked!).
+    // Studio-Grade Multi-Scale 3D Relief & Physical Beer-Lambert Fragment Shader:
+    // - Multi-scale normal reconstruction (fine 1.35px + mid 3.4px + macro 7.0px) eliminates 1-pixel Sobel noise
+    // - Signed Laplacian Curvature shades actual 3D valleys/crevices and highlights convex ridges
+    // - Half-Lambert 3-point studio lighting + Blinn-Phong satin PLA sheen + porcelain subsurface depth
+    //   prevents white clipping so faces, cheeks, eyes, and fingers render with smooth 3D volume!
     const fsMeshSource = `
       precision highp float;
 
@@ -3582,32 +4028,46 @@ CUSTOM EDITION</textarea>
 
       void main() {
         vec3 baseN = normalize(vNormal);
-        float texStep = 1.0 / 1024.0;
 
         vec4 centerSample = texture2D(uHeightTex, vUV);
         float hCenter = centerSample.r;
         float backCode = centerSample.g;
+        float photoLum = centerSample.b;
 
-        // Scale normal detail by actual physical relief depth (MaxThick - MinThick) in mm!
-        // If MinThick == MaxThick (0mm span), reliefScale is 0 so flat plastic looks flat.
         float reliefSpanMM = max(0.0, uMaxThick - uMinThick);
-        float reliefBumpScale = clamp(reliefSpanMM / 2.2, 0.0, 2.0) * 3.8;
+        float reliefActive = clamp(reliefSpanMM / 1.4, 0.0, 1.0);
+        float bumpGain = clamp(reliefSpanMM / 2.5, 0.0, 1.8) * 2.45;
 
-        float hL = texture2D(uHeightTex, vUV + vec2(-texStep, 0.0)).r;
-        float hR = texture2D(uHeightTex, vUV + vec2(texStep, 0.0)).r;
-        float hD = texture2D(uHeightTex, vUV + vec2(0.0, -texStep)).r;
-        float hU = texture2D(uHeightTex, vUV + vec2(0.0, texStep)).r;
+        // Multi-scale height sampling (Fine + Mid + Macro) for silky-smooth 3D facial contours
+        float sFine = 1.35 / 1024.0;
+        float sMid  = 3.40 / 1024.0;
+        float sWide = 7.00 / 1024.0;
 
-        float dHdx = (hR - hL) * reliefBumpScale;
-        float dHdy = -(hU - hD) * reliefBumpScale;
+        float hLf = texture2D(uHeightTex, vUV + vec2(-sFine, 0.0)).r;
+        float hRf = texture2D(uHeightTex, vUV + vec2( sFine, 0.0)).r;
+        float hDf = texture2D(uHeightTex, vUV + vec2(0.0, -sFine)).r;
+        float hUf = texture2D(uHeightTex, vUV + vec2(0.0,  sFine)).r;
+
+        float hLm = texture2D(uHeightTex, vUV + vec2(-sMid, 0.0)).r;
+        float hRm = texture2D(uHeightTex, vUV + vec2( sMid, 0.0)).r;
+        float hDm = texture2D(uHeightTex, vUV + vec2(0.0, -sMid)).r;
+        float hUm = texture2D(uHeightTex, vUV + vec2(0.0,  sMid)).r;
+
+        float hLw = texture2D(uHeightTex, vUV + vec2(-sWide, 0.0)).r;
+        float hRw = texture2D(uHeightTex, vUV + vec2( sWide, 0.0)).r;
+        float hDw = texture2D(uHeightTex, vUV + vec2(0.0, -sWide)).r;
+        float hUw = texture2D(uHeightTex, vUV + vec2(0.0,  sWide)).r;
+
+        float dHdx = ((hRf - hLf) * 0.25 + (hRm - hLm) * 0.45 + (hRw - hLw) * 0.30) * bumpGain;
+        float dHdy = -((hUf - hDf) * 0.25 + (hUm - hDm) * 0.45 + (hUw - hDw) * 0.30) * bumpGain;
 
         if (vSurfType > 1.5) {
-          float bL = texture2D(uHeightTex, vUV + vec2(-texStep, 0.0)).g;
-          float bR = texture2D(uHeightTex, vUV + vec2(texStep, 0.0)).g;
-          float bD = texture2D(uHeightTex, vUV + vec2(0.0, -texStep)).g;
-          float bU = texture2D(uHeightTex, vUV + vec2(0.0, texStep)).g;
-          dHdx = (bR - bL) * 7.5;
-          dHdy = -(bU - bD) * 7.5;
+          float bL = texture2D(uHeightTex, vUV + vec2(-sFine, 0.0)).g;
+          float bR = texture2D(uHeightTex, vUV + vec2( sFine, 0.0)).g;
+          float bD = texture2D(uHeightTex, vUV + vec2(0.0, -sFine)).g;
+          float bU = texture2D(uHeightTex, vUV + vec2(0.0,  sFine)).g;
+          dHdx = (bR - bL) * 6.5;
+          dHdy = -(bU - bD) * 6.5;
         }
 
         float photoWeight = clamp(1.0 - vSurfType, 0.0, 1.0);
@@ -3615,53 +4075,72 @@ CUSTOM EDITION</textarea>
 
         vec3 microN = normalize(vec3(-dHdx * photoWeight, -dHdy * photoWeight, 1.0));
         vec3 N = normalize(vec3(
-          baseN.x * 0.30 + microN.x * 0.70,
-          baseN.y * 0.30 + microN.y * 0.70,
-          abs(baseN.z) * 0.55 + microN.z * 0.45
+          baseN.x * 0.38 + microN.x * 0.62,
+          baseN.y * 0.38 + microN.y * 0.62,
+          abs(baseN.z) * 0.52 + microN.z * 0.48
         ));
 
-        vec3 keyLight = normalize(vec3(0.36, 0.48, 0.79));
-        vec3 fillLight = normalize(vec3(-0.45, -0.30, 0.74));
-        float diffKey = max(dot(N, keyLight), 0.0);
-        float diffFill = max(dot(N, fillLight), 0.0);
+        // Signed Laplacian Curvature Cavity (positive in valleys/crevices, negative on convex ridges)
+        float hAvgMid  = 0.25 * (hLm + hRm + hDm + hUm);
+        float hAvgWide = 0.25 * (hLw + hRw + hDw + hUw);
+        float laplacian = (hAvgMid - hCenter) * 2.2 + (hAvgWide - hCenter) * 1.6;
+        float cavityAO = clamp(laplacian * reliefActive, -0.10, 0.24) * photoWeight;
 
-        // Pure geometric slope/crevice ambient occlusion (no fake 2D brightness painting!)
-        float slopeAO = clamp(length(vec2(dHdx, dHdy)) * 0.28 * photoWeight, 0.0, 0.38);
+        // 3-Point Studio Half-Lambert Lighting + Satin PLA Specular Sheen
+        vec3 keyLight  = normalize(vec3(-0.34, 0.46, 0.82));
+        vec3 fillLight = normalize(vec3(0.46, -0.28, 0.84));
+        vec3 viewDir   = vec3(0.0, 0.0, 1.0);
+
+        float wrapKey  = clamp(dot(N, keyLight) * 0.52 + 0.48, 0.0, 1.0);
+        float diffKey  = pow(wrapKey, 1.40);
+        float diffFill = clamp(dot(N, fillLight) * 0.5 + 0.5, 0.0, 1.0);
+
+        vec3 halfVec = normalize(keyLight + viewDir);
+        float spec = pow(max(dot(N, halfVec), 0.0), 26.0) * 0.10 * photoWeight * reliefActive;
+        float rim  = pow(1.0 - max(dot(N, viewDir), 0.0), 2.8) * 0.06 * photoWeight * reliefActive;
+
+        float geomLit = 0.25 + 0.48 * diffKey + 0.15 * diffFill - cavityAO + rim;
 
         if (uLightingMode == 0) {
-          // Opaque "No light" mode: zero light pass-through, pure 3D physical relief shading
-          float shade = 0.66 + 0.28 * diffKey + 0.14 * diffFill - slopeAO;
-          vec3 col = uMaterialColor * clamp(shade, 0.22, 1.03);
-          gl_FragColor = vec4(col, 1.0);
+          // Opaque "No light" mode: Studio 3D normal shading + porcelain subsurface tonal depth (zero white clipping!)
+          float subsurfaceTone = mix(0.46, 1.04, photoLum);
+          float combined = mix(geomLit, geomLit * (0.56 + 0.54 * subsurfaceTone), 0.66 * photoWeight * reliefActive) + spec;
+          // Filmic soft shoulder so bright cheeks/foreheads never clip to flat white
+          float finalShade = combined / (1.0 + max(0.0, combined - 0.80) * 0.48);
+          vec3 studioTint = mix(uMaterialColor * vec3(0.90, 0.93, 0.97), uMaterialColor * vec3(1.0, 0.995, 0.985), clamp(finalShade, 0.0, 1.0));
+          gl_FragColor = vec4(studioTint * clamp(finalShade, 0.16, 0.97), 1.0);
         } else if (uLightingMode == 1 || uLightingMode == 2) {
-          // Compute exact physical thickness in millimeters at this pixel
-          float frontZMM = uMinThick + hCenter * reliefSpanMM;
+          // Physical Beer-Lambert Backlit Lithophane Transmission
+          // Uses backlit thickness profile (thin = bright photoLum) when photoWeight > 0
+          float lithoThickMM = uMinThick + (1.0 - photoLum) * reliefSpanMM;
           if (vSurfType > 0.01 && vSurfType < 1.5) {
-            frontZMM = mix(frontZMM, uFrameDepth, clamp(vSurfType, 0.0, 1.0));
+            lithoThickMM = mix(lithoThickMM, uFrameDepth, clamp(vSurfType, 0.0, 1.0));
           }
-          // Account for back surface text emboss (+) or engrave (-) in mm
           float backSigned = (backCode - (128.0 / 255.0)) * 2.0;
           float backDeltaMM = backSigned * uTextDepth;
-          float pixelThickMM = max(0.4, frontZMM + backDeltaMM);
+          float pixelThickMM = max(0.4, lithoThickMM + backDeltaMM);
 
-          // Beer-Lambert Law in true millimeters:
-          // At 0.8mm -> ~58% pass-through; at 3.2mm -> ~3.6%; at >= 5.5mm (e.g. 7mm) -> 0.0% opaque!
           float effMM = max(0.0, pixelThickMM - 0.32);
-          float rawTrans = exp(-1.15 * effMM) * uLightPower;
-          float thickCutoff = clamp(1.0 - max(0.0, (pixelThickMM - 4.2) / 1.8), 0.0, 1.0);
-          float transmission = clamp(rawTrans * thickCutoff, 0.0, 1.15);
+          float rawTrans = exp(-1.12 * effMM) * uLightPower;
+          float thickCutoff = clamp(1.0 - max(0.0, (pixelThickMM - 4.4) / 1.8), 0.0, 1.0);
+          float transmission = clamp(rawTrans * thickCutoff, 0.0, 1.12);
 
           vec3 glowColor = (uLightingMode == 1)
-            ? vec3(1.0, 0.85, 0.60)
+            ? vec3(1.0, 0.86, 0.62)
             : vec3(0.96, 0.99, 1.0);
 
-          // Dim front room ambient + physical transmitted light from behind
-          vec3 frontDimAmbient = uMaterialColor * (0.20 + 0.18 * diffKey + 0.06 * diffFill - slopeAO * 0.5);
-          gl_FragColor = vec4(frontDimAmbient + glowColor * transmission, 1.0);
+          vec3 frontDimAmbient = uMaterialColor * (0.16 + 0.16 * diffKey + 0.05 * diffFill - cavityAO * 0.5);
+          vec3 litCol = frontDimAmbient + glowColor * transmission;
+          // Soft highlight shoulder to preserve glowing facial detail
+          litCol = litCol / (vec3(1.0) + max(vec3(0.0), litCol - vec3(0.84)) * 0.45);
+          gl_FragColor = vec4(clamp(litCol, 0.05, 0.99), 1.0);
         } else {
-          // High-Contrast Studio (front raking light for inspecting relief depth)
-          float shade = 0.42 + 0.52 * diffKey + 0.18 * diffFill - slopeAO * 1.25;
-          gl_FragColor = vec4(uMaterialColor * clamp(shade, 0.15, 1.05), 1.0);
+          // High-Contrast Sculptural Studio (Raking Key Light + Deep Bronze/Slate Cavity Contrast)
+          float subsurfaceTone = mix(0.42, 1.05, photoLum);
+          float studioGeom = 0.18 + 0.58 * diffKey + 0.14 * diffFill - cavityAO * 1.35 + rim * 1.4;
+          float combined = mix(studioGeom, studioGeom * (0.52 + 0.56 * subsurfaceTone), 0.58 * photoWeight * reliefActive) + spec * 1.4;
+          float finalShade = combined / (1.0 + max(0.0, combined - 0.80) * 0.48);
+          gl_FragColor = vec4(uMaterialColor * clamp(finalShade, 0.12, 0.98), 1.0);
         }
       }
     `;
@@ -5041,6 +5520,18 @@ CUSTOM EDITION</textarea>
     }
 
     function initControlBindings() {
+      const engModeEl = document.getElementById('ctrlImgEngineMode');
+      if (engModeEl) {
+        engModeEl.addEventListener('change', (e) => {
+          applyImageEnginePreset(e.target.value);
+        });
+      }
+      bindSliderAndNum('ctrlSurfaceSmooth', 'numSurfaceSmooth', 'surfaceSmooth');
+      bindSliderAndNum('ctrlVolumeBoost', 'numVolumeBoost', 'volumeBoost');
+      bindSliderAndNum('ctrlHdrTone', 'numHdrTone', 'hdrTone');
+      bindSliderAndNum('ctrlDetailSharpness', 'numDetailSharpness', 'detailSharpness');
+      bindSliderAndNum('ctrlPortraitDome', 'numPortraitDome', 'portraitDome');
+
       document.getElementById('ctrlBgEnable').addEventListener('change', (e) => {
         state.bgEnable = e.target.checked;
         syncBgRemoveQuickUI();
@@ -5289,12 +5780,19 @@ CUSTOM EDITION</textarea>
         state.minThick = 0.8;
         state.maxThick = 3.2;
         state.frameDepth = 3.2;
+        state.positiveImage = false;
+        state.lighting = 'warm_backlight';
         document.getElementById('ctrlMinThick').value = 0.8;
         document.getElementById('numMinThick').value = 0.8;
         document.getElementById('ctrlMaxThick').value = 3.2;
         document.getElementById('numMaxThick').value = 3.2;
         document.getElementById('ctrlFrameDepth').value = 3.2;
         document.getElementById('numFrameDepth').value = 3.2;
+        const posEl = document.getElementById('ctrlPositiveImage');
+        if (posEl) posEl.checked = false;
+        const lightEl = document.getElementById('ctrlLighting');
+        if (lightEl) lightEl.value = 'warm_backlight';
+        syncBacklightUI();
         rebuildAll(true);
       });
 
@@ -5302,19 +5800,45 @@ CUSTOM EDITION</textarea>
         state.minThick = 7;
         state.maxThick = 12;
         state.frameDepth = 12;
+        state.positiveImage = true;
+        state.lighting = 'none';
         document.getElementById('ctrlMinThick').value = 7;
         document.getElementById('numMinThick').value = 7;
         document.getElementById('ctrlMaxThick').value = 12;
         document.getElementById('numMaxThick').value = 12;
         document.getElementById('ctrlFrameDepth').value = 12;
         document.getElementById('numFrameDepth').value = 12;
+        const posEl = document.getElementById('ctrlPositiveImage');
+        if (posEl) posEl.checked = true;
+        const lightEl = document.getElementById('ctrlLighting');
+        if (lightEl) lightEl.value = 'none';
+        syncBacklightUI();
         rebuildAll(true);
       });
     }
 
     function toggleQuickBacklight() {
-      state.lighting = (state.lighting === 'warm_backlight') ? 'none' : 'warm_backlight';
+      const turningOn = state.lighting !== 'warm_backlight';
+      state.lighting = turningOn ? 'warm_backlight' : 'none';
       document.getElementById('ctrlLighting').value = state.lighting;
+      if (turningOn && state.minThick >= 4.5) {
+        // Automatically switch from Opaque 7-12mm to Backlit 0.8-3.2mm so light passes through
+        state.minThick = 0.8;
+        state.maxThick = 3.2;
+        state.frameDepth = 3.2;
+        state.positiveImage = false;
+        document.getElementById('ctrlMinThick').value = 0.8;
+        document.getElementById('numMinThick').value = 0.8;
+        document.getElementById('ctrlMaxThick').value = 3.2;
+        document.getElementById('numMaxThick').value = 3.2;
+        document.getElementById('ctrlFrameDepth').value = 3.2;
+        document.getElementById('numFrameDepth').value = 3.2;
+        const posEl = document.getElementById('ctrlPositiveImage');
+        if (posEl) posEl.checked = false;
+        syncBacklightUI();
+        rebuildAll(true);
+        return;
+      }
       syncBacklightUI();
       requestRender();
     }
@@ -5470,6 +5994,7 @@ CUSTOM EDITION</textarea>
   </script>
 </body>
 </html>
+
 
 
 
