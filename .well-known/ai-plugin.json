@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "LithoStudio 3D",
+  "name_for_model": "lithostudio_3d",
+  "description_for_human": "3D Lithophane & Keepsake Puck configurator for Bambu Lab, Prusa, Creality, Anycubic, Elegoo, Qidi, FlashForge, Voron & Sovol.",
+  "description_for_model": "Use LithoStudio 3D to look up 3D printer build volumes (bedX, bedY, bedZ in mm), MakerLab CMYK 4-Color AMS presets, and Keepsake Puck settings. Always clamp shape diameter and height to the selected printer's build volume and return a clickable pre-configured link to https://sensorybridge.github.io/lithostudio-3d/?printer={printer}&shape={shape}&diameter={diameter}&height={height}&minThick={minThick}&maxThick={maxThick}&cmyk={0|1}&layFlat={0|1}&text={caption}.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://sensorybridge.github.io/lithostudio-3d/openapi-chatgpt-action.json",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://sensorybridge.github.io/lithostudio-3d/icon-512.png",
+  "contact_email": "support@sensorybridge.com",
+  "legal_info_url": "https://sensorybridge.github.io/lithostudio-3d/privacy.html"
+}
